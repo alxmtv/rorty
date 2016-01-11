@@ -1,0 +1,53 @@
+{
+  "texture": "assistant.png",
+  "frameWidth": 80,
+  "frameHeight": 80,
+  "default": "right",
+  "animations": [
+    {
+      "name": "right",
+      "frames": [
+        {
+          "indexX": 2,
+          "indexY": 0,
+          "duration": 2
+        },
+        {
+          "indexX": 2,
+          "indexY": 1,
+          "duration": 0.2
+        }
+      ]
+    },
+    {
+      "name": "left",
+      "frames": [
+        {
+          "indexX": 1,
+          "indexY": 0,
+          "duration": 2
+        },
+        {
+          "indexX": 1,
+          "indexY": 1,
+          "duration": 0.2
+        }
+      ]
+    },
+    {
+      "name": "idle",
+      "frames": [
+        {
+          "indexX": 0,
+          "indexY": 0,
+          "duration": 2
+        },
+        {
+          "indexX": 0,
+          "indexY": 1,
+          "duration": 0.5
+        }
+      ]
+    }
+  ]
+}
