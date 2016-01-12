@@ -80,8 +80,9 @@ public class Gate extends Entity {
 
     @Override
     public void onEvent(Event event) {
+
         if (event instanceof Sensor.SensorEvent) {
-            isOpen = ((Sensor.SensorEvent) event).isActive();
+            isOpen = !isOpen;
         }
     }
 
@@ -185,5 +186,9 @@ public class Gate extends Entity {
             lights.add(light);
         }
         return lights;
+    }
+
+    public void setInitialState(boolean isOpen) {
+        this.isOpen = isOpen;
     }
 }

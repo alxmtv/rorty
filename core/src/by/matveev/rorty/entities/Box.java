@@ -15,6 +15,7 @@ public class Box extends Entity {
     private final Text text;
     private final MassData data;
     private boolean active;
+    private Boolean enabled;
 
     public Box(Body body, float x, float y, float width, float height) {
         super("box");
@@ -45,13 +46,15 @@ public class Box extends Entity {
     @Override
     public void onContactStart(Entity otherEntity) {
         if (otherEntity instanceof Robot) {
-            text.setVisible(((Robot) otherEntity).isActive());
+            text.setVisible(enabled && ((Robot) otherEntity).isActive());
         }
     }
 
     @Override
     public void onContactEnd(Entity otherEntity) {
-        text.setVisible(false);
+        if (enabled) {
+            text.setVisible(false);
+        }
     }
 
     public void setActive(boolean active) {
@@ -96,5 +99,13 @@ public class Box extends Entity {
     @Override
     public Body getBody() {
         return body;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
     }
 }

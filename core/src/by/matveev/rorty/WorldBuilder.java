@@ -142,10 +142,14 @@ public class WorldBuilder {
         final MapObjects objects = mapLayer.getObjects();
         for (MapObject object : objects) {
             if (object instanceof RectangleMapObject) {
-                Rectangle rect = ((RectangleMapObject) object).getRectangle();
+                final  Rectangle rect = ((RectangleMapObject) object).getRectangle();
+                final MapProperties props = object.getProperties();
 
-                Gate f = new Gate("g1", world, rect.x, rect.y);
-                entities.add(f);
+                final Gate gate = new Gate(props.get("name", String.class), world, rect.x, rect.y);
+                final String openProperty = props.get("open", String.class);
+                gate.setInitialState(openProperty != null && Boolean.parseBoolean(openProperty));
+
+                entities.add(gate);
             }
         }
     }
@@ -189,7 +193,9 @@ public class WorldBuilder {
                 final MapProperties props = object.getProperties();
                 final String name = props.get("name", String.class);
                 final String target = props.get("target", String.class);
-                entities.add(new Switch(body, name, target, false));
+
+                final String enabledProperty = props.get("enabled", String.class);
+                entities.add(new Switch(body, name, target, enabledProperty != null && Boolean.parseBoolean(enabledProperty)));
 
             }
 
@@ -300,8 +306,8 @@ public class WorldBuilder {
                 final float x = Cfg.toMeters(rect.getX());
                 final float y = Cfg.toMeters(rect.getY());
 
-                final float w = Cfg.toMeters(rect.width);
-                final float h = Cfg.toMeters(rect.height);
+                final float w = Cfg.toMeters(128);
+                final float h = Cfg.toMeters(128);
 
                 final float hw = w * 0.5f;
                 final float hh = h * 0.5f;
@@ -321,8 +327,11 @@ public class WorldBuilder {
 
                 shape.dispose();
 
-
-                entities.add(new Box(body, x, y, w, h));
+                final MapProperties props = object.getProperties();
+                final Box box = new Box(body, x, y, w, h);
+                final String enabledProperty = props.get("enabled", String.class);
+                box.setEnabled(enabledProperty != null && Boolean.parseBoolean(enabledProperty));
+                entities.add(box);
             }
 
         }

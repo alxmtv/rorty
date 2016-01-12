@@ -136,7 +136,11 @@
  <objectgroup name="boxes">
   <object id="33" x="32" y="189.333" width="128" height="128"/>
   <object id="35" x="32" y="61.3333" width="128" height="128"/>
-  <object id="53" x="33.3333" y="477.333" width="128" height="128"/>
+  <object id="53" x="33.3333" y="477.333" width="128" height="128">
+   <properties>
+    <property name="enabled" value="true"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="switches">
   <object id="54" x="317.333" y="192" width="64" height="64">
@@ -147,7 +151,12 @@
   </object>
  </objectgroup>
  <objectgroup name="gates">
-  <object id="55" x="384" y="321.333" width="192" height="32"/>
+  <object id="55" x="384" y="321.333" width="192" height="32">
+   <properties>
+    <property name="name" value="g1"/>
+    <property name="open" value="false"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="sensors">
   <object id="56" x="256" y="608" width="64" height="32">

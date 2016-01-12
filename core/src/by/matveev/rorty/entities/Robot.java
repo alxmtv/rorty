@@ -179,10 +179,8 @@ public class Robot extends AbstractRobot {
     }
 
     private void updateBoxInteraction() {
-        if (isActive() && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-
-            final Box box = (Box) this.interactEntity;
-
+        final Box box = (Box) this.interactEntity;
+        if (isActive() && box.isEnabled() && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             if (state == State.CONTROL) {
                 setState(State.MOVE_BOX);
 
