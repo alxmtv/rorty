@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.ArrayList;
+import java.util.IllegalFormatException;
 import java.util.List;
 
 import static by.matveev.rorty.utils.ColorUtils.colorFrom;
@@ -23,6 +24,24 @@ public class WorldBuilder {
     public WorldBuilder(World world, Map map) {
         this.world = world;
         this.map = map;
+    }
+
+
+    public List<Entity> build() {
+        final List<Entity> entities = new ArrayList<>();
+
+        buildObstacles();
+        buildBoxes(entities);
+        buildElevators(entities);
+        buildTriggers(entities);
+        buildFans(entities);
+        buildTerminals(entities);
+        buildSwitches(entities);
+        buildGates(entities);
+        buildSensors(entities);
+        buildDoors(entities);
+
+        return entities;
     }
 
     private static PolygonShape getRectangle(RectangleMapObject rectangleObject) {
@@ -74,21 +93,6 @@ public class WorldBuilder {
         return chain;
     }
 
-    public List<Entity> build() {
-        final List<Entity> entities = new ArrayList<>();
-
-        buildObstacles();
-        buildBoxes(entities);
-        buildElevators(entities);
-        buildTriggers(entities);
-        buildFans(entities);
-        buildTerminals(entities);
-        buildSwitches(entities);
-        buildGates(entities);
-        buildSensors(entities);
-
-        return entities;
-    }
 
     private void buildSensors(List<Entity> entities) {
         final MapLayer mapLayer = map.getLayers().get("sensors");
@@ -331,6 +335,53 @@ public class WorldBuilder {
                 final Box box = new Box(body, x, y, w, h);
                 final String enabledProperty = props.get("enabled", String.class);
                 box.setEnabled(enabledProperty != null && Boolean.parseBoolean(enabledProperty));
+                entities.add(box);
+            }
+
+        }
+    }
+
+
+    private void buildDoors(List<Entity> entities) {
+        final MapLayer mapLayer = map.getLayers().get("doors");
+        if (mapLayer == null) return;
+        final MapObjects objects = mapLayer.getObjects();
+        for (MapObject object : objects) {
+
+            if (object instanceof RectangleMapObject) {
+                final Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+                final float x = Cfg.toMeters(rect.getX());
+                final float y = Cfg.toMeters(rect.getY());
+
+                final float w = Cfg.toMeters(96);
+                final float h = Cfg.toMeters(128);
+
+                final float hw = w * 0.5f;
+                final float hh = h * 0.5f;
+
+                final PolygonShape shape = new PolygonShape();
+                shape.setAsBox(hw, hh);
+
+                final BodyDef def = new BodyDef();
+                def.type = BodyDef.BodyType.KinematicBody;
+                def.position.set(x + hw, y + hh);
+
+                final Body body = world.createBody(def);
+
+                final FixtureDef fix = new FixtureDef();
+                fix.shape = shape;
+                fix.isSensor = true;
+                body.createFixture(fix);
+
+                shape.dispose();
+
+                final MapProperties props = object.getProperties();
+                final String levelId = props.get("levelId", String.class);
+                if (levelId == null) {
+                    throw new IllegalStateException();
+                }
+                final Door box = new Door(body, levelId,  x, y, w, h);
                 entities.add(box);
             }
 

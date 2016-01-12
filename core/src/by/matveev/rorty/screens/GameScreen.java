@@ -30,6 +30,8 @@ public class GameScreen extends AbstractScreen {
     private static final int POSITION_ITERATIONS = 3;
     private static final float CAMERA_SPEED = 3.0f;
 
+    private final String levelId;
+
     private World box2dWorld;
     private Box2DDebugRenderer box2DDebugRenderer;
     private OrthographicCamera box2DCamera;
@@ -45,9 +47,13 @@ public class GameScreen extends AbstractScreen {
     private ShapeRenderer debugRenderer;
     private List<Entity> entities;
 
+    public GameScreen(String levelId) {
+        this.levelId = levelId;
+    }
+
     @Override
     public void show() {
-        tileMap = new TmxMapLoader().load("maps/6.tmx");
+        tileMap = new TmxMapLoader().load("maps/" + levelId + ".tmx");
         tileMapBounds = TiledMapUtils.obtainBounds(tileMap);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tileMap);
 

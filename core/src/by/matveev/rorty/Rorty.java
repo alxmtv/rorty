@@ -8,6 +8,14 @@ public class Rorty extends BaseGame {
 
     @Override
     public void create() {
-        Screens.set(new GameScreen());
+        Prefs.init();
+
+
+
+        Screens.set(new GameScreen(Prefs.getString(Prefs.KEY_LEVEL, "6")));
+    }
+
+    public static void replaceLevel(String levelId) {
+        Screens.replace(new GameScreen(levelId));
     }
 }

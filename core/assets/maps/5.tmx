@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="64" tileheight="64" nextobjectid="55">
- <tileset firstgid="1" name="tiles" tilewidth="64" tileheight="64">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="64" tileheight="64" nextobjectid="64">
+ <tileset firstgid="1" name="tiles" tilewidth="64" tileheight="64" tilecount="64">
   <image source="../tiles.png" width="1024" height="256"/>
  </tileset>
  <layer name="background" width="15" height="10" opacity="0.5">
@@ -15,7 +15,7 @@
  </layer>
  <layer name="floor" width="15" height="10">
   <data encoding="base64">
-   NAAAAAQAAAAUAAAAFQAAAAQAAAAEAAAABAAAAAQAAAAUAAAAFQAAABQAAAAEAAAABAAAAAQAAAA1AAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAJgAAAAUAAAAFAAAABQAAABgAAAAYAAAABQAAAAUAAAAFAAAAGAAAABgAAAAFAAAABQAAAAUAAAAlAAAA
+   NAAAAAQAAAAUAAAAFQAAAAQAAAAEAAAABAAAAAQAAAAUAAAAFQAAABQAAAAEAAAABAAAAAQAAAA1AAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAJgAAAAUAAAAFAAAABQAAABgAAAAYAAAABQAAAAUAAAAFAAAAGAAAABgAAAAFAAAABQAAAAUAAAAlAAAA
   </data>
  </layer>
  <layer name="env" width="15" height="10">
@@ -48,7 +48,7 @@
   <object id="17" x="220" y="392" width="64" height="64"/>
  </objectgroup>
  <objectgroup color="#9ca0a4" name="terminals">
-  <object id="18" x="698.667" y="445.333" width="128" height="128">
+  <object id="18" name="terminal" x="698.667" y="445.333" width="128" height="128">
    <properties>
     <property name="id" value="t1"/>
    </properties>
@@ -111,13 +111,6 @@
    </properties>
    <ellipse/>
   </object>
-  <object id="47" x="232" y="93.3333" width="237.333" height="237.333">
-   <properties>
-    <property name="alpha" value="0.6"/>
-    <property name="color" value="0xffffffff"/>
-   </properties>
-   <ellipse/>
-  </object>
   <object id="49" x="350.667" y="-26.6667" width="268" height="273.333">
    <properties>
     <property name="alpha" value="0.4"/>
@@ -140,16 +133,20 @@
    <ellipse/>
   </object>
  </objectgroup>
- <objectgroup name="boxes">
-  <object id="33" x="32" y="189.333" width="128" height="128"/>
-  <object id="35" x="32" y="61.3333" width="128" height="128"/>
-  <object id="53" x="33.3333" y="477.333" width="128" height="128"/>
- </objectgroup>
+ <objectgroup name="boxes"/>
  <objectgroup name="switches">
   <object id="54" x="317.333" y="192" width="64" height="64">
    <properties>
+    <property name="name" value="s1"/>
     <property name="target" value="e1"/>
    </properties>
   </object>
+ </objectgroup>
+ <objectgroup name="gates"/>
+ <objectgroup name="sensors"/>
+ <objectgroup name="doors"/>
+ <objectgroup name="players">
+  <object id="60" name="robot" x="256" y="448" width="64" height="64"/>
+  <object id="62" name="assistant" x="192" y="384" width="64" height="64"/>
  </objectgroup>
 </map>
