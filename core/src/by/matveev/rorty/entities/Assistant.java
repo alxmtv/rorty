@@ -2,6 +2,7 @@ package by.matveev.rorty.entities;
 
 import by.matveev.rorty.Assets;
 import by.matveev.rorty.Cfg;
+import by.matveev.rorty.core.Animation;
 import by.matveev.rorty.core.AnimationSet;
 import by.matveev.rorty.core.Light;
 import by.matveev.rorty.utils.ColorUtils;
@@ -199,7 +200,28 @@ public class Assistant extends AbstractRobot {
 
     @Override
     protected AnimationSet createAnimSet() {
-        return AnimationSet.load(Gdx.files.internal("anim/assistant.json").readString());
+        final AnimationSet set = new AnimationSet();
+        set.setTexture(Assets.ASSISTANT);
+
+        final Animation left = new Animation();
+        left.setFrameWidth(80);
+        left.setFrameHeight(80);
+        left.add(new Animation.Frame(2, 0, 2, true, false));
+        left.add(new Animation.Frame(2, 1, 0.2f, true, false));
+
+        set.add("left", left);
+
+        final Animation right = new Animation();
+        right.setFrameWidth(80);
+        right.setFrameHeight(80);
+        right.add(new Animation.Frame(2, 0, 2, false, false));
+        right.add(new Animation.Frame(2, 1, 0.2f, false, false));
+
+        set.add("right", right);
+
+        set.setAnimation("right");
+
+        return set;
     }
 
     @Override

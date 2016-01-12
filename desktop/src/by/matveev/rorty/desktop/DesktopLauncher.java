@@ -4,7 +4,6 @@ import by.matveev.rorty.Cfg;
 import by.matveev.rorty.Rorty;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplication;
 import com.badlogic.gdx.backends.lwjgl.LwjglApplicationConfiguration;
-import com.badlogic.gdx.math.Vector2;
 
 public class DesktopLauncher {
 

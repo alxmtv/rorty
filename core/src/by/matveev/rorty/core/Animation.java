@@ -90,6 +90,13 @@ public class Animation {
         public boolean flipY;
         private float duration;
 
+        public Frame(int indexX, int indexY, float duration, boolean flipX, boolean flipY) {
+            this.indexX = indexX;
+            this.indexY = indexY;
+            this.duration = duration;
+            this.flipX = flipX;
+            this.flipY = flipY;
+        }
 
         public Frame(int indexY, int indexX) {
             this(indexX, indexY, false, false);

@@ -4,18 +4,20 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator;
 
 public final class Assets {
 
     private Assets() {
     }
 
-    public static final BitmapFont font = generateFont(18);
+    public static final BitmapFont font = new BitmapFont(Gdx.files.internal("fonts/visitor.fnt"));
 
     public static final TextureRegion LIGHT_CIRCLE = createRegion("light.png");
     public static final TextureRegion LIGHT_CIRCLE2 = createRegion("light1.png");
     public static final Texture ENV = new Texture(Gdx.files.internal("env.png"));
+    public static final Texture ROBOT = new Texture(Gdx.files.internal("robot.png"));
+    public static final Texture ASSISTANT = new Texture(Gdx.files.internal("assistant.png"));
+
     public static final TextureRegion BACKGROUND = createRegion("background.png");
 
     private static TextureRegion createRegion(String name) {
@@ -32,14 +34,5 @@ public final class Assets {
 
     private static TextureRegion createRegion(String name, float x, float y, float w, float h) {
         return new TextureRegion(new Texture(Gdx.files.internal(name)), x, y, w, h);
-    }
-
-    private static BitmapFont generateFont(int size) {
-        FreeTypeFontGenerator generator = new FreeTypeFontGenerator(Gdx.files.internal("fonts/visitor.ttf"));
-        FreeTypeFontGenerator.FreeTypeFontParameter parameter = new FreeTypeFontGenerator.FreeTypeFontParameter();
-        parameter.size = size;
-        BitmapFont font8 = generator.generateFont(parameter);
-        generator.dispose();
-        return font8;
     }
 }

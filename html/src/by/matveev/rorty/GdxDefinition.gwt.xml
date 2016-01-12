@@ -8,4 +8,6 @@
 	<entry-point class='by.matveev.rorty.client.HtmlLauncher' />
 	
 	<set-configuration-property name="gdx.assetpath" value="../core/assets" />
+
+	<extend-configuration-property name="gdx.reflect.include" value="by.matveev.rorty" />
 </module>

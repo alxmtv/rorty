@@ -2,6 +2,7 @@ package by.matveev.rorty.entities;
 
 import by.matveev.rorty.Assets;
 import by.matveev.rorty.Cfg;
+import by.matveev.rorty.core.Animation;
 import by.matveev.rorty.core.AnimationSet;
 import by.matveev.rorty.core.Light;
 import com.badlogic.gdx.Gdx;
@@ -102,7 +103,44 @@ public class Robot extends AbstractRobot {
 
     @Override
     protected AnimationSet createAnimSet() {
-        return AnimationSet.load(Gdx.files.internal("anim/robot.json").readString());
+        final AnimationSet set = new AnimationSet();
+        set.setTexture(Assets.ROBOT);
+
+        final Animation left = new Animation();
+        left.setFrameWidth(148);
+        left.setFrameHeight(148);
+        left.add(new Animation.Frame(0, 0, 0.2f, true, false));
+        left.add(new Animation.Frame(1, 0, 0.2f, true, false));
+
+        set.add("left", left);
+
+        final Animation right = new Animation();
+        right.setFrameWidth(148);
+        right.setFrameHeight(148);
+        right.add(new Animation.Frame(0, 0, 0.2f, false, false));
+        right.add(new Animation.Frame(1, 0, 0.2f, false, false));
+
+        set.add("right", right);
+
+        final Animation idleLeft = new Animation();
+        idleLeft.setFrameWidth(148);
+        idleLeft.setFrameHeight(148);
+        idleLeft.add(new Animation.Frame(0, 1, 0.4f, true, false));
+        idleLeft.add(new Animation.Frame(1, 1, 0.4f, true, false));
+
+        set.add("idle_left", idleLeft);
+
+        final Animation idleRight = new Animation();
+        idleRight.setFrameWidth(148);
+        idleRight.setFrameHeight(148);
+        idleRight.add(new Animation.Frame(0, 1, 0.4f, false, false));
+        idleRight.add(new Animation.Frame(1, 1, 0.4f, false, false));
+
+        set.add("idle_right", idleRight);
+
+        set.setAnimation("idle_right");
+
+        return set;
     }
 
     public void update(float delta) {

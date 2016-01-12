@@ -11,14 +11,14 @@ import com.badlogic.gdx.graphics.glutils.FrameBuffer;
 import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import com.badlogic.gdx.utils.Disposable;
 
+import java.util.ArrayList;
 import java.util.List;
-import java.util.concurrent.CopyOnWriteArrayList;
 
 public abstract class AbstractScreen implements Screen, Disposable {
 
     protected final SpriteBatch batch;
     protected final OrthographicCamera camera;
-    protected final List<Light> lights = new CopyOnWriteArrayList<>();
+    protected final List<Light> lights = new ArrayList<>();
     private final ShaderProgram shader;
     private FrameBuffer lightBuffer;
     private TextureRegion lightTexture;
