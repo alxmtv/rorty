@@ -88,6 +88,8 @@ public class Assistant extends AbstractRobot {
 
         light.x = Cfg.toPixels(x) - 128 * 0.5f;
         light.y = Cfg.toPixels(y) - 128 * 0.5f;
+
+        mark.setPosition(x,  y + BODY_RADIUS2);
     }
 
     private void updateDefaultInteraction() {
@@ -122,32 +124,32 @@ public class Assistant extends AbstractRobot {
             vel.y = Math.signum(vel.y) * MAX_VELOCITY;
         }
 
-        if (!Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (!Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             vel.x *= DEFAULT_FRICTION;
         }
 
-        if (!Gdx.input.isKeyPressed(Input.Keys.W) && !Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (!Gdx.input.isKeyPressed(Input.Keys.UP) && !Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             vel.y *= DEFAULT_FRICTION;
 //            vel.y += (MathUtils.sin(angular += 0.1f) * 0.05f);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && vel.x > -MAX_VELOCITY) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && vel.x > -MAX_VELOCITY) {
             vel.x -= DEFAULT_SPEED;
             animSet.setAnimation("left");
             direction = -1;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && vel.x < MAX_VELOCITY) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && vel.x < MAX_VELOCITY) {
             vel.x += DEFAULT_SPEED;
             animSet.setAnimation("right");
             direction = 1;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && vel.y < MAX_VELOCITY) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && vel.y < MAX_VELOCITY) {
             vel.y += DEFAULT_SPEED;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.S) && vel.y > -MAX_VELOCITY) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && vel.y > -MAX_VELOCITY) {
             vel.y -= DEFAULT_SPEED;
         }
 

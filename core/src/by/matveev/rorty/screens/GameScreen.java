@@ -136,7 +136,7 @@ public class GameScreen extends AbstractScreen {
 
         EventQueue.dispatch(entities);
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
+        if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
             switchRobots();
         }
 
