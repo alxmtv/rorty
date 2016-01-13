@@ -3,8 +3,6 @@ package by.matveev.rorty.core;
 import by.matveev.rorty.Assets;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.sun.tools.javac.util.Assert;
 
 public class Light {
 
