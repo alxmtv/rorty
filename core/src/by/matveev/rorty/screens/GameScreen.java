@@ -90,8 +90,8 @@ public class GameScreen extends AbstractScreen {
         robot.toggleActive();
         addLight(robot.getLight());
 
-//        assistant = new Assistant(box2dWorld, robot, r.getRectangle().x, r.getRectangle().y);
-//        addLight(assistant.getLight());
+        assistant = new Assistant(box2dWorld, robot, r.getRectangle().x, r.getRectangle().y);
+        addLight(assistant.getLight());
 
 
         setupWorld();
