@@ -22,7 +22,7 @@
  <objectgroup name="doors">
   <object id="7" x="640.667" y="284.667" width="128" height="192">
    <properties>
-    <property name="levelId" value="7"/>
+    <property name="levelId" value="10"/>
    </properties>
   </object>
  </objectgroup>
