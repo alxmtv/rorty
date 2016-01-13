@@ -8,6 +8,7 @@ import by.matveev.rorty.core.Light;
 import by.matveev.rorty.utils.ColorUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
@@ -27,7 +28,7 @@ public class Assistant extends AbstractRobot {
     private static final float DEFAULT_FRICTION = 0.9f;
     private final static float MAX_VELOCITY = 1.5f;
     private final Robot robot;
-    private State state = State.CONTROL;
+    private State state = State.FOLLOW;
     private Interaction interaction = Interaction.NONE;
     private Entity interactEntity;
 
@@ -250,8 +251,9 @@ public class Assistant extends AbstractRobot {
 
     @Override
     protected Light createLight() {
-        // 10% alpha
-        final Light light = new Light(ColorUtils.colorFrom(0x1A90CAF9), Assets.LIGHT_CIRCLE2);
+        final Color color = ColorUtils.colorFrom(0x1A90CAF9);
+        color.a = 0.25f;
+        final Light light = new Light(Light.Type.SOFT, color);
         light.x = Cfg.toPixels(x) + 48 / 2;
         light.y = Cfg.toPixels(y) - 48 / 2;
         light.width = light.height = 128;

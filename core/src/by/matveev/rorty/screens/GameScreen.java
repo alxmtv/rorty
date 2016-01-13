@@ -7,6 +7,7 @@ import by.matveev.rorty.core.Light;
 import by.matveev.rorty.entities.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -14,7 +15,6 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -29,6 +29,8 @@ public class GameScreen extends AbstractScreen {
     private static final int VELOCITY_ITERATIONS = 8;
     private static final int POSITION_ITERATIONS = 3;
     private static final float CAMERA_SPEED = 3.0f;
+
+    private final String levelId;
 
     private World box2dWorld;
     private Box2DDebugRenderer box2DDebugRenderer;
@@ -45,9 +47,15 @@ public class GameScreen extends AbstractScreen {
     private ShapeRenderer debugRenderer;
     private List<Entity> entities;
 
+    private final FPSLogger fps = new FPSLogger();
+
+    public GameScreen(String levelId) {
+        this.levelId = levelId;
+    }
+
     @Override
     public void show() {
-        tileMap = new TmxMapLoader().load("maps/6.tmx");
+        tileMap = new TmxMapLoader().load("maps/" + levelId + ".tmx");
         tileMapBounds = TiledMapUtils.obtainBounds(tileMap);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tileMap);
 
@@ -98,6 +106,12 @@ public class GameScreen extends AbstractScreen {
             addLight(l);
         }
         entities = builder.build();
+    }
+
+    @Override
+    public void render(float delta) {
+        super.render(delta);
+        fps.log();
     }
 
     @Override

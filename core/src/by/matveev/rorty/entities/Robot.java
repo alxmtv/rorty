@@ -93,7 +93,7 @@ public class Robot extends AbstractRobot {
 
     @Override
     protected Light createLight() {
-        final Light light = new Light(new Color(1f, 1f, 1f, 0.3f), Assets.LIGHT_CIRCLE2);
+        final Light light = new Light(Light.Type.SOFT, new Color(1f, 1f, 1f, 0.3f));
         light.x = Cfg.toPixels(x) + 148 / 2;
         light.y = Cfg.toPixels(y) - 148 / 2;
         light.width = light.height = 400;
@@ -132,8 +132,8 @@ public class Robot extends AbstractRobot {
         final Animation idleRight = new Animation();
         idleRight.setFrameWidth(148);
         idleRight.setFrameHeight(148);
-        idleRight.add(new Animation.Frame(0, 1, 0.4f, false, false));
-        idleRight.add(new Animation.Frame(1, 1, 0.4f, false, false));
+        idleRight.add(new Animation.Frame(0, 1, 0.3f, false, false));
+        idleRight.add(new Animation.Frame(1, 1, 0.3f, false, false));
 
         set.add("idle_right", idleRight);
 

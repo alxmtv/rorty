@@ -6,11 +6,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.*;
 import com.badlogic.gdx.maps.objects.*;
 import com.badlogic.gdx.math.Circle;
+import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.ArrayList;
+import java.util.IllegalFormatException;
 import java.util.List;
 
 import static by.matveev.rorty.utils.ColorUtils.colorFrom;
@@ -23,6 +25,24 @@ public class WorldBuilder {
     public WorldBuilder(World world, Map map) {
         this.world = world;
         this.map = map;
+    }
+
+
+    public List<Entity> build() {
+        final List<Entity> entities = new ArrayList<>();
+
+        buildObstacles();
+        buildBoxes(entities);
+        buildElevators(entities);
+        buildTriggers(entities);
+        buildFans(entities);
+        buildTerminals(entities);
+        buildSwitches(entities);
+        buildGates(entities);
+        buildSensors(entities);
+        buildDoors(entities);
+
+        return entities;
     }
 
     private static PolygonShape getRectangle(RectangleMapObject rectangleObject) {
@@ -74,21 +94,6 @@ public class WorldBuilder {
         return chain;
     }
 
-    public List<Entity> build() {
-        final List<Entity> entities = new ArrayList<>();
-
-        buildObstacles();
-        buildBoxes(entities);
-        buildElevators(entities);
-        buildTriggers(entities);
-        buildFans(entities);
-        buildTerminals(entities);
-        buildSwitches(entities);
-        buildGates(entities);
-        buildSensors(entities);
-
-        return entities;
-    }
 
     private void buildSensors(List<Entity> entities) {
         final MapLayer mapLayer = map.getLayers().get("sensors");
@@ -142,7 +147,7 @@ public class WorldBuilder {
         final MapObjects objects = mapLayer.getObjects();
         for (MapObject object : objects) {
             if (object instanceof RectangleMapObject) {
-                final  Rectangle rect = ((RectangleMapObject) object).getRectangle();
+                final Rectangle rect = ((RectangleMapObject) object).getRectangle();
                 final MapProperties props = object.getProperties();
 
                 final Gate gate = new Gate(props.get("name", String.class), world, rect.x, rect.y);
@@ -164,8 +169,8 @@ public class WorldBuilder {
                 final Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
 
-                final float w = Cfg.toMeters(64);
-                final float h = Cfg.toMeters(64);
+                final float w = Cfg.toMeters(128);
+                final float h = Cfg.toMeters(192);
 
                 final float x = Cfg.toMeters(rect.getX());
                 final float y = Cfg.toMeters(rect.getY());
@@ -179,7 +184,7 @@ public class WorldBuilder {
 
                 final BodyDef def = new BodyDef();
                 def.type = BodyDef.BodyType.StaticBody;
-                def.position.set(x + hw, y + hh);
+                def.position.set(x + hw, y);
 
                 final Body body = world.createBody(def);
 
@@ -337,6 +342,53 @@ public class WorldBuilder {
         }
     }
 
+
+    private void buildDoors(List<Entity> entities) {
+        final MapLayer mapLayer = map.getLayers().get("doors");
+        if (mapLayer == null) return;
+        final MapObjects objects = mapLayer.getObjects();
+        for (MapObject object : objects) {
+
+            if (object instanceof RectangleMapObject) {
+                final Rectangle rect = ((RectangleMapObject) object).getRectangle();
+
+                final float x = Cfg.toMeters(rect.getX());
+                final float y = Cfg.toMeters(rect.getY());
+
+                final float w = Cfg.toMeters(128);
+                final float h = Cfg.toMeters(192);
+
+                final float hw = w * 0.5f;
+                final float hh = h * 0.5f;
+
+                final PolygonShape shape = new PolygonShape();
+                shape.setAsBox(hw, hh);
+
+                final BodyDef def = new BodyDef();
+                def.type = BodyDef.BodyType.KinematicBody;
+                def.position.set(x + hw, y + hh);
+
+                final Body body = world.createBody(def);
+
+                final FixtureDef fix = new FixtureDef();
+                fix.shape = shape;
+                fix.isSensor = true;
+                body.createFixture(fix);
+
+                shape.dispose();
+
+                final MapProperties props = object.getProperties();
+                final String levelId = props.get("levelId", String.class);
+                if (levelId == null) {
+                    throw new IllegalStateException();
+                }
+                final Door box = new Door(body, levelId, x, y, w, h);
+                entities.add(box);
+            }
+
+        }
+    }
+
     private void buildElevators(List<Entity> entities) {
         final MapLayer mapLayer = map.getLayers().get("elevators");
         if (mapLayer == null) return;
@@ -442,44 +494,30 @@ public class WorldBuilder {
         if (mapLayer == null) return lights;
         final MapObjects objects = mapLayer.getObjects();
         for (MapObject object : objects) {
-            //TODO: add support for other light's type
-            if (object instanceof CircleMapObject) {
-                final CircleMapObject circleObject = (CircleMapObject) object;
-                final MapProperties circleProps = circleObject.getProperties();
+            if (object instanceof RectangleMapObject) {
+                final RectangleMapObject lightObject = (RectangleMapObject) object;
+                final MapProperties lightProperties = lightObject.getProperties();
 
-                final Color color = colorFrom(circleProps.get("color", String.class));
-                if (circleProps.containsKey("alpha")) {
-                    color.a = circleProps.get("alpha", Float.class);
+                final Color color = colorFrom(lightProperties.get("color", String.class));
+                if (lightProperties.containsKey("alpha")) {
+                    color.a = Float.parseFloat(lightProperties.get("alpha", String.class));
                 }
 
-                float area = circleObject.getCircle().area();
-                float x = circleObject.getCircle().x;
-                float y = circleObject.getCircle().y;
-
-                final Light light = new Light(color, Assets.LIGHT_CIRCLE);
-                light.x = x;
-                light.y = y;
-                light.width = light.height = area;
-
-                lights.add(light);
-            } else if (object instanceof EllipseMapObject) {
-                final EllipseMapObject ellipseObject = (EllipseMapObject) object;
-                final MapProperties ellipseProps = ellipseObject.getProperties();
-
-                final Color color = colorFrom(ellipseProps.get("color", String.class));
-                if (ellipseProps.containsKey("alpha")) {
-                    color.a = Float.parseFloat(ellipseProps.get("alpha", String.class));
-                }
+                final Light.Type type = Light.Type.from(lightProperties.get("type", String.class));
+                final float width = Float.parseFloat(lightProperties.get("width", String.class));
+                final float height = Float.parseFloat(lightProperties.get("height", String.class));
 
 
-                float x = ellipseObject.getEllipse().x;
-                float y = ellipseObject.getEllipse().y;
+                final Rectangle bounds = lightObject.getRectangle();
+                final Light light = new Light(type, color);
+                light.x =  bounds.x - width * 0.5f;
+                light.y = bounds.y - height * 0.5f;
+                light.width = width;
+                light.height = height;
 
-                final Light light = new Light(color, Assets.LIGHT_CIRCLE);
-                light.x = x;
-                light.y = y;
-                light.width = ellipseObject.getEllipse().width;
-                light.height = ellipseObject.getEllipse().height;
+                final String openProperty = lightProperties.get("disabled", String.class);
+                light.disabled = openProperty != null && Boolean.parseBoolean(openProperty);
+
 
                 lights.add(light);
             }
