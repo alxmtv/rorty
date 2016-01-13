@@ -60,7 +60,7 @@
  <objectgroup name="doors">
   <object id="77" x="65" y="145" width="128" height="192">
    <properties>
-    <property name="levelId" value="10"/>
+    <property name="levelId" value="6"/>
    </properties>
   </object>
  </objectgroup>

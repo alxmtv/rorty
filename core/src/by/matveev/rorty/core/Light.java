@@ -54,6 +54,6 @@ public class Light {
     }
 
     public void update(float delta) {
-
+        // do nothing
     }
 }

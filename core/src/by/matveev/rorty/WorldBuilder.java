@@ -311,7 +311,7 @@ public class WorldBuilder {
                 final float x = Cfg.toMeters(rect.getX());
                 final float y = Cfg.toMeters(rect.getY());
 
-                final float w = Cfg.toMeters(128);
+                final float w = Cfg.toMeters(110);
                 final float h = Cfg.toMeters(128);
 
                 final float hw = w * 0.5f;

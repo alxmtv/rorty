@@ -46,7 +46,7 @@ public class Box extends Entity {
     @Override
     public void onContactStart(Entity otherEntity) {
         if (otherEntity instanceof Robot) {
-            text.setVisible(enabled && ((Robot) otherEntity).isActive());
+            text.setVisible(enabled && ((Robot) otherEntity).isActive() && ((Robot) otherEntity).isFree());
         }
     }
 
@@ -85,9 +85,9 @@ public class Box extends Entity {
         batch.setProjectionMatrix(camera.combined);
         final float x = body.getPosition().x;
         final float y = body.getPosition().y;
-        final float width = Cfg.toMeters(128);
-        final float height = Cfg.toMeters(128);
-        batch.draw(Assets.ENV, x - width * 0.5f, y - height * 0.5f, width, height, 0, 64, 128, 128, false, false);
+        final float regW = Cfg.toMeters(128);
+        final float regH = Cfg.toMeters(128);
+        batch.draw(Assets.ENV, x - regW * 0.5f, y - regH * 0.5f, regW, regH, 0, 64, 128, 128, false, false);
     }
 
     @Override
