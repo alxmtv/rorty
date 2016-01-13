@@ -80,8 +80,9 @@ public class Gate extends Entity {
 
     @Override
     public void onEvent(Event event) {
+
         if (event instanceof Sensor.SensorEvent) {
-            isOpen = ((Sensor.SensorEvent) event).isActive();
+            isOpen = !isOpen;
         }
     }
 
@@ -169,7 +170,7 @@ public class Gate extends Entity {
             lights = new ArrayList<>();
 
             // left
-            Light light = new Light(Color.BLACK, Assets.LIGHT_CIRCLE);
+            Light light = new Light(Light.Type.SOFT, Color.BLACK);
             light.x = Cfg.toPixels(leftPart.getPosition().x) - 80 - 128 / 2;
             light.y = Cfg.toPixels(leftPart.getPosition().y) - 128 / 2;
             light.width = light.height = 128;
@@ -177,7 +178,7 @@ public class Gate extends Entity {
             lights.add(light);
 
             // right
-            light = new Light(Color.BLACK, Assets.LIGHT_CIRCLE);
+            light = new Light(Light.Type.SOFT, Color.BLACK);
             light.x = Cfg.toPixels(rightPart.getPosition().x) + 80 - 128 / 2;
             light.y = Cfg.toPixels(rightPart.getPosition().y) - 128 / 2;
             light.width = light.height = 128;
@@ -185,5 +186,9 @@ public class Gate extends Entity {
             lights.add(light);
         }
         return lights;
+    }
+
+    public void setInitialState(boolean isOpen) {
+        this.isOpen = isOpen;
     }
 }

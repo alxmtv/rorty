@@ -8,6 +8,7 @@ import by.matveev.rorty.core.Light;
 import by.matveev.rorty.utils.ColorUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
@@ -27,7 +28,7 @@ public class Assistant extends AbstractRobot {
     private static final float DEFAULT_FRICTION = 0.9f;
     private final static float MAX_VELOCITY = 1.5f;
     private final Robot robot;
-    private State state = State.CONTROL;
+    private State state = State.FOLLOW;
     private Interaction interaction = Interaction.NONE;
     private Entity interactEntity;
 
@@ -88,6 +89,8 @@ public class Assistant extends AbstractRobot {
 
         light.x = Cfg.toPixels(x) - 128 * 0.5f;
         light.y = Cfg.toPixels(y) - 128 * 0.5f;
+
+        mark.setPosition(x,  y + BODY_RADIUS2);
     }
 
     private void updateDefaultInteraction() {
@@ -122,32 +125,32 @@ public class Assistant extends AbstractRobot {
             vel.y = Math.signum(vel.y) * MAX_VELOCITY;
         }
 
-        if (!Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D)) {
+        if (!Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             vel.x *= DEFAULT_FRICTION;
         }
 
-        if (!Gdx.input.isKeyPressed(Input.Keys.W) && !Gdx.input.isKeyPressed(Input.Keys.S)) {
+        if (!Gdx.input.isKeyPressed(Input.Keys.UP) && !Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             vel.y *= DEFAULT_FRICTION;
 //            vel.y += (MathUtils.sin(angular += 0.1f) * 0.05f);
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.A) && vel.x > -MAX_VELOCITY) {
+        if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && vel.x > -MAX_VELOCITY) {
             vel.x -= DEFAULT_SPEED;
             animSet.setAnimation("left");
             direction = -1;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.D) && vel.x < MAX_VELOCITY) {
+        if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && vel.x < MAX_VELOCITY) {
             vel.x += DEFAULT_SPEED;
             animSet.setAnimation("right");
             direction = 1;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.W) && vel.y < MAX_VELOCITY) {
+        if (Gdx.input.isKeyPressed(Input.Keys.UP) && vel.y < MAX_VELOCITY) {
             vel.y += DEFAULT_SPEED;
         }
 
-        if (Gdx.input.isKeyPressed(Input.Keys.S) && vel.y > -MAX_VELOCITY) {
+        if (Gdx.input.isKeyPressed(Input.Keys.DOWN) && vel.y > -MAX_VELOCITY) {
             vel.y -= DEFAULT_SPEED;
         }
 
@@ -248,8 +251,9 @@ public class Assistant extends AbstractRobot {
 
     @Override
     protected Light createLight() {
-        // 10% alpha
-        final Light light = new Light(ColorUtils.colorFrom(0x1A90CAF9), Assets.LIGHT_CIRCLE2);
+        final Color color = ColorUtils.colorFrom(0x1A90CAF9);
+        color.a = 0.25f;
+        final Light light = new Light(Light.Type.SOFT, color);
         light.x = Cfg.toPixels(x) + 48 / 2;
         light.y = Cfg.toPixels(y) - 48 / 2;
         light.width = light.height = 128;

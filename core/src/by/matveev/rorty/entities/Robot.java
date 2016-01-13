@@ -16,7 +16,6 @@ import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
 
 public class Robot extends AbstractRobot {
 
-    public static final String NAME = Robot.class.getSimpleName();
     public static final float DEFAULT_SPEED = 0.3f;
     public static final float DEFAULT_FRICTION = 0.9f;
     private static final float WIDTH = Cfg.toMeters(148);
@@ -94,7 +93,7 @@ public class Robot extends AbstractRobot {
 
     @Override
     protected Light createLight() {
-        final Light light = new Light(new Color(1f, 1f, 1f, 0.3f), Assets.LIGHT_CIRCLE2);
+        final Light light = new Light(Light.Type.SOFT, new Color(1f, 1f, 1f, 0.3f));
         light.x = Cfg.toPixels(x) + 148 / 2;
         light.y = Cfg.toPixels(y) - 148 / 2;
         light.width = light.height = 400;
@@ -133,8 +132,8 @@ public class Robot extends AbstractRobot {
         final Animation idleRight = new Animation();
         idleRight.setFrameWidth(148);
         idleRight.setFrameHeight(148);
-        idleRight.add(new Animation.Frame(0, 1, 0.4f, false, false));
-        idleRight.add(new Animation.Frame(1, 1, 0.4f, false, false));
+        idleRight.add(new Animation.Frame(0, 1, 0.3f, false, false));
+        idleRight.add(new Animation.Frame(1, 1, 0.3f, false, false));
 
         set.add("idle_right", idleRight);
 
@@ -175,13 +174,13 @@ public class Robot extends AbstractRobot {
         light.x = Cfg.toPixels(x) - 400 * 0.5f;
         light.y = Cfg.toPixels(y) - 400 * 0.5f;
 
+        mark.setPosition(x, y + HEIGHT * 0.5f);
+
     }
 
     private void updateBoxInteraction() {
-        if (isActive() && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-
-            final Box box = (Box) this.interactEntity;
-
+        final Box box = (Box) this.interactEntity;
+        if (isActive() && box.isEnabled() && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             if (state == State.CONTROL) {
                 setState(State.MOVE_BOX);
 
@@ -213,16 +212,18 @@ public class Robot extends AbstractRobot {
             body.setLinearVelocity(vel.x, vel.y);
         }
 
-        if (!isActive() || (!Gdx.input.isKeyPressed(Input.Keys.A) && !Gdx.input.isKeyPressed(Input.Keys.D))) {
+        if (!isActive() || (!Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT))) {
             body.setLinearVelocity(vel.x * DEFAULT_FRICTION, vel.y);
         }
 
         if (isActive()) {
-            if (Gdx.input.isKeyPressed(Input.Keys.A) && vel.x > -MAX_VELOCITY) {
+            if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && vel.x > -MAX_VELOCITY) {
                 body.applyLinearImpulse(-DEFAULT_SPEED, 0, pos.x, pos.y, true);
                 animSet.setAnimation("left");
                 direction = -1;
-            } else if (Gdx.input.isKeyPressed(Input.Keys.D) && vel.x < MAX_VELOCITY) {
+            }
+
+            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && vel.x < MAX_VELOCITY) {
                 body.applyLinearImpulse(DEFAULT_SPEED, 0f, pos.x, pos.y, true);
                 animSet.setAnimation("right");
                 direction = 1;

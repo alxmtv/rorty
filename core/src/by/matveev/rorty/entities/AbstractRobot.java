@@ -42,26 +42,24 @@ public abstract class AbstractRobot extends Entity {
         super.update(dt);
 
         mark.update(dt);
-        mark.setPosition(x, y);
     }
 
     @Override
     public void postDraw(Batch batch) {
         super.postDraw(batch);
+        text.draw(batch, Cfg.toPixels(body.getPosition().x), Cfg.toPixels(body.getPosition().y * 2.5f));
 
         if (isActive()) {
             mark.postDraw(batch);
         }
-
-        text.draw(batch, Cfg.toPixels(body.getPosition().x), Cfg.toPixels(body.getPosition().y * 2.5f));
     }
 
     public void toggleActive() {
         this.active = !active;
 
-//        if (active) {
-//            mark.show();
-//        }
+        if (active) {
+            mark.show();
+        }
     }
 
     public boolean isActive() {
