@@ -28,7 +28,7 @@ public class Assistant extends AbstractRobot {
     private static final float DEFAULT_FRICTION = 0.9f;
     private final static float MAX_VELOCITY = 1.5f;
     private final Robot robot;
-    private State state = State.CONTROL;
+    private State state = State.FOLLOW;
     private Interaction interaction = Interaction.NONE;
     private Entity interactEntity;
 

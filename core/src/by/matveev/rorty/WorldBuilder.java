@@ -169,8 +169,8 @@ public class WorldBuilder {
                 final Rectangle rect = ((RectangleMapObject) object).getRectangle();
 
 
-                final float w = Cfg.toMeters(64);
-                final float h = Cfg.toMeters(64);
+                final float w = Cfg.toMeters(128);
+                final float h = Cfg.toMeters(192);
 
                 final float x = Cfg.toMeters(rect.getX());
                 final float y = Cfg.toMeters(rect.getY());
@@ -184,7 +184,7 @@ public class WorldBuilder {
 
                 final BodyDef def = new BodyDef();
                 def.type = BodyDef.BodyType.StaticBody;
-                def.position.set(x + hw, y + hh);
+                def.position.set(x + hw, y);
 
                 final Body body = world.createBody(def);
 

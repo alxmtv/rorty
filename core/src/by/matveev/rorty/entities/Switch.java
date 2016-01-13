@@ -47,6 +47,9 @@ public class Switch extends Entity {
         this.text = new Text("Press 'E'");
         this.text.setVisible(true);
 
+        greenColor.a = 0.2f;
+        redColor.a = 0.2f;
+
         light = new Light(Light.Type.SOFT, enabled ? greenColor : redColor);
         light.x = Cfg.toPixels(body.getPosition().x) - 256 / 2;
         light.y = Cfg.toPixels(body.getPosition().y) - 256 / 2;
