@@ -7,6 +7,7 @@ import by.matveev.rorty.core.Light;
 import by.matveev.rorty.entities.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -14,7 +15,6 @@ import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
-import com.badlogic.gdx.maps.tiled.renderers.OrthoCachedTiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
@@ -46,6 +46,8 @@ public class GameScreen extends AbstractScreen {
 
     private ShapeRenderer debugRenderer;
     private List<Entity> entities;
+
+    private final FPSLogger fps = new FPSLogger();
 
     public GameScreen(String levelId) {
         this.levelId = levelId;
@@ -88,8 +90,8 @@ public class GameScreen extends AbstractScreen {
         robot.toggleActive();
         addLight(robot.getLight());
 
-        assistant = new Assistant(box2dWorld, robot, r.getRectangle().x, r.getRectangle().y);
-        addLight(assistant.getLight());
+//        assistant = new Assistant(box2dWorld, robot, r.getRectangle().x, r.getRectangle().y);
+//        addLight(assistant.getLight());
 
 
         setupWorld();
@@ -104,6 +106,12 @@ public class GameScreen extends AbstractScreen {
             addLight(l);
         }
         entities = builder.build();
+    }
+
+    @Override
+    public void render(float delta) {
+        super.render(delta);
+        fps.log();
     }
 
     @Override
