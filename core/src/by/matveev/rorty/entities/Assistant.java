@@ -91,6 +91,8 @@ public class Assistant extends AbstractRobot {
         light.y = Cfg.toPixels(y) - 128 * 0.5f;
 
         mark.setPosition(x,  y + BODY_RADIUS2);
+
+        body.getFixtureList().get(0).setSensor(State.FOLLOW.equals(state));
     }
 
     private void updateDefaultInteraction() {
@@ -125,11 +127,12 @@ public class Assistant extends AbstractRobot {
             vel.y = Math.signum(vel.y) * MAX_VELOCITY;
         }
 
-        if (!Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
+        if (!isActive() || (!Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT))) {
             vel.x *= DEFAULT_FRICTION;
+//            vel.y += (MathUtils.sin(angular += 0.1f) * 0.05f);
         }
 
-        if (!Gdx.input.isKeyPressed(Input.Keys.UP) && !Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
+        if (!isActive() || (!Gdx.input.isKeyPressed(Input.Keys.UP) && !Gdx.input.isKeyPressed(Input.Keys.DOWN))) {
             vel.y *= DEFAULT_FRICTION;
 //            vel.y += (MathUtils.sin(angular += 0.1f) * 0.05f);
         }
@@ -267,7 +270,7 @@ public class Assistant extends AbstractRobot {
         if (state == State.FOLLOW) {
             setState(State.CONTROL);
         } else if (state == State.CONTROL) {
-            setState(State.CONTROL);
+            setState(State.FOLLOW);
         }
     }
 
