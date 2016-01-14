@@ -1,6 +1,7 @@
 package by.matveev.rorty;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,6 +19,8 @@ public final class Assets {
     public static final Texture ASSISTANT = new Texture(Gdx.files.internal("assistant.png"));
 
     public static final TextureRegion BACKGROUND = createRegion("background.png");
+
+    public static final Sound move = Gdx.audio.newSound(Gdx.files.internal("sounds/move3.wav"));
 
     private static TextureRegion createRegion(String name) {
         return createRegion(name, false, false);

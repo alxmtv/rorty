@@ -237,6 +237,8 @@ public class Robot extends AbstractRobot {
         }
     }
 
+    private boolean playing = false;
+
     private void updateControlState() {
         final Vector2 vel = body.getLinearVelocity();
         final Vector2 pos = body.getPosition();
@@ -247,10 +249,16 @@ public class Robot extends AbstractRobot {
 
         if (!isActive() || (!Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT))) {
             body.setLinearVelocity(vel.x * DEFAULT_FRICTION, vel.y);
+            playing = false;
+            Assets.move.stop();
         }
 
         if (isActive()) {
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && vel.x > -MAX_VELOCITY) {
+                if (!playing) {
+                    playing = true;
+                    Assets.move.play();
+                }
                 body.applyLinearImpulse(-DEFAULT_SPEED, 0, pos.x, pos.y, true);
                 if (currentJoint != null) {
                     if (body.getPosition().x < interactEntity.getBody().getPosition().x) {
@@ -266,6 +274,10 @@ public class Robot extends AbstractRobot {
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && vel.x < MAX_VELOCITY) {
+                if (!playing) {
+                    playing = true;
+                    Assets.move.play();
+                }
                 body.applyLinearImpulse(DEFAULT_SPEED, 0f, pos.x, pos.y, true);
                 direction = 1;
 

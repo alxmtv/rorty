@@ -116,7 +116,7 @@
   </object>
  </objectgroup>
  <objectgroup name="players">
-  <object id="80" name="robot" x="254" y="268" width="64" height="64"/>
+  <object id="80" name="robot" x="128" y="512" width="64" height="64"/>
  </objectgroup>
  <objectgroup name="gates">
   <object id="86" x="385" y="192" width="62" height="192">
