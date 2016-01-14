@@ -12,6 +12,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -59,14 +60,6 @@ public class GameScreen extends AbstractScreen {
         tileMapBounds = TiledMapUtils.obtainBounds(tileMap);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tileMap);
 
-        final MapLayer player = tileMap.getLayers().get("player");
-        RectangleMapObject r;
-        if (player != null) {
-            r = (RectangleMapObject) player.getObjects().get(0);
-        } else {
-            r = new RectangleMapObject(200, 200, 0, 0);
-        }
-
         box2dWorld = new World(new Vector2(0f, -9.8f), true);
         box2dWorld.setContactFilter(new ContactFilter() {
             @Override
@@ -86,16 +79,31 @@ public class GameScreen extends AbstractScreen {
 
         debugRenderer = new ShapeRenderer();
 
-        robot = new Robot(box2dWorld, r.getRectangle().x, r.getRectangle().y);
-        robot.toggleActive();
-        addLight(robot.getLight());
-
-        assistant = new Assistant(box2dWorld, robot, r.getRectangle().x, r.getRectangle().y);
-        addLight(assistant.getLight());
 
 
         setupWorld();
         setupLights();
+        setupRobots();
+    }
+
+    private void setupRobots() {
+        final MapLayer playersLayer = tileMap.getLayers().get("players");
+        if (playersLayer == null) throw new IllegalStateException("could not setup: " + levelId);
+
+        final MapObject robotObject = playersLayer.getObjects().get("robot");
+        if (robotObject instanceof RectangleMapObject) {
+            final Rectangle rect = ((RectangleMapObject) robotObject).getRectangle();
+            robot = new Robot(box2dWorld, rect.x + 148 * 0.5f, rect.y + 148 * 0.5f);
+            robot.toggleActive();
+            addLight(robot.getLight());
+        }
+
+        final MapObject assistantObject = playersLayer.getObjects().get("assistant");
+        if (assistantObject instanceof RectangleMapObject) {
+            final Rectangle rect = ((RectangleMapObject) assistantObject).getRectangle();
+            assistant = new Assistant(box2dWorld, robot, rect.x - 80 * 0.5f, rect.y - 80 * 0.5f);
+            addLight(assistant.getLight());
+        }
     }
 
     private void setupWorld() {
@@ -142,7 +150,9 @@ public class GameScreen extends AbstractScreen {
         }
 
         robot.update(delta);
-        assistant.update(delta);
+        if (assistant != null) {
+            assistant.update(delta);
+        }
 
         for (Entity e : entities) {
             e.update(delta);
@@ -160,14 +170,16 @@ public class GameScreen extends AbstractScreen {
     }
 
     private void switchRobots() {
-        robot.toggleActive();
-        assistant.toggleActive();
+        if (assistant != null) {
+            robot.toggleActive();
+            assistant.toggleActive();
+        }
     }
 
     private void updateCamera(float dt) {
         final float robotX;
         final float robotY;
-        if (robot.isActive()) {
+        if (robot.isActive() || assistant == null) {
             robotX = Cfg.toPixels(robot.x);
             robotY = Cfg.toPixels(robot.y);
         } else {
@@ -225,7 +237,9 @@ public class GameScreen extends AbstractScreen {
         }
 
         robot.draw(batch, box2DCamera);
-        assistant.draw(batch, box2DCamera);
+        if (assistant != null) {
+            assistant.draw(batch, box2DCamera);
+        }
 
         batch.end();
     }
@@ -241,7 +255,12 @@ public class GameScreen extends AbstractScreen {
         }
 
         robot.postDraw(batch);
-        assistant.postDraw(batch);
+        if (assistant != null) {
+            assistant.postDraw(batch);
+        }
+
+        Assets.font.draw(batch, "level: " + levelId, camera.position.x, camera.position.y + 200);
+        Assets.font.draw(batch, "fps: " + Gdx.graphics.getFramesPerSecond(),camera.position.x, camera.position.y + 230);
 
         batch.end();
 

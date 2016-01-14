@@ -150,7 +150,8 @@ public class WorldBuilder {
                 final Rectangle rect = ((RectangleMapObject) object).getRectangle();
                 final MapProperties props = object.getProperties();
 
-                final Gate gate = new Gate(props.get("name", String.class), world, rect.x, rect.y);
+                final Gate gate = new Gate(props.get("name", String.class),
+                        world, rect.x, rect.y);
                 final String openProperty = props.get("open", String.class);
                 gate.setInitialState(openProperty != null && Boolean.parseBoolean(openProperty));
 

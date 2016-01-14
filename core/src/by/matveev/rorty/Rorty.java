@@ -10,7 +10,7 @@ public class Rorty extends BaseGame {
     public void create() {
         Prefs.init();
 
-        Screens.set(new GameScreen(Prefs.getString(Prefs.KEY_LEVEL, "6")));
+        Screens.set(new GameScreen(Prefs.getString(Prefs.KEY_LEVEL, "start")));
     }
 
     public static void replaceLevel(String levelId) {
