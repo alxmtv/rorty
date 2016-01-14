@@ -21,6 +21,7 @@ import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.List;
 
@@ -259,8 +260,8 @@ public class GameScreen extends AbstractScreen {
             assistant.postDraw(batch);
         }
 
-        Assets.font.draw(batch, "level: " + levelId, camera.position.x, camera.position.y + 200);
-        Assets.font.draw(batch, "fps: " + Gdx.graphics.getFramesPerSecond(),camera.position.x, camera.position.y + 230);
+        Assets.font.draw(batch, "level: " + levelId, camera.position.x - 800 / 2 + 25, camera.position.y + 200);
+        Assets.font.draw(batch, "fps: " + Gdx.graphics.getFramesPerSecond(), camera.position.x - 800/2+ 25, camera.position.y + 230);
 
         batch.end();
 

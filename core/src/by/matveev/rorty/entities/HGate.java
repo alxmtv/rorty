@@ -18,7 +18,7 @@ import java.util.List;
 
 import static by.matveev.rorty.Cfg.toMeters;
 
-public class Gate extends Entity {
+public class HGate extends Entity {
 
     private static final Color GREEN = ColorUtils.colorFrom(0x8C81C784); // 25%
     private static final Color RED = ColorUtils.colorFrom(0xBFF44336); // 75%
@@ -40,7 +40,7 @@ public class Gate extends Entity {
     private List<Light> lights;
     private boolean isOpen;
 
-    public Gate(String name, World world, float mapX, float mapY) {
+    public HGate(String name, World world, float mapX, float mapY) {
         super(name);
         this.x = toMeters(mapX);
         this.y = toMeters(mapY);

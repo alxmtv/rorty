@@ -6,13 +6,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.*;
 import com.badlogic.gdx.maps.objects.*;
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.ArrayList;
-import java.util.IllegalFormatException;
 import java.util.List;
 
 import static by.matveev.rorty.utils.ColorUtils.colorFrom;
@@ -150,12 +148,25 @@ public class WorldBuilder {
                 final Rectangle rect = ((RectangleMapObject) object).getRectangle();
                 final MapProperties props = object.getProperties();
 
-                final Gate gate = new Gate(props.get("name", String.class),
-                        world, rect.x, rect.y);
-                final String openProperty = props.get("open", String.class);
-                gate.setInitialState(openProperty != null && Boolean.parseBoolean(openProperty));
 
-                entities.add(gate);
+                final String orientation = props.get("orientation",String.class);
+                if ("vertical".equals(orientation)) {
+                    final VGate gate = new VGate(props.get("name", String.class),
+                            world, rect.x, rect.y);
+                    final String openProperty = props.get("open", String.class);
+                    gate.setInitialState(openProperty != null && Boolean.parseBoolean(openProperty));
+                    entities.add(gate);
+                } else if ("horizontal".equals(orientation)) {
+                    final HGate gate = new HGate(props.get("name", String.class),
+                            world, rect.x, rect.y);
+                    final String openProperty = props.get("open", String.class);
+                    gate.setInitialState(openProperty != null && Boolean.parseBoolean(openProperty));
+                    entities.add(gate);
+                }
+
+
+
+
             }
         }
     }
