@@ -8,10 +8,7 @@ import by.matveev.rorty.utils.ColorUtils;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.physics.box2d.BodyDef;
-import com.badlogic.gdx.physics.box2d.PolygonShape;
-import com.badlogic.gdx.physics.box2d.World;
+import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,8 +17,8 @@ import static by.matveev.rorty.Cfg.toMeters;
 
 public class HGate extends Entity {
 
-    private static final Color GREEN = ColorUtils.colorFrom(0x8C81C784); // 25%
-    private static final Color RED = ColorUtils.colorFrom(0xBFF44336); // 75%
+    private static final Color GREEN = ColorUtils.colorFrom(0xff81C784);
+    private static final Color RED = ColorUtils.colorFrom(0xffF44336);
 
     private final static float MAX_DISTANCE = 0.68f;
 
@@ -39,6 +36,7 @@ public class HGate extends Entity {
     private final float rightClosedX;
     private List<Light> lights;
     private boolean isOpen;
+    private boolean isInitOpen;
 
     public HGate(String name, World world, float mapX, float mapY) {
         super(name);
@@ -50,6 +48,9 @@ public class HGate extends Entity {
         this.partHeight = toMeters(32);
         this.fullWidth = toMeters(192);
 
+        GREEN.a = 0.2f;
+        RED.a = 0.2f;
+
         PolygonShape poly = new PolygonShape();
         poly.setAsBox(partWidth * 0.5f, partHeight * 0.5f);
         BodyDef def = new BodyDef();
@@ -57,7 +58,8 @@ public class HGate extends Entity {
         def.position.set(x + partWidth * 0.5f, y + partHeight * 0.5f);
         leftPart = world.createBody(def);
         leftPart.setUserData(this);
-        leftPart.createFixture(poly, 0);
+        final Fixture leftFixture = leftPart.createFixture(poly, 0);
+        leftFixture.setFriction(0.01f);
         poly.dispose();
 
         poly = new PolygonShape();
@@ -68,6 +70,8 @@ public class HGate extends Entity {
         rightPart = world.createBody(def);
         rightPart.setUserData(this);
         rightPart.createFixture(poly, 0);
+        final Fixture rightFixture = rightPart.createFixture(poly, 0);
+        rightFixture.setFriction(0.01f);
         rightPart.setUserData(this);
         poly.dispose();
 
@@ -78,11 +82,18 @@ public class HGate extends Entity {
         rightOpenedX = rightClosedX + MAX_DISTANCE;
     }
 
+
     @Override
     public void onEvent(Event event) {
 
         if (event instanceof Sensor.SensorEvent) {
-            isOpen = !isOpen;
+            final boolean active = ((Sensor.SensorEvent) event).isActive();
+
+            if (isInitOpen) {
+                isOpen = !active;
+            } else {
+                isOpen = active;
+            }
         }
     }
 
@@ -188,7 +199,9 @@ public class HGate extends Entity {
         return lights;
     }
 
-    public void setInitialState(boolean isOpen) {
-        this.isOpen = isOpen;
+
+    public void setInitialState(boolean isOpenByDefault) {
+        this.isInitOpen = isOpenByDefault;
+        this.isOpen = isOpenByDefault;
     }
 }

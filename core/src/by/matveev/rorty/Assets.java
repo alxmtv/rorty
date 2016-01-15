@@ -20,7 +20,9 @@ public final class Assets {
 
     public static final TextureRegion BACKGROUND = createRegion("background.png");
 
-    public static final Sound move = Gdx.audio.newSound(Gdx.files.internal("sounds/move3.wav"));
+    static  {
+        ENV.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+    }
 
     private static TextureRegion createRegion(String name) {
         return createRegion(name, false, false);

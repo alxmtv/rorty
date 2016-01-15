@@ -80,7 +80,7 @@ public class Robot extends AbstractRobot {
 
 //
         final CircleShape circle = new CircleShape();
-        circle.setRadius(Cfg.toMeters(40));
+        circle.setRadius(Cfg.toMeters(32));
         circle.setPosition(new Vector2(0, -0.2f));
 
         body.createFixture(circle, 0);
@@ -249,16 +249,10 @@ public class Robot extends AbstractRobot {
 
         if (!isActive() || (!Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT))) {
             body.setLinearVelocity(vel.x * DEFAULT_FRICTION, vel.y);
-            playing = false;
-            Assets.move.stop();
         }
 
         if (isActive()) {
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && vel.x > -MAX_VELOCITY) {
-                if (!playing) {
-                    playing = true;
-                    Assets.move.play();
-                }
                 body.applyLinearImpulse(-DEFAULT_SPEED, 0, pos.x, pos.y, true);
                 if (currentJoint != null) {
                     if (body.getPosition().x < interactEntity.getBody().getPosition().x) {
@@ -274,10 +268,6 @@ public class Robot extends AbstractRobot {
             }
 
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && vel.x < MAX_VELOCITY) {
-                if (!playing) {
-                    playing = true;
-                    Assets.move.play();
-                }
                 body.applyLinearImpulse(DEFAULT_SPEED, 0f, pos.x, pos.y, true);
                 direction = 1;
 
@@ -296,7 +286,7 @@ public class Robot extends AbstractRobot {
 
     public void draw(Batch batch, OrthographicCamera camera) {
         batch.setProjectionMatrix(camera.combined);
-        animSet.draw(batch, x - WIDTH * 0.5f, y - BODY_HEIGHT * 0.5f - 0.12f, WIDTH, HEIGHT);
+        animSet.draw(batch, x - WIDTH * 0.5f, y - BODY_HEIGHT * 0.5f, WIDTH, HEIGHT);
     }
 
 

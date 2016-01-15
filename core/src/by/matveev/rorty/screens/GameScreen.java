@@ -7,7 +7,7 @@ import by.matveev.rorty.core.Light;
 import by.matveev.rorty.entities.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.FPSLogger;
+import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -20,8 +20,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.List;
 
@@ -49,7 +49,7 @@ public class GameScreen extends AbstractScreen {
     private ShapeRenderer debugRenderer;
     private List<Entity> entities;
 
-    private final FPSLogger fps = new FPSLogger();
+    private final Vector3 temp = new Vector3();
 
     public GameScreen(String levelId) {
         this.levelId = levelId;
@@ -97,6 +97,8 @@ public class GameScreen extends AbstractScreen {
             robot = new Robot(box2dWorld, rect.x + 148 * 0.5f, rect.y + 148 * 0.5f);
             robot.toggleActive();
             addLight(robot.getLight());
+        } else {
+            throw new IllegalStateException("could not lookup robot");
         }
 
         final MapObject assistantObject = playersLayer.getObjects().get("assistant");
@@ -115,12 +117,6 @@ public class GameScreen extends AbstractScreen {
             addLight(l);
         }
         entities = builder.build();
-    }
-
-    @Override
-    public void render(float delta) {
-        super.render(delta);
-        fps.log();
     }
 
     @Override
@@ -178,8 +174,8 @@ public class GameScreen extends AbstractScreen {
     }
 
     private void updateCamera(float dt) {
-        final float robotX;
-        final float robotY;
+        float robotX;
+        float robotY;
         if (robot.isActive() || assistant == null) {
             robotX = Cfg.toPixels(robot.x);
             robotY = Cfg.toPixels(robot.y);
@@ -187,6 +183,15 @@ public class GameScreen extends AbstractScreen {
             robotX = Cfg.toPixels(assistant.x);
             robotY = Cfg.toPixels(assistant.y);
         }
+
+        if (Cfg.FREE_CAMERA) {
+            temp.set(Gdx.input.getX(), Gdx.input.getY(), 0f);
+            camera.unproject(temp);
+
+            robotX = temp.x;
+            robotY = temp.y;
+        }
+
 
 //        camera.position.set(robotX, robotY, 0f);
 

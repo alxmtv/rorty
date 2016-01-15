@@ -16,16 +16,18 @@ import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 import com.badlogic.gdx.physics.box2d.World;
+import com.sun.org.apache.regexp.internal.RE;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import static by.matveev.rorty.Cfg.toMeters;
+import static by.matveev.rorty.Cfg.toPixels;
 
 public class VGate extends Entity {
 
-    private static final Color GREEN = ColorUtils.colorFrom(0x8C81C784); // 25%
-    private static final Color RED = ColorUtils.colorFrom(0xBFF44336); // 75%
+    private static final Color GREEN = ColorUtils.colorFrom(0xff81C784);
+    private static final Color RED = ColorUtils.colorFrom(0xffF44336);
 
     private final static float MAX_DISTANCE = 0.68f;
 
@@ -43,6 +45,7 @@ public class VGate extends Entity {
     private final float bottomClosedY;
     private List<Light> lights;
     private boolean isOpen;
+    private boolean isInitOpen;
 
     public VGate(String name, World world, float mapX, float mapY) {
         super(name);
@@ -54,6 +57,9 @@ public class VGate extends Entity {
         this.partHeight = toMeters(32);
         this.fullHeight = toMeters(192);
 
+
+        GREEN.a = 0.2f;
+        RED.a = 0.2f;
 
         PolygonShape poly = new PolygonShape();
         poly.setAsBox(partWidth * 0.5f, partHeight * 0.5f, new Vector2(0f, 0f), 90 * MathUtils.degreesToRadians);
@@ -89,7 +95,13 @@ public class VGate extends Entity {
     public void onEvent(Event event) {
 
         if (event instanceof Sensor.SensorEvent) {
-            isOpen = !isOpen;
+            final boolean active = ((Sensor.SensorEvent) event).isActive();
+
+            if (isInitOpen) {
+                isOpen = !active;
+            } else {
+                isOpen = active;
+            }
         }
     }
 
@@ -145,7 +157,7 @@ public class VGate extends Entity {
 
         // top side partition
         batch.draw(Assets.ENV,
-                topPart.getPosition().x - partWidth * 0.5f - toMeters(16),
+                topPart.getPosition().x - partWidth * 0.5f,
                 topPart.getPosition().y - partHeight * 0.5f,
                 partWidth * 0.5f, partHeight * 0.5f,
                 partWidth, partHeight,
@@ -155,7 +167,7 @@ public class VGate extends Entity {
 
         // top side box
         batch.draw(Assets.ENV,
-                x,
+                x + toMeters(16),
                 y + fullHeight,
                 boxWidth * 0.5f, boxHeight * 0.5f,
                 boxWidth, boxHeight,
@@ -165,7 +177,7 @@ public class VGate extends Entity {
 
         // bottom side partition
         batch.draw(Assets.ENV,
-                bottomPart.getPosition().x - partWidth * 0.5f - toMeters(16),
+                bottomPart.getPosition().x - partWidth * 0.5f,
                 bottomPart.getPosition().y - partHeight * 0.5f,
                 partWidth * 0.5f, partHeight * 0.5f,
                 partWidth, partHeight,
@@ -175,7 +187,7 @@ public class VGate extends Entity {
 
         // bottom side box
         batch.draw(Assets.ENV,
-                x,
+                x + toMeters(16),
                 y - boxHeight,
                 boxWidth * 0.5f, boxHeight * 0.5f,
                 boxWidth, boxHeight,
@@ -194,16 +206,17 @@ public class VGate extends Entity {
 
             // top
             Light light = new Light(Light.Type.SOFT, Color.BLACK);
-            light.x = Cfg.toPixels(topPart.getPosition().x - partWidth * 0.5f) - 80 - 128 / 2;
-            light.y = Cfg.toPixels(y + fullHeight) - 128 / 2;
+            light.x = toPixels(topPart.getPosition().x) - 128 * 0.5f;
+            light.y = toPixels(topPart.getPosition().y) - 128 * 0.5f + 80;
             light.width = light.height = 128;
 
             lights.add(light);
 
-            // botom
+            // bottom
             light = new Light(Light.Type.SOFT, Color.BLACK);
-            light.x = Cfg.toPixels(topPart.getPosition().x) + 80 - 128 / 2;
-            light.y = Cfg.toPixels(topPart.getPosition().y) - 128 / 2;
+            light.x = Cfg.toPixels(bottomPart.getPosition().x) - 128 * 0.5f;
+            light.y = Cfg.toPixels(bottomPart.getPosition().y
+                    - partHeight - boxHeight * 0.5f) - 16 - 128 * 0.5f ;
             light.width = light.height = 128;
 
             lights.add(light);
@@ -211,7 +224,8 @@ public class VGate extends Entity {
         return lights;
     }
 
-    public void setInitialState(boolean isOpen) {
-        this.isOpen = isOpen;
+    public void setInitialState(boolean isOpenByDefault) {
+        this.isInitOpen = isOpenByDefault;
+        this.isOpen = isOpenByDefault;
     }
 }

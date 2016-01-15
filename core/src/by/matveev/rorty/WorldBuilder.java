@@ -324,7 +324,7 @@ public class WorldBuilder {
                 final float y = Cfg.toMeters(rect.getY());
 
                 final float w = Cfg.toMeters(110);
-                final float h = Cfg.toMeters(128);
+                final float h = Cfg.toMeters(110);
 
                 final float hw = w * 0.5f;
                 final float hh = h * 0.5f;
@@ -437,7 +437,7 @@ public class WorldBuilder {
                 String direction = props.get("direction", String.class);
                 String[] coord = direction.split(",");
 
-                entities.add(new Elevator(props.get("id", String.class),
+                entities.add(new Elevator(props.get("name", String.class),
                         body, new Vector2(Float.parseFloat(coord[0]), Float.parseFloat(coord[1])),
                         Float.parseFloat(props.get("maxDistance", String.class))));
 

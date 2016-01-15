@@ -104,8 +104,8 @@ public class Box extends Entity {
         batch.setProjectionMatrix(camera.combined);
         final float x = body.getPosition().x;
         final float y = body.getPosition().y;
-        final float regW = Cfg.toMeters(128);
-        final float regH = Cfg.toMeters(128);
+        final float regW = Cfg.toMeters(110);
+        final float regH = Cfg.toMeters(110);
         if (enabled) {
             batch.draw(Assets.ENV, x - regW * 0.5f, y - regH * 0.5f, regW, regH, 288, 192, 128, 128, false, false);
         } else {
