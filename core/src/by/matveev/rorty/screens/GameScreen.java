@@ -7,12 +7,13 @@ import by.matveev.rorty.core.Light;
 import by.matveev.rorty.entities.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.Camera;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapLayer;
 import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -48,6 +49,7 @@ public class GameScreen extends AbstractScreen {
 
     private ShapeRenderer debugRenderer;
     private List<Entity> entities;
+    private HintList hints = new HintList();
 
     private final Vector3 temp = new Vector3();
 
@@ -60,7 +62,6 @@ public class GameScreen extends AbstractScreen {
         tileMap = new TmxMapLoader().load("maps/" + levelId + ".tmx");
         tileMapBounds = TiledMapUtils.obtainBounds(tileMap);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tileMap);
-
         box2dWorld = new World(new Vector2(0f, -9.8f), true);
         box2dWorld.setContactFilter(new ContactFilter() {
             @Override
@@ -85,6 +86,18 @@ public class GameScreen extends AbstractScreen {
         setupWorld();
         setupLights();
         setupRobots();
+        setupHints();
+    }
+
+    private void setupHints() {
+        final MapLayer hintsLayer = tileMap.getLayers().get("hints");
+        if (hintsLayer != null) {
+            final MapObjects objects = hintsLayer.getObjects();
+            for (MapObject o : objects) {
+                hints.addHint(o.getProperties().get("text", String.class).replace("\\n", "\n"),
+                        Integer.parseInt(o.getProperties().get("keyCode", String.class)));
+            }
+        }
     }
 
     private void setupRobots() {
@@ -104,6 +117,14 @@ public class GameScreen extends AbstractScreen {
         if (assistantObject instanceof RectangleMapObject) {
             final Rectangle rect = ((RectangleMapObject) assistantObject).getRectangle();
             assistant = new Assistant(box2dWorld, robot, rect.x - 80 * 0.5f, rect.y - 80 * 0.5f);
+
+            final MapProperties props = assistantObject.getProperties();
+            final String state = props.get("state", String.class);
+            if (state != null) {
+                assistant.setState(Assistant.State.valueOf(state.toUpperCase()));
+            }
+
+
             addLight(assistant.getLight());
             entities.add(assistant);
         }
@@ -158,6 +179,8 @@ public class GameScreen extends AbstractScreen {
 
         updateCamera(delta);
 
+        hints.update(delta);
+
 
     }
 
@@ -189,9 +212,6 @@ public class GameScreen extends AbstractScreen {
             robotX = temp.x;
             robotY = temp.y;
         }
-
-
-//        camera.position.set(robotX, robotY, 0f);
 
         camera.position.x += (robotX - camera.position.x) * CAMERA_SPEED * dt;
         camera.position.y += (robotY - camera.position.y) * CAMERA_SPEED * dt;
@@ -255,7 +275,7 @@ public class GameScreen extends AbstractScreen {
 
         Assets.font.draw(batch, "level: " + levelId, camera.position.x - 800 / 2 + 25, camera.position.y + 200);
         Assets.font.draw(batch, "fps: " + Gdx.graphics.getFramesPerSecond(), camera.position.x - 800/2+ 25, camera.position.y + 230);
-
+        hints.draw(batch, camera.position.x, camera.position.y);
         batch.end();
 
 
@@ -271,6 +291,8 @@ public class GameScreen extends AbstractScreen {
             }
             debugRenderer.end();
         }
+
+
     }
 
 

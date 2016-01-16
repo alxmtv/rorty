@@ -28,31 +28,21 @@ public class Assistant extends AbstractRobot {
     private final static float DEFAULT_SPEED = 0.2f;
     private static final float DEFAULT_FRICTION = 0.9f;
     private final static float MAX_VELOCITY = 1.5f;
+
     private final Robot robot;
+
     private State state = State.FOLLOW;
-    private Interaction interaction = Interaction.NONE;
-    private Entity interactEntity;
+
+    private float stateTime;
+    private int stateIndex;
+    private String[] messages = new String[]{"start", "loading...", "failed"};
+    private final Vector2 target = new Vector2();
 
     public Assistant(World world, Robot robot, float mapX, float mapY) {
         super(world, "assistant", mapX, mapY);
         this.robot = robot;
         body.getPosition().set(mapX, mapY);
-    }
-
-    @Override
-    public void onContactStart(final Entity otherEntity) {
-        if (otherEntity instanceof Box) {
-            setInteraction(Interaction.BOX, otherEntity);
-        }
-    }
-
-    @Override
-    public void onContactEnd(Entity otherEntity) {
-        if (otherEntity instanceof Box) {
-            if (interaction == Interaction.BOX) {
-                setInteraction(Interaction.NONE, null);
-            }
-        }
+        target.set(body.getPosition());
     }
 
     @Override
@@ -76,19 +66,8 @@ public class Assistant extends AbstractRobot {
                 updateControlState();
                 break;
 
-            case SOCKET:
-                updateSocketState();
-                break;
-        }
-
-        switch (interaction) {
-            case BOX:
-                updateBoxInteraction();
-                break;
-
-            case NONE:
-            default:
-                updateDefaultInteraction();
+            case CRASH:
+                updateCrashState();
                 break;
         }
 
@@ -98,30 +77,49 @@ public class Assistant extends AbstractRobot {
         light.x = Cfg.toPixels(x) - 128 * 0.5f;
         light.y = Cfg.toPixels(y) - 128 * 0.5f;
 
-        mark.setPosition(x,  y + BODY_RADIUS2);
+        mark.setPosition(x, y + BODY_RADIUS2);
 
-        body.getFixtureList().get(0).setSensor(State.FOLLOW.equals(state));
+        setSensor(state != State.CONTROL && state != State.CRASH);
     }
 
-    private void updateDefaultInteraction() {
-        setSensor(state != State.CONTROL);
+    private void updateCrashState() {
+        stateTime += Gdx.graphics.getDeltaTime();
+        if (stateTime > 1f) {
+            stateTime = 0f;
+            stateIndex++;
+            if (stateIndex > messages.length - 1) {
+                stateIndex = 0;
+            }
+            text.setText(messages[stateIndex]);
+            target.set(MathUtils.random(0, 8), y);
+        }
+        temp.set(target).sub(DEFAULT_OFFSET * direction, 0f);
+
+        final float distance = temp.dst(body.getPosition());
+        final float magnitude = distance * 2f;
+
+        final Vector2 newVelocity = temp.sub(body.getPosition()).nor().scl(magnitude);
+        newVelocity.y += (MathUtils.sin(angular += 0.1f) * 0.2f);
+
+        body.setLinearVelocity(newVelocity);
+
+        if (body.getLinearVelocity().x > 0) {
+            animSet.setAnimation("right");
+        } else if (body.getLinearVelocity().x < 0) {
+            animSet.setAnimation("left");
+        }
+    }
+
+    @Override
+    public void postDraw(Batch batch) {
+        super.postDraw(batch);
+
+        text.setVisible(State.CRASH.equals(state));
+
     }
 
     private void setSensor(boolean isSensor) {
         body.getFixtureList().get(0).setSensor(isSensor);
-    }
-
-    private void updateBoxInteraction() {
-        if (isActive() && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-
-            ((Box) interactEntity).toggleActive();
-
-            if (state == State.FOLLOW || state == State.CONTROL) {
-                setState(State.SOCKET);
-            } else if (state == State.SOCKET) {
-                setState(State.CONTROL);
-            }
-        }
     }
 
     private void updateControlState() {
@@ -168,18 +166,6 @@ public class Assistant extends AbstractRobot {
         body.setLinearVelocity(vel);
     }
 
-    private void updateSocketState() {
-        setSensor(true);
-        animSet.setAnimation("idle");
-        temp.set(interactEntity.getBody().getPosition());
-
-        float distance = temp.dst(body.getPosition());
-        float magnitude = distance * 50f;
-
-        final Vector2 scl = temp.sub(body.getPosition()).nor().scl(magnitude);
-        body.setLinearVelocity(scl);
-    }
-
     private void updateFollowState() {
         final Vector2 targetVelocity = robot.getBody().getLinearVelocity();
         final Vector2 targetPosition = robot.getBody().getPosition();
@@ -205,11 +191,6 @@ public class Assistant extends AbstractRobot {
 
     public void setState(State state) {
         this.state = state;
-    }
-
-    public void setInteraction(Interaction interaction, Entity interactEntity) {
-        this.interaction = interaction;
-        this.interactEntity = interactEntity;
     }
 
     @Override
@@ -288,12 +269,7 @@ public class Assistant extends AbstractRobot {
         animSet.draw(batch, x - BODY_RADIUS, y - BODY_RADIUS, BODY_RADIUS2, BODY_RADIUS2);
     }
 
-    private enum State {
-        FOLLOW, CONTROL, SOCKET
+    public enum State {
+        FOLLOW, CONTROL, CRASH
     }
-
-    private enum Interaction {
-        NONE, BOX
-    }
-
 }

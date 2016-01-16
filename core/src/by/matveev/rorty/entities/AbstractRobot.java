@@ -47,7 +47,7 @@ public abstract class AbstractRobot extends Entity {
     @Override
     public void postDraw(Batch batch) {
         super.postDraw(batch);
-        text.draw(batch, Cfg.toPixels(body.getPosition().x), Cfg.toPixels(body.getPosition().y * 2.5f));
+        text.draw(batch, Cfg.toPixels(body.getPosition().x), Cfg.toPixels(body.getPosition().y + Cfg.toMeters(48)));
 
         if (isActive()) {
             mark.postDraw(batch);
