@@ -26,6 +26,7 @@ public class Robot extends AbstractRobot {
     private State state = State.CONTROL;
     private Interaction interaction = Interaction.NONE;
     private Entity interactEntity;
+    private boolean isMoveSoundPlaying;
 
     public Robot(World world, float mapX, float mapY) {
         super(world, "robot", mapX, mapY);
@@ -267,10 +268,13 @@ public class Robot extends AbstractRobot {
 
         if (!isActive() || (!Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT))) {
             body.setLinearVelocity(vel.x * DEFAULT_FRICTION, vel.y);
+            stopMoveSound();
         }
 
         if (isActive()) {
             if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && vel.x > -MAX_VELOCITY) {
+                playMoveSound();
+
                 body.applyLinearImpulse(-DEFAULT_SPEED, 0, pos.x, pos.y, true);
                 if (currentJoint != null) {
                     if (body.getPosition().x < interactEntity.getBody().getPosition().x) {
@@ -287,6 +291,7 @@ public class Robot extends AbstractRobot {
 
             if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && vel.x < MAX_VELOCITY) {
                 body.applyLinearImpulse(DEFAULT_SPEED, 0f, pos.x, pos.y, true);
+                playMoveSound();
                 direction = 1;
 
                 if (currentJoint != null) {
@@ -299,6 +304,18 @@ public class Robot extends AbstractRobot {
                     animSet.setAnimation("right");
                 }
             }
+        }
+    }
+
+    private void stopMoveSound() {
+        Assets.MOVE.stop();
+        isMoveSoundPlaying = false;
+    }
+
+    private void playMoveSound() {
+        if (!isMoveSoundPlaying) {
+            Assets.MOVE.loop(0.4f);
+            isMoveSoundPlaying = true;
         }
     }
 

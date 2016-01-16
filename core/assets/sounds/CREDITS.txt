@@ -1,4 +1,2 @@
-http://freesound.org/people/Robinhood76/sounds/95120/
-http://freesound.org/people/Setuniman/sounds/328779/
-http://freesound.org/people/Robinhood76/sounds/95119/
-http://freesound.org/people/pitx/sounds/18182/
+intro: http://freesound.org/people/Setuniman/
+robot movement: http://www.freesfx.co.uk/users/mckinneysound/
