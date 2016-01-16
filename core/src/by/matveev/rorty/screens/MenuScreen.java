@@ -1,9 +1,6 @@
 package by.matveev.rorty.screens;
 
 import by.matveev.rorty.*;
-import by.matveev.rorty.core.AbstractScreen;
-import by.matveev.rorty.core.Light;
-import by.matveev.rorty.core.Screens;
 import by.matveev.rorty.entities.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;

@@ -2,9 +2,7 @@ package by.matveev.rorty.entities;
 
 import by.matveev.rorty.Assets;
 import by.matveev.rorty.Cfg;
-import by.matveev.rorty.core.Animation;
-import by.matveev.rorty.core.AnimationSet;
-import by.matveev.rorty.core.Light;
+import by.matveev.rorty.core.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
@@ -13,6 +11,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.physics.box2d.joints.DistanceJointDef;
+import com.badlogic.gdx.utils.Pools;
 
 public class Robot extends AbstractRobot {
 
@@ -179,6 +178,12 @@ public class Robot extends AbstractRobot {
         super.update(delta);
         animSet.update(delta);
 
+        if (isActive() && isFree() && Gdx.input.isKeyJustPressed(Input.Keys.F)) {
+            EventQueue.add(Pools.obtain(FollowEvent.class)
+                    .setSender(name)
+                    .setReceiver("assistant"));
+        }
+
 
         switch (state) {
             case CONTROL:
@@ -215,29 +220,42 @@ public class Robot extends AbstractRobot {
         final Box box = (Box) this.interactEntity;
         if (isActive() && box.isEnabled() && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
             if (isFree() && state == State.CONTROL) {
-                setState(State.MOVE_BOX);
-
-                final DistanceJointDef jointDef = new DistanceJointDef();
-                jointDef.initialize(body, box.getBody(), new Vector2(0f, 0f), new Vector2(1f, 0));
-                jointDef.length = 1f;
-
-                currentJoint = world.createJoint(jointDef);
-
-                box.setupLowMass();
-
-
+                startInteractionWithBox(box);
             } else if (state == State.MOVE_BOX) {
-                setState(State.CONTROL);
-                setInteraction(Interaction.NONE, null);
-
-                world.destroyJoint(currentJoint);
-                currentJoint = null;
-                box.setupHugeMass();
+                endInteractionWithBox(box);
             }
         }
     }
 
-    private boolean playing = false;
+    private void endInteractionWithBox(Box box) {
+        setState(State.CONTROL);
+        setInteraction(Interaction.NONE, null);
+
+        world.destroyJoint(currentJoint);
+        currentJoint = null;
+        box.setupHugeMass();
+    }
+
+    private void startInteractionWithBox(Box box) {
+        setState(State.MOVE_BOX);
+
+        final DistanceJointDef jointDef = new DistanceJointDef();
+        jointDef.initialize(body, box.getBody(), new Vector2(0f, 0f), new Vector2(1f, 0));
+        jointDef.length = 1f;
+
+        currentJoint = world.createJoint(jointDef);
+
+        box.setupLowMass();
+    }
+
+    @Override
+    public void toggleActive() {
+        super.toggleActive();
+
+        if (!isActive() && !isFree()) {
+            endInteractionWithBox((Box) this.interactEntity);
+        }
+    }
 
     private void updateControlState() {
         final Vector2 vel = body.getLinearVelocity();
@@ -296,5 +314,16 @@ public class Robot extends AbstractRobot {
 
     public enum Interaction {
         NONE, BOX
+    }
+
+    public static final class FollowEvent extends Event {
+
+        public FollowEvent() {
+        }
+
+        @Override
+        public boolean validate() {
+            return true;
+        }
     }
 }

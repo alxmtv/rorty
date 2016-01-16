@@ -97,6 +97,7 @@ public class GameScreen extends AbstractScreen {
             robot = new Robot(box2dWorld, rect.x + 148 * 0.5f, rect.y + 148 * 0.5f);
             robot.toggleActive();
             addLight(robot.getLight());
+            entities.add(robot);
         }
 
         final MapObject assistantObject = playersLayer.getObjects().get("assistant");
@@ -104,6 +105,7 @@ public class GameScreen extends AbstractScreen {
             final Rectangle rect = ((RectangleMapObject) assistantObject).getRectangle();
             assistant = new Assistant(box2dWorld, robot, rect.x - 80 * 0.5f, rect.y - 80 * 0.5f);
             addLight(assistant.getLight());
+            entities.add(assistant);
         }
     }
 
@@ -142,13 +144,6 @@ public class GameScreen extends AbstractScreen {
         while (accumulator >= TIME_STEP) {
             box2dWorld.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
             accumulator -= TIME_STEP;
-        }
-
-        if (robot != null) {
-            robot.update(delta);
-        }
-        if (assistant != null) {
-            assistant.update(delta);
         }
 
         for (Entity e : entities) {
@@ -245,14 +240,6 @@ public class GameScreen extends AbstractScreen {
             e.draw(batch, box2DCamera);
         }
 
-        if (robot != null) {
-            robot.draw(batch, box2DCamera);
-        }
-
-        if (assistant != null) {
-            assistant.draw(batch, box2DCamera);
-        }
-
         batch.end();
     }
 
@@ -264,13 +251,6 @@ public class GameScreen extends AbstractScreen {
         batch.begin();
         for (Entity e : entities) {
             e.postDraw(batch);
-        }
-
-        if (robot != null) {
-            robot.postDraw(batch);
-        }
-        if (assistant != null) {
-            assistant.postDraw(batch);
         }
 
         Assets.font.draw(batch, "level: " + levelId, camera.position.x - 800 / 2 + 25, camera.position.y + 200);

@@ -4,6 +4,7 @@ import by.matveev.rorty.Assets;
 import by.matveev.rorty.Cfg;
 import by.matveev.rorty.core.Animation;
 import by.matveev.rorty.core.AnimationSet;
+import by.matveev.rorty.core.Event;
 import by.matveev.rorty.core.Light;
 import by.matveev.rorty.utils.ColorUtils;
 import com.badlogic.gdx.Gdx;
@@ -28,7 +29,7 @@ public class Assistant extends AbstractRobot {
     private static final float DEFAULT_FRICTION = 0.9f;
     private final static float MAX_VELOCITY = 1.5f;
     private final Robot robot;
-    private State state = State.CONTROL;
+    private State state = State.FOLLOW;
     private Interaction interaction = Interaction.NONE;
     private Entity interactEntity;
 
@@ -51,6 +52,13 @@ public class Assistant extends AbstractRobot {
             if (interaction == Interaction.BOX) {
                 setInteraction(Interaction.NONE, null);
             }
+        }
+    }
+
+    @Override
+    public void onEvent(Event event) {
+        if (event instanceof Robot.FollowEvent) {
+            setState(State.FOLLOW);
         }
     }
 
@@ -96,7 +104,7 @@ public class Assistant extends AbstractRobot {
     }
 
     private void updateDefaultInteraction() {
-        setSensor(false);
+        setSensor(state != State.CONTROL);
     }
 
     private void setSensor(boolean isSensor) {
