@@ -13,11 +13,7 @@ public class Rorty extends BaseGame {
     public void create() {
         Prefs.init();
 
-//        Screens.set(new MenuScreen());
-Screens.set(new GameScreen("meet"));
-
-
-
+        Screens.set(new MenuScreen());
     }
 
     @Override
