@@ -38,6 +38,7 @@ public class Fan extends Entity {
 
     @Override
     public void draw(Batch batch, OrthographicCamera camera) {
+        batch.setProjectionMatrix(camera.combined);
         batch.draw(Assets.ENV, x, y,
                 centerX, centerY,
                 width, height, 1f, 1f,
@@ -51,7 +52,5 @@ public class Fan extends Entity {
                 160, 0,
                 64, 64,
                 false, false);
-
-
     }
 }

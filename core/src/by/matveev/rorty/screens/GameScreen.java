@@ -7,11 +7,13 @@ import by.matveev.rorty.core.Light;
 import by.matveev.rorty.entities.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.graphics.FPSLogger;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.MapLayer;
+import com.badlogic.gdx.maps.MapObject;
+import com.badlogic.gdx.maps.MapObjects;
+import com.badlogic.gdx.maps.MapProperties;
 import com.badlogic.gdx.maps.objects.RectangleMapObject;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
@@ -19,6 +21,7 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.List;
@@ -46,8 +49,9 @@ public class GameScreen extends AbstractScreen {
 
     private ShapeRenderer debugRenderer;
     private List<Entity> entities;
+    private HintList hints = new HintList();
 
-    private final FPSLogger fps = new FPSLogger();
+    private final Vector3 temp = new Vector3();
 
     public GameScreen(String levelId) {
         this.levelId = levelId;
@@ -58,15 +62,6 @@ public class GameScreen extends AbstractScreen {
         tileMap = new TmxMapLoader().load("maps/" + levelId + ".tmx");
         tileMapBounds = TiledMapUtils.obtainBounds(tileMap);
         tiledMapRenderer = new OrthogonalTiledMapRenderer(tileMap);
-
-        final MapLayer player = tileMap.getLayers().get("player");
-        RectangleMapObject r;
-        if (player != null) {
-            r = (RectangleMapObject) player.getObjects().get(0);
-        } else {
-            r = new RectangleMapObject(200, 200, 0, 0);
-        }
-
         box2dWorld = new World(new Vector2(0f, -9.8f), true);
         box2dWorld.setContactFilter(new ContactFilter() {
             @Override
@@ -86,16 +81,53 @@ public class GameScreen extends AbstractScreen {
 
         debugRenderer = new ShapeRenderer();
 
-        robot = new Robot(box2dWorld, r.getRectangle().x, r.getRectangle().y);
-        robot.toggleActive();
-        addLight(robot.getLight());
-
-        assistant = new Assistant(box2dWorld, robot, r.getRectangle().x, r.getRectangle().y);
-        addLight(assistant.getLight());
 
 
         setupWorld();
         setupLights();
+        setupRobots();
+        setupHints();
+    }
+
+    private void setupHints() {
+        final MapLayer hintsLayer = tileMap.getLayers().get("hints");
+        if (hintsLayer != null) {
+            final MapObjects objects = hintsLayer.getObjects();
+            for (MapObject o : objects) {
+                hints.addHint(o.getProperties().get("text", String.class).replace("\\n", "\n"),
+                        Integer.parseInt(o.getProperties().get("keyCode", String.class)));
+            }
+        }
+    }
+
+    private void setupRobots() {
+        final MapLayer playersLayer = tileMap.getLayers().get("players");
+        if (playersLayer == null) throw new IllegalStateException("could not setup: " + levelId);
+
+        final MapObject robotObject = playersLayer.getObjects().get("robot");
+        if (robotObject instanceof RectangleMapObject) {
+            final Rectangle rect = ((RectangleMapObject) robotObject).getRectangle();
+            robot = new Robot(box2dWorld, rect.x + 148 * 0.5f, rect.y + 148 * 0.5f);
+            robot.toggleActive();
+            addLight(robot.getLight());
+            entities.add(robot);
+        }
+
+        final MapObject assistantObject = playersLayer.getObjects().get("assistant");
+        if (assistantObject instanceof RectangleMapObject) {
+            final Rectangle rect = ((RectangleMapObject) assistantObject).getRectangle();
+            assistant = new Assistant(box2dWorld, robot, rect.x - 80 * 0.5f, rect.y - 80 * 0.5f);
+
+            final MapProperties props = assistantObject.getProperties();
+            final String state = props.get("state", String.class);
+            if (state != null) {
+                assistant.setState(Assistant.State.valueOf(state.toUpperCase()));
+            }
+
+
+            addLight(assistant.getLight());
+            entities.add(assistant);
+        }
     }
 
     private void setupWorld() {
@@ -106,12 +138,6 @@ public class GameScreen extends AbstractScreen {
             addLight(l);
         }
         entities = builder.build();
-    }
-
-    @Override
-    public void render(float delta) {
-        super.render(delta);
-        fps.log();
     }
 
     @Override
@@ -141,9 +167,6 @@ public class GameScreen extends AbstractScreen {
             accumulator -= TIME_STEP;
         }
 
-        robot.update(delta);
-        assistant.update(delta);
-
         for (Entity e : entities) {
             e.update(delta);
         }
@@ -156,18 +179,25 @@ public class GameScreen extends AbstractScreen {
 
         updateCamera(delta);
 
+        hints.update(delta);
+
 
     }
 
     private void switchRobots() {
-        robot.toggleActive();
-        assistant.toggleActive();
+        if (assistant != null) {
+            robot.toggleActive();
+            assistant.toggleActive();
+        }
     }
 
     private void updateCamera(float dt) {
-        final float robotX;
-        final float robotY;
-        if (robot.isActive()) {
+        float robotX;
+        float robotY;
+
+        if (robot == null && assistant == null) return;
+
+        if (robot.isActive() || assistant == null) {
             robotX = Cfg.toPixels(robot.x);
             robotY = Cfg.toPixels(robot.y);
         } else {
@@ -175,7 +205,13 @@ public class GameScreen extends AbstractScreen {
             robotY = Cfg.toPixels(assistant.y);
         }
 
-//        camera.position.set(robotX, robotY, 0f);
+        if (Cfg.FREE_CAMERA) {
+            temp.set(Gdx.input.getX(), Gdx.input.getY(), 0f);
+            camera.unproject(temp);
+
+            robotX = temp.x;
+            robotY = temp.y;
+        }
 
         camera.position.x += (robotX - camera.position.x) * CAMERA_SPEED * dt;
         camera.position.y += (robotY - camera.position.y) * CAMERA_SPEED * dt;
@@ -224,9 +260,6 @@ public class GameScreen extends AbstractScreen {
             e.draw(batch, box2DCamera);
         }
 
-        robot.draw(batch, box2DCamera);
-        assistant.draw(batch, box2DCamera);
-
         batch.end();
     }
 
@@ -240,9 +273,9 @@ public class GameScreen extends AbstractScreen {
             e.postDraw(batch);
         }
 
-        robot.postDraw(batch);
-        assistant.postDraw(batch);
-
+        Assets.font.draw(batch, "level: " + levelId, camera.position.x - 800 / 2 + 25, camera.position.y + 200);
+        Assets.font.draw(batch, "fps: " + Gdx.graphics.getFramesPerSecond(), camera.position.x - 800/2+ 25, camera.position.y + 230);
+        hints.draw(batch, camera.position.x, camera.position.y);
         batch.end();
 
 
@@ -258,6 +291,8 @@ public class GameScreen extends AbstractScreen {
             }
             debugRenderer.end();
         }
+
+
     }
 
 

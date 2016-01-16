@@ -1,6 +1,8 @@
 package by.matveev.rorty;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
@@ -18,6 +20,10 @@ public final class Assets {
     public static final Texture ASSISTANT = new Texture(Gdx.files.internal("assistant.png"));
 
     public static final TextureRegion BACKGROUND = createRegion("background.png");
+
+    static  {
+        ENV.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
+    }
 
     private static TextureRegion createRegion(String name) {
         return createRegion(name, false, false);

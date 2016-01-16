@@ -9,7 +9,7 @@ public abstract class Trigger extends Entity {
     protected Body body;
     private boolean active;
 
-    public Trigger(Body body) {
+    public Trigger(String name, Body body) {
         super("trigger");
         this.body = body;
         this.body.setUserData(this);

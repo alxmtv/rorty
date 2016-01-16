@@ -30,14 +30,14 @@ public class Door extends Entity {
 
     @Override
     public void onContactStart(Entity otherEntity) {
-        if (otherEntity instanceof AbstractRobot) {
+        if (otherEntity instanceof Robot && ((Robot) otherEntity).isFree()) {
             this.contacted = true;
         }
     }
 
     @Override
     public void onContactEnd(Entity otherEntity) {
-        if (otherEntity instanceof AbstractRobot) {
+        if (otherEntity instanceof Robot) {
             this.contacted = false;
         }
     }

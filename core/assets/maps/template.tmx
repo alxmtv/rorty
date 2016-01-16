@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="14" tilewidth="64" tileheight="64" nextobjectid="11">
+ <tileset firstgid="1" name="tiles" tilewidth="64" tileheight="64" tilecount="128" columns="16">
+  <image source="../tiles.png" width="1024" height="512"/>
+ </tileset>
+ <layer name="background" width="20" height="14" opacity="0.5">
+  <data encoding="base64" compression="zlib">
+   eJxjZGBgYBzFo3gUj2IaYABrLgEZ
+  </data>
+ </layer>
+ <objectgroup name="obstacles">
+  <object id="2" x="560" y="1200"/>
+ </objectgroup>
+ <objectgroup name="boxes"/>
+ <objectgroup name="players"/>
+ <objectgroup name="switches"/>
+ <objectgroup name="sensors"/>
+ <objectgroup name="elevators"/>
+ <objectgroup name="gates"/>
+</map>

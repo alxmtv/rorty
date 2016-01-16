@@ -2,6 +2,7 @@ package by.matveev.rorty;
 
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.GlyphLayout;
+import com.badlogic.gdx.utils.Align;
 
 public class Text {
     public String text;
@@ -13,7 +14,9 @@ public class Text {
     }
 
     public Text(String text) {
-        setText(text);
+        if (this.text == null || !this.text.equals(text)) {
+            setText(text);
+        }
     }
 
     public Text setVisible(boolean visible) {
@@ -39,7 +42,7 @@ public class Text {
 
     public void draw(Batch batch, float x, float y) {
         if (visible && text != null) {
-            Assets.font.draw(batch, text, x - (textWidth * 0.5f), y);
+            Assets.font.draw(batch, text, x - (textWidth * 0.5f), y,textWidth, Align.center, false);
         }
     }
 }

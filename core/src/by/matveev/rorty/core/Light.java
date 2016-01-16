@@ -40,6 +40,7 @@ public class Light {
     public float width;
     public float height;
     public boolean disabled;
+    public String name;
 
     public Light(Type type, Color color) {
         this.type = type;
@@ -54,6 +55,6 @@ public class Light {
     }
 
     public void update(float delta) {
-
+        // do nothing
     }
 }

@@ -6,13 +6,11 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.maps.*;
 import com.badlogic.gdx.maps.objects.*;
 import com.badlogic.gdx.math.Circle;
-import com.badlogic.gdx.math.Ellipse;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 
 import java.util.ArrayList;
-import java.util.IllegalFormatException;
 import java.util.List;
 
 import static by.matveev.rorty.utils.ColorUtils.colorFrom;
@@ -150,11 +148,25 @@ public class WorldBuilder {
                 final Rectangle rect = ((RectangleMapObject) object).getRectangle();
                 final MapProperties props = object.getProperties();
 
-                final Gate gate = new Gate(props.get("name", String.class), world, rect.x, rect.y);
-                final String openProperty = props.get("open", String.class);
-                gate.setInitialState(openProperty != null && Boolean.parseBoolean(openProperty));
 
-                entities.add(gate);
+                final String orientation = props.get("orientation",String.class);
+                if ("vertical".equals(orientation)) {
+                    final VGate gate = new VGate(props.get("name", String.class),
+                            world, rect.x, rect.y);
+                    final String openProperty = props.get("open", String.class);
+                    gate.setInitialState(openProperty != null && Boolean.parseBoolean(openProperty));
+                    entities.add(gate);
+                } else if ("horizontal".equals(orientation)) {
+                    final HGate gate = new HGate(props.get("name", String.class),
+                            world, rect.x, rect.y);
+                    final String openProperty = props.get("open", String.class);
+                    gate.setInitialState(openProperty != null && Boolean.parseBoolean(openProperty));
+                    entities.add(gate);
+                }
+
+
+
+
             }
         }
     }
@@ -311,8 +323,8 @@ public class WorldBuilder {
                 final float x = Cfg.toMeters(rect.getX());
                 final float y = Cfg.toMeters(rect.getY());
 
-                final float w = Cfg.toMeters(128);
-                final float h = Cfg.toMeters(128);
+                final float w = Cfg.toMeters(110);
+                final float h = Cfg.toMeters(110);
 
                 final float hw = w * 0.5f;
                 final float hh = h * 0.5f;
@@ -425,7 +437,7 @@ public class WorldBuilder {
                 String direction = props.get("direction", String.class);
                 String[] coord = direction.split(",");
 
-                entities.add(new Elevator(props.get("id", String.class),
+                entities.add(new Elevator(props.get("name", String.class),
                         body, new Vector2(Float.parseFloat(coord[0]), Float.parseFloat(coord[1])),
                         Float.parseFloat(props.get("maxDistance", String.class))));
 
@@ -514,6 +526,7 @@ public class WorldBuilder {
                 light.y = bounds.y - height * 0.5f;
                 light.width = width;
                 light.height = height;
+                light.name = object.getName();
 
                 final String openProperty = lightProperties.get("disabled", String.class);
                 light.disabled = openProperty != null && Boolean.parseBoolean(openProperty);

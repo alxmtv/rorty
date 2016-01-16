@@ -1,152 +1,156 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="64" tileheight="64" nextobjectid="64">
- <tileset firstgid="1" name="tiles" tilewidth="64" tileheight="64" tilecount="64">
-  <image source="../tiles.png" width="1024" height="256"/>
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="10" tilewidth="64" tileheight="64" nextobjectid="96">
+ <tileset firstgid="1" name="tiles" tilewidth="64" tileheight="64" tilecount="128" columns="16">
+  <image source="../tiles.png" width="1024" height="512"/>
  </tileset>
- <layer name="background" width="15" height="10" opacity="0.5">
+ <layer name="background" width="25" height="10" opacity="0.5">
   <data encoding="base64">
-   AQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAA
+   AQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAEQAAABEAAAARAAAAEQAAABEAAAAhAAAAIQAAACEAAAAhAAAAIQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAABEAAAARAAAAEQAAABEAAAARAAAAIQAAACEAAAAhAAAAIQAAACEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAARAAAAEQAAABEAAAARAAAAEQAAACEAAAAhAAAAIQAAACEAAAAhAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAEQAAABEAAAARAAAAEQAAABEAAAAhAAAAIQAAACEAAAAhAAAAIQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAABEAAAARAAAAEQAAABEAAAARAAAAIQAAACEAAAAhAAAAIQAAACEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAARAAAAEQAAABEAAAARAAAAEQAAACEAAAAhAAAAIQAAACEAAAAhAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAEQAAABEAAAARAAAAEQAAABEAAAAhAAAAIQAAACEAAAAhAAAAIQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAABEAAAARAAAAEQAAABEAAAARAAAAIQAAACEAAAAhAAAAIQAAACEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAARAAAAEQAAABEAAAARAAAAEQAAACEAAAAhAAAAIQAAACEAAAAhAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAEQAAABEAAAARAAAAEQAAABEAAAAhAAAAIQAAACEAAAAhAAAAIQAAAA==
   </data>
  </layer>
- <layer name="floor2" width="15" height="10">
+ <layer name="floor" width="25" height="10">
   <data encoding="base64">
-   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAABQAAAAVAAAABAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAVAAAAFAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+   NAAAAAQAAAAUAAAAFQAAAAQAAAAEAAAABAAAAAQAAAAUAAAAAwAAABUAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAAAAAAAAQAAAAEAAAANQAAADIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAIAAAAOgAAADoAAAA5AAAAOAAAADgAAAA5AAAAOQAAADgAAAA7AAAAPAAAAAAAAAAAAAAAAAAAADsAAAA5AAAAOQAAADkAAAA5AAAAOAAAAAAAAAAAAAAAAAAAADgAAAA4AAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASwAAAAAAAAAAAAAAAAAAAAAAAABLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAJgAAAAUAAAAFAAAANgAAAAAAAAA2AAAABQAAAAUAAAA2AAAAGAAAABgAAAAFAAAAAAAAAAUAAAAYAAAAGAAAAAUAAAA2AAAANgAAABgAAAAFAAAAAAAAAAUAAAAYAAAAJQAAAA==
   </data>
  </layer>
- <layer name="floor" width="15" height="10">
+ <layer name="env" width="25" height="10">
   <data encoding="base64">
-   NAAAAAQAAAAUAAAAFQAAAAQAAAAEAAAABAAAAAQAAAAUAAAAFQAAABQAAAAEAAAABAAAAAQAAAA1AAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAJgAAAAUAAAAFAAAABQAAABgAAAAYAAAABQAAAAUAAAAFAAAAGAAAABgAAAAFAAAABQAAAAUAAAAlAAAA
+   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFgAAAAAAAAAAAAAAAAAAAA==
   </data>
  </layer>
- <layer name="env" width="15" height="10">
-  <data encoding="base64">
-   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
-  </data>
- </layer>
- <objectgroup name="obstacles" visible="0">
+ <objectgroup name="obstacles">
   <object id="1" x="2" y="-2" width="26" height="640"/>
-  <object id="2" x="930" y="2" width="26" height="640"/>
-  <object id="3" x="2" y="4" width="956" height="22"/>
-  <object id="5" x="4" y="612" width="952" height="28"/>
-  <object id="20" x="28" y="324" width="353.333" height="28"/>
-  <object id="21" x="578.667" y="324" width="353.333" height="28"/>
+  <object id="2" x="1568" y="0" width="26" height="640"/>
+  <object id="3" x="2" y="4" width="1566" height="22"/>
+  <object id="5" x="4" y="612" width="1596" height="28"/>
+  <object id="66" x="28" y="340" width="673.333" height="30.6667"/>
+  <object id="93" x="896" y="336" width="673.333" height="30.6667"/>
  </objectgroup>
- <objectgroup name="elevators" visible="0">
-  <object id="7" x="419" y="613" width="128" height="48">
+ <objectgroup name="elevators">
+  <object id="7" x="736" y="613.333" width="128" height="48">
    <properties>
     <property name="direction" value="0,1"/>
     <property name="id" value="e1"/>
-    <property name="maxDistance" value="3"/>
+    <property name="maxDistance" value="2.8"/>
+   </properties>
+  </object>
+  <object id="94" x="880" y="336" width="128" height="48">
+   <properties>
+    <property name="direction" value="0,1"/>
+    <property name="id" value="e2"/>
+    <property name="maxDistance" value="2.8"/>
+   </properties>
+  </object>
+  <object id="95" x="1312" y="608" width="128" height="48">
+   <properties>
+    <property name="direction" value="0,1"/>
+    <property name="id" value="e1"/>
+    <property name="maxDistance" value="2.8"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="fans" visible="0">
-  <properties>
-   <property name="target" value="e1"/>
-  </properties>
-  <object id="8" x="90" y="392" width="64" height="64"/>
-  <object id="17" x="220" y="392" width="64" height="64"/>
- </objectgroup>
- <objectgroup color="#9ca0a4" name="terminals">
-  <object id="18" name="terminal" x="698.667" y="445.333" width="128" height="128">
-   <properties>
-    <property name="id" value="t1"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup name="lights" visible="0">
-  <object id="28" x="632" y="378.667" width="246.667" height="246.667">
-   <properties>
-    <property name="alpha" value="0.6"/>
-    <property name="color" value="0xffffffff"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="40" x="20" y="-57.3333" width="498.667" height="400">
-   <properties>
-    <property name="alpha" value="0.4"/>
-    <property name="color" value="0xff4DD0E1"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="41" x="430.667" y="-60" width="400" height="400">
-   <properties>
-    <property name="alpha" value="0.4"/>
-    <property name="color" value="0xff4DD0E1"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="42" x="704" y="-60" width="400" height="400">
-   <properties>
-    <property name="alpha" value="0.4"/>
-    <property name="color" value="0xff4DD0E1"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="43" x="188" y="285.333" width="400" height="400">
-   <properties>
-    <property name="alpha" value="0.4"/>
-    <property name="color" value="0xff4DD0E1"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="44" x="429.333" y="285.333" width="400" height="400">
-   <properties>
-    <property name="alpha" value="0.4"/>
-    <property name="color" value="0xff4DD0E1"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="45" x="-57.3333" y="296" width="400" height="400">
-   <properties>
-    <property name="alpha" value="0.4"/>
-    <property name="color" value="0xff4DD0E1"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="46" x="702.667" y="286.667" width="400" height="400">
-   <properties>
-    <property name="alpha" value="0.4"/>
-    <property name="color" value="0xff4DD0E1"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="49" x="350.667" y="-26.6667" width="268" height="273.333">
-   <properties>
-    <property name="alpha" value="0.4"/>
-    <property name="color" value="0xff4DD0E1"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="50" x="350.667" y="177.333" width="268" height="273.333">
-   <properties>
-    <property name="alpha" value="0.4"/>
-    <property name="color" value="0xff4DD0E1"/>
-   </properties>
-   <ellipse/>
-  </object>
-  <object id="52" x="348" y="396" width="268" height="273.333">
-   <properties>
-    <property name="alpha" value="0.4"/>
-    <property name="color" value="0xff4DD0E1"/>
-   </properties>
-   <ellipse/>
-  </object>
- </objectgroup>
- <objectgroup name="boxes"/>
  <objectgroup name="switches">
-  <object id="54" x="317.333" y="192" width="64" height="64">
+  <object id="54" x="640" y="192" width="64" height="64">
    <properties>
-    <property name="name" value="s1"/>
+    <property name="enabled" value="true"/>
+    <property name="name" value="switch1"/>
     <property name="target" value="e1"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="gates"/>
- <objectgroup name="sensors"/>
- <objectgroup name="doors"/>
+ <objectgroup name="doors">
+  <object id="68" x="64" y="146.667" width="128" height="192">
+   <properties>
+    <property name="levelId" value="2"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="lights" visible="0">
+  <object id="73" name="light_soft" x="518.667" y="153.333" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.05"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="700"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="700"/>
+   </properties>
+  </object>
+  <object id="74" name="light_soft" x="134.667" y="153.333" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.05"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="700"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="700"/>
+   </properties>
+  </object>
+  <object id="75" name="light_soft" x="326.667" y="153.333" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.05"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="700"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="700"/>
+   </properties>
+  </object>
+  <object id="76" name="light_triangle" x="786" y="65" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.25"/>
+    <property name="color" value="0xffffffff"/>
+    <property name="height" value="1000"/>
+    <property name="type" value="triangle"/>
+    <property name="width" value="400"/>
+   </properties>
+  </object>
+  <object id="77" name="light_soft" x="319.667" y="446.333" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.05"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="500"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="500"/>
+   </properties>
+  </object>
+  <object id="78" name="light_soft" x="127.667" y="446.333" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.05"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="500"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="500"/>
+   </properties>
+  </object>
+  <object id="79" name="light_soft" x="511.667" y="446.333" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.05"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="500"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="500"/>
+   </properties>
+  </object>
+ </objectgroup>
  <objectgroup name="players">
-  <object id="60" name="robot" x="256" y="448" width="64" height="64"/>
-  <object id="62" name="assistant" x="192" y="384" width="64" height="64"/>
+  <object id="80" name="robot" x="128" y="542" width="64" height="64"/>
+  <object id="90" name="assistant" x="64" y="448" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup name="fans" visible="0">
+  <object id="81" x="320" y="64" width="64" height="64"/>
+  <object id="83" x="576" y="64" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup name="boxes">
+  <object id="87" x="1440" y="480" width="128" height="128">
+   <properties>
+    <property name="enabled" value="true"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="sensors">
+  <object id="89" x="256" y="608" width="64" height="32">
+   <properties>
+    <property name="id" value="s1"/>
+    <property name="target" value="switch1"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
