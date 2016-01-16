@@ -112,12 +112,6 @@ public class VGate extends Entity {
 
     @Override
     public void update(float dt) {
-        // remove it...
-        if (Gdx.input.isKeyJustPressed(Input.Keys.TAB)) {
-            isOpen = !isOpen;
-        }
-
-
         for (Light l : lights) {
             l.color = isOpen ? GREEN : RED;
         }

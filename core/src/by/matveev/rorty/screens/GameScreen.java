@@ -97,8 +97,6 @@ public class GameScreen extends AbstractScreen {
             robot = new Robot(box2dWorld, rect.x + 148 * 0.5f, rect.y + 148 * 0.5f);
             robot.toggleActive();
             addLight(robot.getLight());
-        } else {
-            throw new IllegalStateException("could not lookup robot");
         }
 
         final MapObject assistantObject = playersLayer.getObjects().get("assistant");
@@ -146,7 +144,9 @@ public class GameScreen extends AbstractScreen {
             accumulator -= TIME_STEP;
         }
 
-        robot.update(delta);
+        if (robot != null) {
+            robot.update(delta);
+        }
         if (assistant != null) {
             assistant.update(delta);
         }
@@ -176,6 +176,9 @@ public class GameScreen extends AbstractScreen {
     private void updateCamera(float dt) {
         float robotX;
         float robotY;
+
+        if (robot == null && assistant == null) return;
+
         if (robot.isActive() || assistant == null) {
             robotX = Cfg.toPixels(robot.x);
             robotY = Cfg.toPixels(robot.y);
@@ -242,7 +245,10 @@ public class GameScreen extends AbstractScreen {
             e.draw(batch, box2DCamera);
         }
 
-        robot.draw(batch, box2DCamera);
+        if (robot != null) {
+            robot.draw(batch, box2DCamera);
+        }
+
         if (assistant != null) {
             assistant.draw(batch, box2DCamera);
         }
@@ -260,7 +266,9 @@ public class GameScreen extends AbstractScreen {
             e.postDraw(batch);
         }
 
-        robot.postDraw(batch);
+        if (robot != null) {
+            robot.postDraw(batch);
+        }
         if (assistant != null) {
             assistant.postDraw(batch);
         }

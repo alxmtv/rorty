@@ -29,8 +29,8 @@
   <object id="7" x="736" y="613.333" width="128" height="48">
    <properties>
     <property name="direction" value="0,1"/>
-    <property name="id" value="e1"/>
     <property name="maxDistance" value="2.8"/>
+    <property name="name" value="e1"/>
    </properties>
   </object>
  </objectgroup>

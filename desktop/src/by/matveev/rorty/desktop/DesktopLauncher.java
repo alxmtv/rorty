@@ -11,7 +11,7 @@ public class DesktopLauncher {
         final LwjglApplicationConfiguration config = new LwjglApplicationConfiguration();
         config.width = Cfg.WIDTH;
         config.height = Cfg.HEIGHT;
-        config.resizable = true;
+        config.resizable = false;
         new LwjglApplication(new Rorty(), config);
     }
 }

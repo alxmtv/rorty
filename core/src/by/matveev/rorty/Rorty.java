@@ -5,6 +5,7 @@ import by.matveev.rorty.core.Screens;
 import by.matveev.rorty.screens.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.Screen;
 
 public class Rorty extends BaseGame {
 
@@ -12,7 +13,11 @@ public class Rorty extends BaseGame {
     public void create() {
         Prefs.init();
 
-        Screens.set(new GameScreen(Prefs.getString(Prefs.KEY_LEVEL, "6")));
+        Screens.set(new MenuScreen());
+
+
+
+
     }
 
     @Override

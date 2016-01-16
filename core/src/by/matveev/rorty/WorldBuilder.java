@@ -526,6 +526,7 @@ public class WorldBuilder {
                 light.y = bounds.y - height * 0.5f;
                 light.width = width;
                 light.height = height;
+                light.name = object.getName();
 
                 final String openProperty = lightProperties.get("disabled", String.class);
                 light.disabled = openProperty != null && Boolean.parseBoolean(openProperty);
