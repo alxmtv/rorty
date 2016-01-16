@@ -57,6 +57,7 @@ public class Assistant extends AbstractRobot {
 
         animSet.update(delta);
 
+
         switch (state) {
             case FOLLOW:
                 updateFollowState();

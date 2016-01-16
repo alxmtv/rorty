@@ -30,15 +30,15 @@ public class WorldBuilder {
         final List<Entity> entities = new ArrayList<>();
 
         buildObstacles();
+        buildDoors(entities);
+        buildSwitches(entities);
         buildBoxes(entities);
         buildElevators(entities);
         buildTriggers(entities);
         buildFans(entities);
         buildTerminals(entities);
-        buildSwitches(entities);
         buildGates(entities);
         buildSensors(entities);
-        buildDoors(entities);
 
         return entities;
     }

@@ -1,12 +1,23 @@
 package by.matveev.rorty.entities;
 
+import by.matveev.rorty.Assets;
 import by.matveev.rorty.Cfg;
 import by.matveev.rorty.Rorty;
 import by.matveev.rorty.Text;
+import by.matveev.rorty.core.Light;
+import by.matveev.rorty.utils.ColorUtils;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+import static by.matveev.rorty.Cfg.toMeters;
 
 public class Door extends Entity {
 
@@ -40,6 +51,32 @@ public class Door extends Entity {
         if (otherEntity instanceof Robot) {
             this.contacted = false;
         }
+    }
+    public void draw(Batch batch, OrthographicCamera camera) {
+        batch.setProjectionMatrix(camera.combined);
+        batch.draw(Assets.ENV, x , y, width, height, 512, 0, 128, 192, false, false);
+    }
+
+    @Override
+    public List<Light> createLights() {
+        final Color greenColor = ColorUtils.colorFrom(0xff81C784);
+        greenColor.a = 0.1f;
+
+        final List<Light> lights = new ArrayList<>();
+
+        Light light = new Light(Light.Type.SOFT, greenColor);
+        light.x = Cfg.toPixels(body.getPosition().x) - 256 / 2;
+        light.y = Cfg.toPixels(body.getPosition().y) - 256 / 2;
+        light.width = light.height = 256;
+        lights.add(light);
+
+        light = new Light(Light.Type.SOFT, greenColor);
+        light.x = Cfg.toPixels(body.getPosition().x) - 128 / 2;
+        light.y = Cfg.toPixels(body.getPosition().y) ;
+        light.width = light.height = 128;
+        lights.add(light);
+
+        return lights;
     }
 
     @Override
