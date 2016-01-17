@@ -24,11 +24,11 @@ public final class Assets {
 
 
     private static final Sound MOVE = Gdx.audio.newSound(Gdx.files.internal("sounds/robot_move2.mp3"));
-    private static final Sound ELEVATOR = Gdx.audio.newSound(Gdx.files.internal("sounds/elevator.wav"));
+    private static final Sound ELEVATOR = Gdx.audio.newSound(Gdx.files.internal("sounds/elevator.ogg"));
     private static final Sound GATE = Gdx.audio.newSound(Gdx.files.internal("sounds/gate.mp3"));
     private static final Sound SENSOR = Gdx.audio.newSound(Gdx.files.internal("sounds/sensor.mp3"));
     private static final Sound SWITCH = Gdx.audio.newSound(Gdx.files.internal("sounds/switch.mp3"));
-    private static final Music AMBIENT = Gdx.audio.newMusic(Gdx.files.internal("sounds/intro.wav"));
+    private static final Music AMBIENT = Gdx.audio.newMusic(Gdx.files.internal("sounds/intro.ogg"));
 
 
     public static final TextureRegion BACKGROUND = createRegion("background.png");
@@ -102,6 +102,7 @@ public final class Assets {
     }
 
     public static void platBackgroundMusic() {
+        System.out.println(1);
         AMBIENT.setLooping(true);
         AMBIENT.setVolume(0.3f);
         AMBIENT.play();
