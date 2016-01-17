@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="64" tileheight="64" nextobjectid="83">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="64" tileheight="64" nextobjectid="87">
  <tileset firstgid="1" name="tiles" tilewidth="64" tileheight="64" tilecount="128" columns="16">
   <image source="../tiles.png" width="1024" height="512"/>
  </tileset>
@@ -31,12 +31,12 @@
   <object id="20" x="28" y="324" width="353.333" height="28"/>
   <object id="21" x="578.667" y="324" width="353.333" height="28"/>
  </objectgroup>
- <objectgroup name="elevators" visible="0">
+ <objectgroup name="elevators">
   <object id="7" x="419" y="613" width="128" height="48">
    <properties>
     <property name="direction" value="0,1"/>
-    <property name="id" value="e1"/>
     <property name="maxDistance" value="3"/>
+    <property name="name" value="e1"/>
    </properties>
   </object>
  </objectgroup>
@@ -61,19 +61,11 @@
   <object id="64" x="799" y="479.333" width="128" height="128"/>
   <object id="65" x="799" y="351.333" width="128" height="128"/>
  </objectgroup>
- <objectgroup name="switches" visible="0">
+ <objectgroup name="switches">
   <object id="54" name="switch" x="317.333" y="192" width="64" height="64">
    <properties>
     <property name="name" value="s1"/>
     <property name="target" value="e1"/>
-   </properties>
-  </object>
- </objectgroup>
- <objectgroup name="gates">
-  <object id="55" name="gate" x="384" y="321.333" width="192" height="32">
-   <properties>
-    <property name="name" value="g1"/>
-    <property name="open" value="false"/>
    </properties>
   </object>
  </objectgroup>
@@ -87,7 +79,7 @@
  <objectgroup name="doors">
   <object id="58" name="door" x="765" y="125" width="128" height="192">
    <properties>
-    <property name="levelId" value="1"/>
+    <property name="levelId" value="5"/>
    </properties>
   </object>
  </objectgroup>
@@ -173,5 +165,9 @@
     <property name="width" value="500"/>
    </properties>
   </object>
+ </objectgroup>
+ <objectgroup name="players">
+  <object id="85" name="robot" x="128" y="512" width="64" height="64"/>
+  <object id="86" name="assistant" x="64" y="448" width="64" height="64"/>
  </objectgroup>
 </map>
