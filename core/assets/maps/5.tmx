@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="10" tilewidth="64" tileheight="64" nextobjectid="99">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="25" height="10" tilewidth="64" tileheight="64" nextobjectid="110">
  <tileset firstgid="1" name="tiles" tilewidth="64" tileheight="64" tilecount="128" columns="16">
   <image source="../tiles.png" width="1024" height="512"/>
  </tileset>
@@ -10,7 +10,7 @@
  </layer>
  <layer name="floor" width="25" height="10">
   <data encoding="base64">
-   NAAAAAQAAAAUAAAAFQAAAAQAAAAEAAAABAAAAAQAAAAUAAAAAwAAABUAAAAEAAAAAAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAAAAAAAAQAAAAEAAAANQAAADIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMAAAAyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMwAAADIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMAAAAIAAAAOgAAADoAAAA5AAAAOAAAADgAAAA5AAAAAAAAADkAAAA7AAAAPAAAAAAAAAAAAAAAAAAAADsAAAA5AAAAOQAAADkAAAA5AAAAOAAAAAAAAAAAAAAAAAAAADgAAAAJAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASwAAAAAAAAAAAAAAAAAAAAAAAABLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMwAAADIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMAAAAyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAJgAAAAUAAAAFAAAANgAAAAAAAAA2AAAABQAAAAUAAAA2AAAAGAAAABgAAAAFAAAAAAAAAAUAAAAYAAAAGAAAAAUAAAA2AAAANgAAABgAAAAFAAAAAAAAAAUAAAAYAAAAJQAAAA==
+   NAAAAAQAAAAUAAAAFQAAAAQAAAAEAAAABAAAAEEAAAAUAAAAAwAAABUAAAAEAAAAAAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAAAAAAAAQAAAAEAAAANQAAADIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABBAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMAAAAyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMwAAADIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMAAAAIAAAAOgAAADoAAAA5AAAAOAAAADgAAAA5AAAAAAAAADkAAAA7AAAAPAAAAAAAAAAAAAAAAAAAADsAAAA5AAAAOQAAADkAAAA5AAAAOAAAAAAAAAAAAAAAAAAAADgAAAAJAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASwAAAAAAAAAAAAAAAAAAAAAAAABLAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMwAAADIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADMAAAAyAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAJgAAAAUAAAAFAAAANgAAAAAAAAA2AAAABQAAAAUAAAA2AAAAGAAAABgAAAAFAAAAAAAAAAUAAAAYAAAAGAAAAAUAAAA2AAAANgAAABgAAAAFAAAAAAAAAAUAAAAYAAAAJQAAAA==
   </data>
  </layer>
  <layer name="env" width="25" height="10">
@@ -26,6 +26,7 @@
   <object id="66" x="28" y="345" width="673.333" height="30.6667"/>
   <object id="93" x="895.333" y="345" width="383" height="30.6667"/>
   <object id="98" x="1470.67" y="345" width="98.6667" height="30.6667"/>
+  <object id="109" x="448" y="0" width="64" height="128"/>
  </objectgroup>
  <objectgroup name="elevators">
   <object id="7" x="736" y="613.333" width="128" height="48">
@@ -130,14 +131,80 @@
     <property name="width" value="500"/>
    </properties>
   </object>
+  <object id="99" name="light_triangle" x="1360" y="64" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.25"/>
+    <property name="color" value="0xffffffff"/>
+    <property name="height" value="1000"/>
+    <property name="type" value="triangle"/>
+    <property name="width" value="400"/>
+   </properties>
+  </object>
+  <object id="100" name="light_soft" x="1152" y="448" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.05"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="500"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="500"/>
+   </properties>
+  </object>
+  <object id="101" name="light_soft" x="1344" y="448" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.05"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="500"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="500"/>
+   </properties>
+  </object>
+  <object id="102" name="light_soft" x="960" y="448" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.05"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="500"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="500"/>
+   </properties>
+  </object>
+  <object id="103" name="light_soft" x="896" y="160" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.05"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="700"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="700"/>
+   </properties>
+  </object>
+  <object id="104" name="light_soft" x="1088" y="160" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.05"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="700"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="700"/>
+   </properties>
+  </object>
+  <object id="105" name="light_soft" x="1280" y="160" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.05"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="700"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="700"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup name="players">
   <object id="80" name="robot" x="128" y="542" width="64" height="64"/>
   <object id="90" name="assistant" x="64" y="448" width="64" height="64"/>
  </objectgroup>
- <objectgroup name="fans" visible="0">
+ <objectgroup name="fans">
   <object id="81" x="320" y="64" width="64" height="64"/>
   <object id="83" x="576" y="64" width="64" height="64"/>
+  <object id="106" x="1216" y="64" width="64" height="64"/>
+  <object id="107" x="1088" y="64" width="64" height="64"/>
+  <object id="108" x="960" y="64" width="64" height="64"/>
  </objectgroup>
  <objectgroup name="boxes">
   <object id="87" x="1022" y="484" width="128" height="128">
