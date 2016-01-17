@@ -64,7 +64,6 @@ public class Switch extends Entity {
 
     @Override
     public void onContactStart(Entity otherEntity) {
-        System.out.println(otherEntity);
         if (otherEntity instanceof AbstractRobot && ((AbstractRobot) otherEntity).isActive()) {
             this.otherEntity = otherEntity;
             this.contacted = true;

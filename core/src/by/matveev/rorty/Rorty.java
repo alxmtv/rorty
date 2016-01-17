@@ -29,7 +29,7 @@ public class Rorty extends BaseGame {
         super.render();
 
 
-        // checkDebugTools();
+//         checkDebugTools();
     }
 
     private void checkDebugTools() {
@@ -63,7 +63,11 @@ public class Rorty extends BaseGame {
     }
 
     public static void replaceLevel(String levelId) {
-        currentLevelId = levelId;
-        Screens.replace(new GameScreen(levelId));
+        if ("complete".equals(levelId)) {
+            Screens.replace(new MenuScreen());
+        } else {
+            currentLevelId = levelId;
+            Screens.replace(new GameScreen(levelId));
+        }
     }
 }

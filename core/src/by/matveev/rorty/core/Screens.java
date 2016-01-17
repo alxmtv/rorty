@@ -68,7 +68,7 @@ public final class Screens {
             oldScreen.dispose();
 
             stack.add(0, screen);
-            show(screen);
+            show(screen, true);
         }
     }
 
@@ -79,7 +79,7 @@ public final class Screens {
         }
         stack.push(screen);
 
-        show(screen);
+        show(screen, true);
     }
 
     public static void pop() {
@@ -89,7 +89,7 @@ public final class Screens {
             oldScreen.dispose();
 
             if (hasScreens()) {
-                show(stack.peek());
+                show(stack.peek(), false);
             }
         }
     }
@@ -111,9 +111,11 @@ public final class Screens {
         return !stack.isEmpty();
     }
 
-    private static void show(Screen screen) {
-        screen.show();
-        screen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+    private static void show(Screen screen, boolean first) {
+        if (first) {
+            screen.show();
+            screen.resize(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        }
     }
 
 }

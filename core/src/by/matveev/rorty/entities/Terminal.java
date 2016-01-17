@@ -3,6 +3,8 @@ package by.matveev.rorty.entities;
 import by.matveev.rorty.Assets;
 import by.matveev.rorty.Cfg;
 import by.matveev.rorty.Text;
+import by.matveev.rorty.core.Screens;
+import by.matveev.rorty.screens.TerminalScreen;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
@@ -16,10 +18,17 @@ public class Terminal extends Entity {
     int sheetY = 320;
     private boolean active;
     private Text text;
-    public Terminal(String id, Body body) {
+
+    public enum Type {
+        GOAL, COMPLETE
+    }
+    public Type type;
+
+    public Terminal(String id,String type, Body body) {
         super(id);
         this.body = body;
         this.body.setUserData(this);
+        this.type = Type.valueOf(type.toUpperCase());
         this.x =  body.getPosition().x;
         this.y =  body.getPosition().y;
         this.width = Cfg.toMeters(96);
@@ -38,7 +47,7 @@ public class Terminal extends Entity {
         }
 
         if (active && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            // do nothing
+            Screens.push(new TerminalScreen(type));
         }
     }
 
@@ -82,8 +91,8 @@ public class Terminal extends Entity {
 
     @Override
     public void postDraw(Batch batch, OrthographicCamera camera) {
-//        if (active) {
-//            text.draw(batch, Cfg.toPixels(x), Cfg.toPixels(y + height * 0.8f));
-//        }
+        if (active) {
+            text.draw(batch, Cfg.toPixels(x), Cfg.toPixels(y + height * 0.8f));
+        }
     }
 }

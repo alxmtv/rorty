@@ -149,7 +149,7 @@ public class WorldBuilder {
                 final MapProperties props = object.getProperties();
 
 
-                final String orientation = props.get("orientation",String.class);
+                final String orientation = props.get("orientation", String.class);
                 if ("vertical".equals(orientation)) {
                     final VGate gate = new VGate(props.get("name", String.class),
                             world, rect.x, rect.y);
@@ -163,8 +163,6 @@ public class WorldBuilder {
                     gate.setInitialState(openProperty != null && Boolean.parseBoolean(openProperty));
                     entities.add(gate);
                 }
-
-
 
 
             }
@@ -268,8 +266,8 @@ public class WorldBuilder {
                 shape.dispose();
 
                 final MapProperties props = object.getProperties();
-                final String id = props.get("id", String.class);
-                entities.add(new Terminal(id, body));
+                final String type = props.get("type", String.class);
+                entities.add(new Terminal("terminal", type, body));
 
             }
 
@@ -525,7 +523,7 @@ public class WorldBuilder {
 
                 final Rectangle bounds = lightObject.getRectangle();
                 final Light light = new Light(type, color);
-                light.x =  bounds.x - width * 0.5f;
+                light.x = bounds.x - width * 0.5f;
                 light.y = bounds.y - height * 0.5f;
                 light.width = width;
                 light.height = height;

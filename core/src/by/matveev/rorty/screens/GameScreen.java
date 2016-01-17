@@ -305,8 +305,8 @@ public class GameScreen extends AbstractScreen {
             e.postDraw(batch, camera);
         }
 
-        Assets.font.draw(batch, "level: " + levelId, camera.position.x - 800 / 2 + 25, camera.position.y + 200);
-        Assets.font.draw(batch, "fps: " + Gdx.graphics.getFramesPerSecond(), camera.position.x - 800/2+ 25, camera.position.y + 230);
+//        Assets.font.draw(batch, "level: " + levelId, camera.position.x - 800 / 2 + 25, camera.position.y + 200);
+//        Assets.font.draw(batch, "fps: " + Gdx.graphics.getFramesPerSecond(), camera.position.x - 800/2+ 25, camera.position.y + 230);
         hints.draw(batch, camera.position.x, camera.position.y);
         batch.end();
 
