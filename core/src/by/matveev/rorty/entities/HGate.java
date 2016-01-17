@@ -94,6 +94,8 @@ public class HGate extends Entity {
             } else {
                 isOpen = active;
             }
+
+            Assets.GATE.play();
         }
     }
 

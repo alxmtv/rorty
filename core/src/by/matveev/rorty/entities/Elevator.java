@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
 
-public class Elevator extends Entity{
+public class Elevator extends Entity {
 
     private final Body body;
 
@@ -18,8 +18,9 @@ public class Elevator extends Entity{
     private float distance;
     private float maxDistance;
     private boolean active;
+    private boolean isSoundPlaying;
 
-    public Elevator(final String id, Body body,Vector2 direction, float maxDistance) {
+    public Elevator(final String id, Body body, Vector2 direction, float maxDistance) {
         super(id);
         this.body = body;
         this.maxDistance = maxDistance;
@@ -35,6 +36,10 @@ public class Elevator extends Entity{
 
     public void update(float delta) {
         if (active) {
+            if (!isSoundPlaying) {
+                Assets.ELEVATOR.play();
+                isSoundPlaying = true;
+            }
             distance += direction.len() * delta;
             if (distance > maxDistance) {
                 direction.scl(-1f);
@@ -44,6 +49,10 @@ public class Elevator extends Entity{
             }
             body.setLinearVelocity(direction);
         } else {
+            if (isSoundPlaying) {
+                Assets.ELEVATOR.stop();
+                isSoundPlaying = false;
+            }
             body.setLinearVelocity(Vector2.Zero);
         }
     }

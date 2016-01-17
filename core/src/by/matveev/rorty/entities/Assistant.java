@@ -80,7 +80,7 @@ public class Assistant extends AbstractRobot {
 
         mark.setPosition(x, y + BODY_RADIUS2);
 
-        setSensor(state != State.CONTROL && state != State.CRASH);
+        setSensor(!isActive() && state != State.CONTROL && state != State.CRASH);
     }
 
     private void updateCrashState() {

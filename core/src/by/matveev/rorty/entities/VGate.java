@@ -43,6 +43,7 @@ public class VGate extends Entity {
     private List<Light> lights;
     private boolean isOpen;
     private boolean isInitOpen;
+    private boolean isSoundPlaying;
 
     public VGate(String name, World world, float mapX, float mapY) {
         super(name);
@@ -99,6 +100,8 @@ public class VGate extends Entity {
             } else {
                 isOpen = active;
             }
+
+            Assets.GATE.play();
         }
     }
 
