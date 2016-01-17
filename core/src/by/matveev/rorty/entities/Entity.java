@@ -36,7 +36,7 @@ public abstract class Entity {
     public void postUpdate(float dt) {
     }
 
-    public void postDraw(Batch batch) {
+    public void postDraw(Batch batch, OrthographicCamera camera) {
     }
 
     public void onContactStart(Entity otherEntity) {

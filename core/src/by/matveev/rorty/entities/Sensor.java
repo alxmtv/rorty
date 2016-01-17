@@ -35,7 +35,7 @@ public class Sensor extends Entity {
         if (otherEntity instanceof Robot || otherEntity instanceof Box) {
             this.otherEntity = otherEntity;
 
-            Assets.SENSOR.play();
+            Assets.playSensorSound();
 
             for (String target : targets) {
                 EventQueue.add(Pools.obtain(SensorEvent.class)
@@ -50,7 +50,7 @@ public class Sensor extends Entity {
     public void onContactEnd(Entity otherEntity) {
         if (this.otherEntity == otherEntity) {
             this.otherEntity = null;
-            Assets.SENSOR.play();
+            Assets.playSensorSound();
             for (String target : targets) {
                 EventQueue.add(Pools.obtain(SensorEvent.class)
                         .setState(Boolean.FALSE)

@@ -96,7 +96,7 @@ public class Switch extends Entity {
         if (otherEntity instanceof AbstractRobot && ((AbstractRobot) otherEntity).isActive()) {
             if (contacted && enabled && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
                 activated = !activated;
-                Assets.SWITCH.play(0.2f);
+                Assets.playSwitchSound();
                 EventQueue.add(Pools.obtain(SwitchEvent.class)
                         .setSender(name)
                         .setReceiver(target));
@@ -122,7 +122,7 @@ public class Switch extends Entity {
     }
 
     @Override
-    public void postDraw(Batch batch) {
+    public void postDraw(Batch batch, OrthographicCamera camera) {
         if (enabled && contacted) {
             final float x = body.getPosition().x;
             final float y = body.getPosition().y;

@@ -8,7 +8,6 @@ import by.matveev.rorty.utils.ColorUtils;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
-import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.physics.box2d.MassData;
 
@@ -115,7 +114,7 @@ public class Box extends Entity {
     }
 
     @Override
-    public void postDraw(Batch batch) {
+    public void postDraw(Batch batch, OrthographicCamera camera) {
         text.draw(batch, Cfg.toPixels(body.getPosition().x),
                 Cfg.toPixels(body.getPosition().y) + Cfg.toPixels(height) * 0.9f);
     }

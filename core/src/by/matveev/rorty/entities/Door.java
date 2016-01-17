@@ -14,10 +14,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-
-import static by.matveev.rorty.Cfg.toMeters;
 
 public class Door extends Entity {
 
@@ -89,7 +86,7 @@ public class Door extends Entity {
     }
 
     @Override
-    public void postDraw(Batch batch) {
+    public void postDraw(Batch batch, OrthographicCamera camera) {
         if (contacted) {
             text.draw(batch, Cfg.toPixels(body.getPosition().x),
                     Cfg.toPixels(body.getPosition().y) + Cfg.toPixels(height) * 0.8f);

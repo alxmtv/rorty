@@ -4,6 +4,7 @@ import by.matveev.rorty.Cfg;
 import by.matveev.rorty.Text;
 import by.matveev.rorty.core.AnimationSet;
 import by.matveev.rorty.core.Light;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -45,12 +46,12 @@ public abstract class AbstractRobot extends Entity {
     }
 
     @Override
-    public void postDraw(Batch batch) {
-        super.postDraw(batch);
+    public void postDraw(Batch batch, OrthographicCamera camera) {
+        super.postDraw(batch, camera);
         text.draw(batch, Cfg.toPixels(body.getPosition().x), Cfg.toPixels(body.getPosition().y + Cfg.toMeters(48)));
 
         if (isActive()) {
-            mark.postDraw(batch);
+            mark.postDraw(batch, camera);
         }
     }
 

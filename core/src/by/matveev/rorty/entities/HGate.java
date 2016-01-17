@@ -93,7 +93,7 @@ public class HGate extends Entity {
                 isOpen = active;
             }
 
-            Assets.GATE.play();
+            Assets.playGatesSound();
         }
     }
 

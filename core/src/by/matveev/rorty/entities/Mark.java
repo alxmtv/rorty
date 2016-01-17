@@ -2,6 +2,7 @@ package by.matveev.rorty.entities;
 
 import by.matveev.rorty.Assets;
 import by.matveev.rorty.Cfg;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
@@ -28,7 +29,7 @@ public class Mark extends Entity {
     }
 
     @Override
-    public void postDraw(Batch batch) {
+    public void postDraw(Batch batch, OrthographicCamera camera) {
 //        if (time > 0) {
             final float markX = Cfg.toPixels(x) - 8;
             final float markY = Cfg.toPixels(y) + 8 * MathUtils.sin(alpha += 0.1f);

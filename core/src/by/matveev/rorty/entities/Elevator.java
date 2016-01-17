@@ -37,7 +37,7 @@ public class Elevator extends Entity {
     public void update(float delta) {
         if (active) {
             if (!isSoundPlaying) {
-                Assets.ELEVATOR.play();
+                Assets.playElevatorSound();
                 isSoundPlaying = true;
             }
             distance += direction.len() * delta;
@@ -50,7 +50,7 @@ public class Elevator extends Entity {
             body.setLinearVelocity(direction);
         } else {
             if (isSoundPlaying) {
-                Assets.ELEVATOR.stop();
+                Assets.stopEvevatorSound();
                 isSoundPlaying = false;
             }
             body.setLinearVelocity(Vector2.Zero);

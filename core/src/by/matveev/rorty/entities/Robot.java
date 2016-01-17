@@ -313,13 +313,13 @@ public class Robot extends AbstractRobot {
     }
 
     private void stopMoveSound() {
-        Assets.MOVE.stop();
+        Assets.stopLoopMoveSound();
         isMoveSoundPlaying = false;
     }
 
     private void playMoveSound() {
         if (!isMoveSoundPlaying) {
-            Assets.MOVE.loop(0.2f);
+            Assets.loopRobotMoveSound();
             isMoveSoundPlaying = true;
         }
     }

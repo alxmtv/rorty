@@ -80,7 +80,7 @@ public class Assistant extends AbstractRobot {
 
         mark.setPosition(x, y + BODY_RADIUS2);
 
-        setSensor(!isActive());
+        setSensor(!isActive() && state != State.CRASH);
 
         if (!isActive()) {
             final Vector2 vel = body.getLinearVelocity();
@@ -119,8 +119,8 @@ public class Assistant extends AbstractRobot {
     }
 
     @Override
-    public void postDraw(Batch batch) {
-        super.postDraw(batch);
+    public void postDraw(Batch batch, OrthographicCamera camera) {
+        super.postDraw(batch, camera);
 
         text.setVisible(State.CRASH.equals(state));
 

@@ -101,7 +101,7 @@ public class VGate extends Entity {
                 isOpen = active;
             }
 
-            Assets.GATE.play();
+            Assets.playGatesSound();
         }
     }
 

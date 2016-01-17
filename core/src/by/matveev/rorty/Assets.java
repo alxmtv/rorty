@@ -9,6 +9,9 @@ import com.badlogic.gdx.graphics.g2d.TextureRegion;
 
 public final class Assets {
 
+    public static Boolean musicEnabled = true;
+    public static Boolean soundsEnabled = true;
+
     private Assets() {
     }
 
@@ -20,15 +23,17 @@ public final class Assets {
     public static final Texture ASSISTANT = new Texture(Gdx.files.internal("assistant.png"));
 
 
-    public static final Sound MOVE = Gdx.audio.newSound(Gdx.files.internal("sounds/robot_move2.mp3"));
-    public static final Sound ELEVATOR = Gdx.audio.newSound(Gdx.files.internal("sounds/elevator.wav"));
-    public static final Sound GATE = Gdx.audio.newSound(Gdx.files.internal("sounds/gate.mp3"));
-    public static final Sound SENSOR = Gdx.audio.newSound(Gdx.files.internal("sounds/sensor.mp3"));
-    public static final Sound SWITCH = Gdx.audio.newSound(Gdx.files.internal("sounds/switch.mp3"));
+    private static final Sound MOVE = Gdx.audio.newSound(Gdx.files.internal("sounds/robot_move2.mp3"));
+    private static final Sound ELEVATOR = Gdx.audio.newSound(Gdx.files.internal("sounds/elevator.wav"));
+    private static final Sound GATE = Gdx.audio.newSound(Gdx.files.internal("sounds/gate.mp3"));
+    private static final Sound SENSOR = Gdx.audio.newSound(Gdx.files.internal("sounds/sensor.mp3"));
+    private static final Sound SWITCH = Gdx.audio.newSound(Gdx.files.internal("sounds/switch.mp3"));
+    private static final Music AMBIENT = Gdx.audio.newMusic(Gdx.files.internal("sounds/intro.wav"));
+
 
     public static final TextureRegion BACKGROUND = createRegion("background.png");
 
-    static  {
+    static {
         ENV.setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
     }
 
@@ -46,5 +51,63 @@ public final class Assets {
 
     private static TextureRegion createRegion(String name, float x, float y, float w, float h) {
         return new TextureRegion(new Texture(Gdx.files.internal(name)), x, y, w, h);
+    }
+
+    public static void playSwitchSound() {
+        if (soundsEnabled) {
+            Assets.SWITCH.play(0.2f);
+        }
+    }
+
+    public static void playElevatorSound() {
+        if (soundsEnabled) {
+            Assets.ELEVATOR.play();
+        }
+    }
+
+    public static void playGatesSound() {
+        if (soundsEnabled) {
+            Assets.GATE.play();
+        }
+    }
+
+    public static void playSensorSound() {
+        if (soundsEnabled) {
+            Assets.SENSOR.play();
+        }
+    }
+
+    public static void loopRobotMoveSound() {
+        if (soundsEnabled) {
+            Assets.MOVE.loop(0.2f);
+        }
+    }
+
+    public static void stopLoopMoveSound() {
+        Assets.MOVE.stop();
+    }
+
+    public static void setMusicEnabled(Boolean musicEnabled) {
+        Assets.musicEnabled = musicEnabled;
+
+        if (musicEnabled) {
+            platBackgroundMusic();
+        } else {
+            AMBIENT.stop();
+        }
+    }
+
+    public static void setSoundsEnabled(Boolean soundsEnabled) {
+        Assets.soundsEnabled = soundsEnabled;
+    }
+
+    public static void platBackgroundMusic() {
+        AMBIENT.setLooping(true);
+        AMBIENT.setVolume(0.3f);
+        AMBIENT.play();
+    }
+
+    public static void stopEvevatorSound() {
+        ELEVATOR.stop();
     }
 }

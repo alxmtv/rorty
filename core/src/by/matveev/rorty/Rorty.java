@@ -5,42 +5,34 @@ import by.matveev.rorty.core.Screens;
 import by.matveev.rorty.screens.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.audio.Music;
 
 public class Rorty extends BaseGame {
 
-    private Music introMusic;
     private static String currentLevelId;
 
     @Override
     public void create() {
         Prefs.init();
 
-        introMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/intro.wav"));
-        introMusic.setVolume(0.5f);
-        introMusic.setLooping(true);
-        introMusic.play();
+        Assets.platBackgroundMusic();
 
         Screens.set(new MenuScreen());
 
     }
 
-    @Override
-    public void dispose() {
-        super.dispose();
-        introMusic.stop();
-        introMusic.dispose();
+    public static void restartCurrentLevel() {
+        replaceLevel(currentLevelId);
     }
 
     @Override
     public void render() {
         super.render();
 
-        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
-            replaceLevel(currentLevelId);
-        }
 
+        // checkDebugTools();
+    }
+
+    private void checkDebugTools() {
         if (Gdx.input.isKeyJustPressed(Input.Keys.L)) {
             Gdx.input.getTextInput(new Input.TextInputListener() {
                 @Override
@@ -68,7 +60,6 @@ public class Rorty extends BaseGame {
         if (Gdx.input.isKeyJustPressed(Input.Keys.C)) {
             Cfg.FREE_CAMERA = !Cfg.FREE_CAMERA;
         }
-
     }
 
     public static void replaceLevel(String levelId) {

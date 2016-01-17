@@ -3,14 +3,11 @@ package by.matveev.rorty.entities;
 import by.matveev.rorty.Assets;
 import by.matveev.rorty.Cfg;
 import by.matveev.rorty.Text;
-import by.matveev.rorty.core.Event;
-import by.matveev.rorty.core.EventQueue;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
-import com.badlogic.gdx.utils.Pools;
 
 public class Terminal extends Entity {
 
@@ -84,7 +81,7 @@ public class Terminal extends Entity {
     }
 
     @Override
-    public void postDraw(Batch batch) {
+    public void postDraw(Batch batch, OrthographicCamera camera) {
 //        if (active) {
 //            text.draw(batch, Cfg.toPixels(x), Cfg.toPixels(y + height * 0.8f));
 //        }

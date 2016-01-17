@@ -2,6 +2,7 @@ package by.matveev.rorty.screens;
 
 import by.matveev.rorty.*;
 import by.matveev.rorty.core.AbstractScreen;
+import by.matveev.rorty.core.Callback;
 import by.matveev.rorty.core.EventQueue;
 import by.matveev.rorty.core.Light;
 import by.matveev.rorty.entities.*;
@@ -49,11 +50,10 @@ public class GameScreen extends AbstractScreen {
     public Assistant assistant;
 
     private ShapeRenderer debugRenderer;
-    private List<Entity> entities;
+    protected List<Entity> entities;
     private HintList hints = new HintList();
 
     private final Vector3 temp = new Vector3();
-    private Music introMusic;
 
     public GameScreen(String levelId) {
         this.levelId = levelId;
@@ -87,6 +87,35 @@ public class GameScreen extends AbstractScreen {
         setupLights();
         setupRobots();
         setupHints();
+
+
+        setupButtons();
+
+    }
+
+    protected void setupButtons() {
+        entities.add(new Button(70 + 136, 200, Button.Type.RESTART, Button.Type.RESTART, new Callback<Boolean>() {
+            @Override
+            public void call(Boolean value) {
+                Rorty.restartCurrentLevel();
+            }
+        }));
+
+
+        entities.add(new Button(70 + 200, 200, Button.Type.MUSIC_ON, Button.Type.MUSIC_OFF, new Callback<Boolean>() {
+            @Override
+            public void call(Boolean value) {
+                Assets.setMusicEnabled(value);
+            }
+        }).setEnabled(Assets.musicEnabled));
+
+
+        entities.add(new Button(70 + 264, 200, Button.Type.SOUND_ON, Button.Type.SOUND_OFF, new Callback<Boolean>() {
+            @Override
+            public void call(Boolean value) {
+                Assets.setSoundsEnabled(value);
+            }
+        }).setEnabled(Assets.soundsEnabled));
     }
 
     @Override
@@ -185,8 +214,6 @@ public class GameScreen extends AbstractScreen {
         updateCamera(delta);
 
         hints.update(delta);
-
-
     }
 
     private void switchRobots() {
@@ -275,7 +302,7 @@ public class GameScreen extends AbstractScreen {
         batch.setProjectionMatrix(camera.combined);
         batch.begin();
         for (Entity e : entities) {
-            e.postDraw(batch);
+            e.postDraw(batch, camera);
         }
 
         Assets.font.draw(batch, "level: " + levelId, camera.position.x - 800 / 2 + 25, camera.position.y + 200);
@@ -296,8 +323,6 @@ public class GameScreen extends AbstractScreen {
             }
             debugRenderer.end();
         }
-
-
     }
 
 
