@@ -37,7 +37,6 @@ public class Assistant extends AbstractRobot {
     private int stateIndex;
     private String[] messages = new String[]{"start", "loading...", "failed"};
     private final Vector2 target = new Vector2();
-    private Entity interactEntity;
 
     public Assistant(World world, Robot robot, float mapX, float mapY) {
         super(world, "assistant", mapX, mapY);
@@ -81,7 +80,14 @@ public class Assistant extends AbstractRobot {
 
         mark.setPosition(x, y + BODY_RADIUS2);
 
-        setSensor(!isActive() || interactEntity != null);
+        setSensor(!isActive());
+
+        if (!isActive()) {
+            final Vector2 vel = body.getLinearVelocity();
+            vel.x *= DEFAULT_FRICTION;
+            vel.y *= DEFAULT_FRICTION;
+            body.setLinearVelocity(vel);
+        }
     }
 
     private void updateCrashState() {
@@ -120,27 +126,17 @@ public class Assistant extends AbstractRobot {
 
     }
 
-    @Override
-    public void onContactStart(Entity otherEntity) {
-        if (otherEntity instanceof Box) {
-            this.interactEntity = otherEntity;
-        }
-    }
-
-    @Override
-    public void onContactEnd(Entity otherEntity) {
-        if (this.interactEntity != null && this.interactEntity == otherEntity) {
-            this.interactEntity = null;
-        }
-    }
-
     private void setSensor(boolean isSensor) {
         body.getFixtureList().get(0).setSensor(isSensor);
     }
 
     private void updateControlState() {
-        if (!isActive()) return;
         final Vector2 vel = body.getLinearVelocity();
+        vel.y += (MathUtils.sin(angular += 0.1f) * 0.02f);
+        body.setLinearVelocity(vel);
+
+        if (!isActive()) return;
+
         if (Math.abs(vel.x) > MAX_VELOCITY) {
             vel.x = Math.signum(vel.x) * MAX_VELOCITY;
         }
@@ -149,14 +145,12 @@ public class Assistant extends AbstractRobot {
             vel.y = Math.signum(vel.y) * MAX_VELOCITY;
         }
 
-        if (!isActive() || (!Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT))) {
+        if (!Gdx.input.isKeyPressed(Input.Keys.LEFT) && !Gdx.input.isKeyPressed(Input.Keys.RIGHT)) {
             vel.x *= DEFAULT_FRICTION;
-//            vel.y += (MathUtils.sin(angular += 0.1f) * 0.05f);
         }
 
-        if (!isActive() || (!Gdx.input.isKeyPressed(Input.Keys.UP) && !Gdx.input.isKeyPressed(Input.Keys.DOWN))) {
+        if (!Gdx.input.isKeyPressed(Input.Keys.UP) && !Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
             vel.y *= DEFAULT_FRICTION;
-//            vel.y += (MathUtils.sin(angular += 0.1f) * 0.05f);
         }
 
         if (Gdx.input.isKeyPressed(Input.Keys.LEFT) && vel.x > -MAX_VELOCITY) {
