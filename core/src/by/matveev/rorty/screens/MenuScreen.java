@@ -39,7 +39,7 @@ public class MenuScreen extends GameScreen {
     public void update(float delta) {
         super.update(delta);
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            Rorty.replaceLevel("7");
+            Rorty.replaceLevel("1");
         }
     }
 

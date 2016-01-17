@@ -11,6 +11,7 @@ import com.badlogic.gdx.audio.Music;
 public class Rorty extends BaseGame {
 
     private Music introMusic;
+    private static String currentLevelId;
 
     @Override
     public void create() {
@@ -35,6 +36,10 @@ public class Rorty extends BaseGame {
     @Override
     public void render() {
         super.render();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            replaceLevel(currentLevelId);
+        }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.L)) {
             Gdx.input.getTextInput(new Input.TextInputListener() {
@@ -67,6 +72,7 @@ public class Rorty extends BaseGame {
     }
 
     public static void replaceLevel(String levelId) {
+        currentLevelId = levelId;
         Screens.replace(new GameScreen(levelId));
     }
 }
