@@ -1,6 +1,0 @@
-intro -  http://freesound.org/people/Setuniman/
-robot_move1, robot_move2 -  http://www.freesfx.co.uk/users/mckinneysound/
-elevator - https://freesound.org/people/marcel_farres
-gate -  by Jeff Newman from http://www.flashkit.com/
-sensor - https://freesound.org/people/velosiped/
-switch - by Intermedia Design Graphics from http://www.flashkit.com/
