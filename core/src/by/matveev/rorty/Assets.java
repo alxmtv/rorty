@@ -19,6 +19,13 @@ public final class Assets {
     public static final Texture ROBOT = new Texture(Gdx.files.internal("robot.png"));
     public static final Texture ASSISTANT = new Texture(Gdx.files.internal("assistant.png"));
 
+
+    public static final Sound MOVE = Gdx.audio.newSound(Gdx.files.internal("sounds/robot_move2.mp3"));
+    public static final Sound ELEVATOR = Gdx.audio.newSound(Gdx.files.internal("sounds/elevator.wav"));
+    public static final Sound GATE = Gdx.audio.newSound(Gdx.files.internal("sounds/gate.mp3"));
+    public static final Sound SENSOR = Gdx.audio.newSound(Gdx.files.internal("sounds/sensor.mp3"));
+    public static final Sound SWITCH = Gdx.audio.newSound(Gdx.files.internal("sounds/switch.mp3"));
+
     public static final TextureRegion BACKGROUND = createRegion("background.png");
 
     static  {

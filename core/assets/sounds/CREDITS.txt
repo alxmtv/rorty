@@ -1,4 +1,6 @@
-http://freesound.org/people/Robinhood76/sounds/95120/
-http://freesound.org/people/Setuniman/sounds/328779/
-http://freesound.org/people/Robinhood76/sounds/95119/
-http://freesound.org/people/pitx/sounds/18182/
+intro -  http://freesound.org/people/Setuniman/
+robot_move1, robot_move2 -  http://www.freesfx.co.uk/users/mckinneysound/
+elevator - https://freesound.org/people/marcel_farres
+gate -  by Jeff Newman from http://www.flashkit.com/
+sensor - https://freesound.org/people/velosiped/
+switch - by Intermedia Design Graphics from http://www.flashkit.com/

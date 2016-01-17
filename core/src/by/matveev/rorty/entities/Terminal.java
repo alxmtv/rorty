@@ -41,9 +41,7 @@ public class Terminal extends Entity {
         }
 
         if (active && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
-            EventQueue.add(Pools.obtain(GateEvent.class)
-                    .setSender(name)
-                    .setReceiver("g1"));
+            // do nothing
         }
     }
 
@@ -87,18 +85,8 @@ public class Terminal extends Entity {
 
     @Override
     public void postDraw(Batch batch) {
-        if (active) {
-            text.draw(batch, Cfg.toPixels(x), Cfg.toPixels(y + height * 0.8f));
-        }
-    }
-
-    public static final class GateEvent extends Event {
-        public GateEvent() {
-        }
-
-        @Override
-        public boolean validate() {
-            return true;
-        }
+//        if (active) {
+//            text.draw(batch, Cfg.toPixels(x), Cfg.toPixels(y + height * 0.8f));
+//        }
     }
 }

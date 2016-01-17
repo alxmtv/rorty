@@ -31,23 +31,15 @@ public class MenuScreen extends GameScreen {
     @Override
     public void show() {
         super.show();
-        introMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/intro.wav"));
-        introMusic.setVolume(0.5f);
-        introMusic.setLooping(true);
-        introMusic.play();
+
     }
 
-    @Override
-    public void hide() {
-        introMusic.stop();
-        introMusic.dispose();
-    }
 
     @Override
     public void update(float delta) {
         super.update(delta);
         if (Gdx.input.isKeyJustPressed(Input.Keys.SPACE)) {
-            Rorty.replaceLevel("start");
+            Rorty.replaceLevel("1");
         }
     }
 

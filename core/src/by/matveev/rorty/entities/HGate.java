@@ -59,7 +59,6 @@ public class HGate extends Entity {
         leftPart = world.createBody(def);
         leftPart.setUserData(this);
         final Fixture leftFixture = leftPart.createFixture(poly, 0);
-        leftFixture.setFriction(0.01f);
         poly.dispose();
 
         poly = new PolygonShape();
@@ -71,7 +70,6 @@ public class HGate extends Entity {
         rightPart.setUserData(this);
         rightPart.createFixture(poly, 0);
         final Fixture rightFixture = rightPart.createFixture(poly, 0);
-        rightFixture.setFriction(0.01f);
         rightPart.setUserData(this);
         poly.dispose();
 
@@ -94,6 +92,8 @@ public class HGate extends Entity {
             } else {
                 isOpen = active;
             }
+
+            Assets.GATE.play();
         }
     }
 

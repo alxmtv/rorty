@@ -6,19 +6,40 @@ import by.matveev.rorty.screens.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 
 public class Rorty extends BaseGame {
+
+    private Music introMusic;
+    private static String currentLevelId;
 
     @Override
     public void create() {
         Prefs.init();
 
+        introMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/intro.wav"));
+        introMusic.setVolume(0.5f);
+        introMusic.setLooping(true);
+        introMusic.play();
+
         Screens.set(new MenuScreen());
+
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        introMusic.stop();
+        introMusic.dispose();
     }
 
     @Override
     public void render() {
         super.render();
+
+        if (Gdx.input.isKeyJustPressed(Input.Keys.R)) {
+            replaceLevel(currentLevelId);
+        }
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.L)) {
             Gdx.input.getTextInput(new Input.TextInputListener() {
@@ -51,6 +72,7 @@ public class Rorty extends BaseGame {
     }
 
     public static void replaceLevel(String levelId) {
+        currentLevelId = levelId;
         Screens.replace(new GameScreen(levelId));
     }
 }

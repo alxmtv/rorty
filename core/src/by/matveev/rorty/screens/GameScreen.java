@@ -7,6 +7,7 @@ import by.matveev.rorty.core.Light;
 import by.matveev.rorty.entities.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -52,6 +53,7 @@ public class GameScreen extends AbstractScreen {
     private HintList hints = new HintList();
 
     private final Vector3 temp = new Vector3();
+    private Music introMusic;
 
     public GameScreen(String levelId) {
         this.levelId = levelId;
@@ -81,12 +83,15 @@ public class GameScreen extends AbstractScreen {
 
         debugRenderer = new ShapeRenderer();
 
-
-
         setupWorld();
         setupLights();
         setupRobots();
         setupHints();
+    }
+
+    @Override
+    public void hide() {
+        super.hide();
     }
 
     private void setupHints() {

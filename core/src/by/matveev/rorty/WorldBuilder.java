@@ -30,15 +30,15 @@ public class WorldBuilder {
         final List<Entity> entities = new ArrayList<>();
 
         buildObstacles();
+        buildDoors(entities);
+        buildSwitches(entities);
         buildBoxes(entities);
         buildElevators(entities);
         buildTriggers(entities);
         buildFans(entities);
         buildTerminals(entities);
-        buildSwitches(entities);
         buildGates(entities);
         buildSensors(entities);
-        buildDoors(entities);
 
         return entities;
     }
@@ -329,8 +329,11 @@ public class WorldBuilder {
                 final float hw = w * 0.5f;
                 final float hh = h * 0.5f;
 
-                final PolygonShape shape = new PolygonShape();
-                shape.setAsBox(hw, hh);
+//                final PolygonShape shape = new PolygonShape();
+//                shape.setAsBox(hw, hh);
+
+                final CircleShape shape = new CircleShape();
+                shape.setRadius(w * 0.5f);
 
                 final BodyDef def = new BodyDef();
                 def.type = BodyDef.BodyType.DynamicBody;
