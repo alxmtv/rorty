@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.0" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="64" tileheight="64" nextobjectid="77">
+<map version="1.0" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="64" tileheight="64" nextobjectid="87">
  <tileset firstgid="1" name="tiles" tilewidth="64" tileheight="64" tilecount="128" columns="16">
   <image source="../tiles.png" width="1024" height="512"/>
  </tileset>
@@ -8,84 +8,166 @@
    AQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAAAQAAAAEAAAABAAAA
   </data>
  </layer>
+ <layer name="floor2" width="15" height="10">
+  <data encoding="base64">
+   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAAAABQAAAAVAAAABAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAQAAAAVAAAAFAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+  </data>
+ </layer>
  <layer name="floor" width="15" height="10">
   <data encoding="base64">
-   NAAAAAQAAAAUAAAAFQAAAAQAAAAEAAAABAAAAAQAAAAUAAAAAwAAABUAAAAEAAAABAAAAAQAAAA1AAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAACAAAADsAAAA8AAAAOQAAADgAAAA4AAAAOQAAADkAAAA4AAAAOwAAADwAAAAAAAAAAAAAAAAAAAAjAAAAMgAAAEsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAASwAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAjAAAAJgAAAAUAAAAFAAAANgAAADYAAAAFAAAABQAAADYAAAA2AAAAGAAAABgAAAAFAAAACgAAAAUAAAAlAAAA
+   NAAAAAQAAAAUAAAAFQAAAAQAAAAEAAAABAAAAAQAAAAUAAAAFQAAABQAAAAEAAAABAAAAAQAAAA1AAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAMgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAzAAAAJgAAAAUAAAAFAAAABQAAABgAAAAYAAAABQAAAAUAAAAFAAAAGAAAABgAAAAFAAAABQAAAAUAAAAlAAAA
   </data>
  </layer>
  <layer name="env" width="15" height="10">
   <data encoding="base64">
-   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAFgAAAAAAAAAAAAAA
+   AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
   </data>
  </layer>
- <objectgroup name="obstacles">
+ <objectgroup name="obstacles" visible="0">
   <object id="1" x="2" y="-2" width="26" height="640"/>
   <object id="2" x="930" y="2" width="26" height="640"/>
   <object id="3" x="2" y="4" width="956" height="22"/>
   <object id="5" x="4" y="612" width="952" height="28"/>
-  <object id="66" x="28" y="340" width="673.333" height="30.6667"/>
+  <object id="20" x="28" y="324" width="353.333" height="28"/>
+  <object id="21" x="578.667" y="324" width="353.333" height="28"/>
  </objectgroup>
  <objectgroup name="elevators">
-  <object id="7" x="736" y="613.333" width="128" height="48">
+  <object id="7" x="419" y="613" width="128" height="48">
    <properties>
     <property name="direction" value="0,1"/>
-    <property name="id" value="e1"/>
-    <property name="maxDistance" value="2.8"/>
+    <property name="maxDistance" value="3"/>
+    <property name="name" value="e1"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="switches">
-  <object id="54" x="639.333" y="448" width="64" height="64">
+ <objectgroup name="fans">
+  <properties>
+   <property name="target" value="e1"/>
+  </properties>
+  <object id="8" name="fan" x="126" y="384" width="64" height="64"/>
+  <object id="17" name="fan" x="256" y="384" width="64" height="64"/>
+  <object id="68" name="fan" x="576" y="385" width="64" height="64"/>
+  <object id="69" name="fan" x="705" y="384" width="64" height="64"/>
+ </objectgroup>
+ <objectgroup color="#9ca0a4" name="terminals"/>
+ <objectgroup name="boxes" visible="0">
+  <object id="33" x="32" y="189.333" width="128" height="128"/>
+  <object id="35" x="32" y="61.3333" width="128" height="128"/>
+  <object id="53" x="33.3333" y="477.333" width="128" height="128">
    <properties>
     <property name="enabled" value="true"/>
+   </properties>
+  </object>
+  <object id="64" x="799" y="479.333" width="128" height="128"/>
+  <object id="65" x="799" y="351.333" width="128" height="128"/>
+ </objectgroup>
+ <objectgroup name="switches">
+  <object id="54" name="switch" x="317.333" y="192" width="64" height="64">
+   <properties>
     <property name="name" value="s1"/>
     <property name="target" value="e1"/>
    </properties>
   </object>
  </objectgroup>
- <objectgroup name="doors" visible="0">
-  <object id="68" x="64" y="146.667" width="128" height="192">
+ <objectgroup name="sensors">
+  <object id="56" name="sensor" x="256" y="608" width="64" height="32">
    <properties>
-    <property name="levelId" value="1"/>
+    <property name="target" value="g1,s1"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="doors">
+  <object id="58" name="door" x="765" y="125" width="128" height="192">
+   <properties>
+    <property name="levelId" value="5"/>
    </properties>
   </object>
  </objectgroup>
  <objectgroup name="lights">
-  <object id="73" name="light_soft" x="518.667" y="153.333" width="64" height="64">
+  <object id="70" name="light_triangle" x="480" y="64" width="64" height="64">
    <properties>
-    <property name="alpha" value="0.05"/>
-    <property name="color" value="0xffE0F7FA"/>
-    <property name="height" value="600"/>
-    <property name="type" value="soft"/>
-    <property name="width" value="600"/>
-   </properties>
-  </object>
-  <object id="74" name="light_soft" x="134.667" y="153.333" width="64" height="64">
-   <properties>
-    <property name="alpha" value="0.05"/>
-    <property name="color" value="0xffE0F7FA"/>
-    <property name="height" value="600"/>
-    <property name="type" value="soft"/>
-    <property name="width" value="600"/>
-   </properties>
-  </object>
-  <object id="75" name="light_soft" x="326.667" y="153.333" width="64" height="64">
-   <properties>
-    <property name="alpha" value="0.05"/>
-    <property name="color" value="0xffE0F7FA"/>
-    <property name="height" value="600"/>
-    <property name="type" value="soft"/>
-    <property name="width" value="600"/>
-   </properties>
-  </object>
-  <object id="76" name="light_triangle" x="786" y="65" width="64" height="64">
-   <properties>
-    <property name="alpha" value="0.2"/>
+    <property name="alpha" value="0.25"/>
     <property name="color" value="0xffffffff"/>
-    <property name="height" value="1000"/>
+    <property name="height" value="1300"/>
     <property name="type" value="triangle"/>
-    <property name="width" value="300"/>
+    <property name="width" value="400"/>
    </properties>
   </object>
+  <object id="71" name="light_soft" x="193" y="128" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.05"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="900"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="900"/>
+   </properties>
+  </object>
+  <object id="72" name="light_soft" x="381" y="128" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.05"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="900"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="900"/>
+   </properties>
+  </object>
+  <object id="73" name="light_soft" x="515" y="129" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.05"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="900"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="900"/>
+   </properties>
+  </object>
+  <object id="74" name="light_soft" x="697" y="125" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.06"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="900"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="900"/>
+   </properties>
+  </object>
+  <object id="76" name="light_soft" x="895" y="128" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.06"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="900"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="900"/>
+   </properties>
+  </object>
+  <object id="80" name="light_soft" x="641" y="474" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.03"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="500"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="500"/>
+   </properties>
+  </object>
+  <object id="81" name="light_soft" x="257" y="474" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.03"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="500"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="500"/>
+   </properties>
+  </object>
+  <object id="82" name="light_soft" x="449" y="474" width="64" height="64">
+   <properties>
+    <property name="alpha" value="0.03"/>
+    <property name="color" value="0xffE0F7FA"/>
+    <property name="height" value="500"/>
+    <property name="type" value="soft"/>
+    <property name="width" value="500"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup name="players">
+  <object id="85" name="robot" x="128" y="512" width="64" height="64"/>
+  <object id="86" name="assistant" x="64" y="448" width="64" height="64"/>
  </objectgroup>
 </map>
