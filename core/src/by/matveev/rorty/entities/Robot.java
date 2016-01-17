@@ -219,16 +219,20 @@ public class Robot extends AbstractRobot {
 
     private void updateBoxInteraction() {
         final Box box = (Box) this.interactEntity;
-        if (isActive() && box.isEnabled() && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
+        if (isActive() && box.isEnabled() && Gdx.input.isKeyPressed(Input.Keys.E)) {
             if (isFree() && state == State.CONTROL) {
                 startInteractionWithBox(box);
-            } else if (state == State.MOVE_BOX) {
+            }
+        } else {
+            if (state == State.MOVE_BOX) {
                 endInteractionWithBox(box);
             }
+
         }
     }
 
     private void endInteractionWithBox(Box box) {
+        if (currentJoint == null) return;
         setState(State.CONTROL);
         setInteraction(Interaction.NONE, null);
 
@@ -238,6 +242,7 @@ public class Robot extends AbstractRobot {
     }
 
     private void startInteractionWithBox(Box box) {
+        if (currentJoint != null) return;
         setState(State.MOVE_BOX);
 
         final DistanceJointDef jointDef = new DistanceJointDef();
@@ -314,7 +319,7 @@ public class Robot extends AbstractRobot {
 
     private void playMoveSound() {
         if (!isMoveSoundPlaying) {
-            Assets.MOVE.loop(0.4f);
+            Assets.MOVE.loop(0.2f);
             isMoveSoundPlaying = true;
         }
     }

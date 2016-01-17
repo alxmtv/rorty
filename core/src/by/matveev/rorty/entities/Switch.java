@@ -96,7 +96,7 @@ public class Switch extends Entity {
         if (otherEntity instanceof AbstractRobot && ((AbstractRobot) otherEntity).isActive()) {
             if (contacted && enabled && Gdx.input.isKeyJustPressed(Input.Keys.E)) {
                 activated = !activated;
-                Assets.SWITCH.play();
+                Assets.SWITCH.play(0.2f);
                 EventQueue.add(Pools.obtain(SwitchEvent.class)
                         .setSender(name)
                         .setReceiver(target));

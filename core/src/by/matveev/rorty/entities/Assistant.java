@@ -37,6 +37,7 @@ public class Assistant extends AbstractRobot {
     private int stateIndex;
     private String[] messages = new String[]{"start", "loading...", "failed"};
     private final Vector2 target = new Vector2();
+    private Entity interactEntity;
 
     public Assistant(World world, Robot robot, float mapX, float mapY) {
         super(world, "assistant", mapX, mapY);
@@ -80,7 +81,7 @@ public class Assistant extends AbstractRobot {
 
         mark.setPosition(x, y + BODY_RADIUS2);
 
-        setSensor(!isActive() && state != State.CONTROL && state != State.CRASH);
+        setSensor(!isActive() || interactEntity != null);
     }
 
     private void updateCrashState() {
@@ -117,6 +118,20 @@ public class Assistant extends AbstractRobot {
 
         text.setVisible(State.CRASH.equals(state));
 
+    }
+
+    @Override
+    public void onContactStart(Entity otherEntity) {
+        if (otherEntity instanceof Box) {
+            this.interactEntity = otherEntity;
+        }
+    }
+
+    @Override
+    public void onContactEnd(Entity otherEntity) {
+        if (this.interactEntity != null && this.interactEntity == otherEntity) {
+            this.interactEntity = null;
+        }
     }
 
     private void setSensor(boolean isSensor) {

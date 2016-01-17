@@ -6,14 +6,30 @@ import by.matveev.rorty.screens.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
 
 public class Rorty extends BaseGame {
+
+    private Music introMusic;
 
     @Override
     public void create() {
         Prefs.init();
 
+        introMusic = Gdx.audio.newMusic(Gdx.files.internal("sounds/intro.wav"));
+        introMusic.setVolume(0.5f);
+        introMusic.setLooping(true);
+        introMusic.play();
+
         Screens.set(new MenuScreen());
+
+    }
+
+    @Override
+    public void dispose() {
+        super.dispose();
+        introMusic.stop();
+        introMusic.dispose();
     }
 
     @Override

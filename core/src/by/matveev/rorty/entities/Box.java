@@ -42,7 +42,7 @@ public class Box extends Entity {
         greenColor.a = 0.2f;
         redColor.a = 0.2f;
 
-        this.text = new Text("Press 'E'");
+        this.text = new Text("HOLD 'E'\nto pull/push box");
 
         light = new Light(Light.Type.SOFT, enabled ? greenColor : redColor);
         light.x = Cfg.toPixels(body.getPosition().x) - 128 / 2;
@@ -117,7 +117,7 @@ public class Box extends Entity {
     @Override
     public void postDraw(Batch batch) {
         text.draw(batch, Cfg.toPixels(body.getPosition().x),
-                Cfg.toPixels(body.getPosition().y) + Cfg.toPixels(height) * 0.8f);
+                Cfg.toPixels(body.getPosition().y) + Cfg.toPixels(height) * 0.9f);
     }
 
     @Override
