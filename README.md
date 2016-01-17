@@ -2,4 +2,5 @@
 <p>
   <img src="logo.png">
 </p>
-*Game for the libGDX jam, still in heavy development and not playable yet.*
+
+[Game page on itch.io](http://itch.io/jam/libgdxjam/rate/51164)
