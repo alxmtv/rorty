@@ -19,7 +19,7 @@ import java.util.List;
 public abstract class AbstractScreen implements Screen, Disposable {
 
     protected final SpriteBatch batch;
-    protected final OrthographicCamera camera;
+    private final Viewport viewport;
     protected final List<Light> lights = new ArrayList<>();
     private final ShaderProgram shader;
     private FrameBuffer lightBuffer;
@@ -34,7 +34,7 @@ public abstract class AbstractScreen implements Screen, Disposable {
 
     public AbstractScreen() {
         batch = new SpriteBatch();
-        camera = new OrthographicCamera(Cfg.WIDTH, Cfg.HEIGHT);
+        viewport = new FitViewport(Cfg.WIDTH, Cfg.HEIGHT);
 
         lightBuffer = new FrameBuffer(Pixmap.Format.RGBA8888, Cfg.WIDTH, Cfg.HEIGHT, false);
         lightBuffer.getColorBufferTexture().setFilter(Texture.TextureFilter.Linear, Texture.TextureFilter.Linear);
@@ -88,19 +88,19 @@ public abstract class AbstractScreen implements Screen, Disposable {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(getCamera().combined);
         batch.disableBlending();
         batch.setColor(1, 1, 1, 1);
-        batch.draw(mainTexture, camera.position.x - Assets.BACKGROUND.getRegionWidth() * 0.5f,
-                camera.position.y - Assets.BACKGROUND.getRegionHeight() * 0.5f, 800, 480);
+        batch.draw(mainTexture, getCamera().position.x - Assets.BACKGROUND.getRegionWidth() * 0.5f,
+                getCamera().position.y - Assets.BACKGROUND.getRegionHeight() * 0.5f, 800, 480);
         batch.end();
         batch.enableBlending();
 
         if (Cfg.LIGHT_ENABLED) {
             batch.begin();
             batch.setBlendFunction(GL20.GL_DST_COLOR, GL20.GL_ZERO);
-            batch.draw(lightTexture, camera.position.x - Assets.BACKGROUND.getRegionWidth() * 0.5f,
-                    camera.position.y - Assets.BACKGROUND.getRegionHeight() * 0.5f, 800, 480);
+            batch.draw(lightTexture, getCamera().position.x - Assets.BACKGROUND.getRegionWidth() * 0.5f,
+                    getCamera().position.y - Assets.BACKGROUND.getRegionHeight() * 0.5f, 800, 480);
             batch.end();
             batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         }
@@ -112,17 +112,17 @@ public abstract class AbstractScreen implements Screen, Disposable {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.begin();
-        batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(getCamera().combined);
         if (Cfg.CONTRAST_SHADER)
             batch.setShader(shader);
-        batch.draw(finalTexture, camera.position.x - Assets.BACKGROUND.getRegionWidth() * 0.5f,
-                camera.position.y - Assets.BACKGROUND.getRegionHeight() * 0.5f, 800, 480);
+        batch.draw(finalTexture, getCamera().position.x - Assets.BACKGROUND.getRegionWidth() * 0.5f,
+                getCamera().position.y - Assets.BACKGROUND.getRegionHeight() * 0.5f, 800, 480);
         batch.end();
 
         if (Cfg.CONTRAST_SHADER)
             batch.setShader(null);
 
-        postDraw(batch, camera);
+        postDraw(batch, getCamera());
     }
 
     private void renderToLightBuffer(float delta) {
@@ -138,7 +138,7 @@ public abstract class AbstractScreen implements Screen, Disposable {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, -1);
         batch.begin();
-        batch.setProjectionMatrix(camera.combined);
+        batch.setProjectionMatrix(getCamera().combined);
 
         for (Light light : lights) {
             light.update(delta);
@@ -158,8 +158,8 @@ public abstract class AbstractScreen implements Screen, Disposable {
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
         batch.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-        batch.setProjectionMatrix(camera.combined);
-        draw(batch, camera);
+        batch.setProjectionMatrix(getCamera().combined);
+        draw(batch, getCamera());
 
         mainBuffer.end();
     }
@@ -174,7 +174,7 @@ public abstract class AbstractScreen implements Screen, Disposable {
 
     @Override
     public void resize(final int width, final int height) {
-        camera.setToOrtho(false, width, height);
+        viewport.update(width, height, true);
     }
 
     @Override
@@ -197,5 +197,9 @@ public abstract class AbstractScreen implements Screen, Disposable {
     @Override
     public void dispose() {
 
+    }
+
+    public OrthographicCamera getCamera() {
+        return (OrthographicCamera) viewport.getCamera();
     }
 }

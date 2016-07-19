@@ -8,7 +8,6 @@ import by.matveev.rorty.core.Light;
 import by.matveev.rorty.entities.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
@@ -25,6 +24,8 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.*;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.List;
 
@@ -39,7 +40,7 @@ public class GameScreen extends AbstractScreen {
 
     private World box2dWorld;
     private Box2DDebugRenderer box2DDebugRenderer;
-    private OrthographicCamera box2DCamera;
+    private Viewport box2DViewport;
     private float accumulator = 0;
 
     private TiledMap tileMap;
@@ -79,7 +80,7 @@ public class GameScreen extends AbstractScreen {
         box2dWorld.setContactListener(new EntityContactResolver());
 
         box2DDebugRenderer = new Box2DDebugRenderer();
-        box2DCamera = new OrthographicCamera(Cfg.toMeters(Cfg.WIDTH), Cfg.toMeters(Cfg.HEIGHT));
+        box2DViewport = new FitViewport(Cfg.toMeters(Cfg.WIDTH), Cfg.toMeters(Cfg.HEIGHT));
 
         debugRenderer = new ShapeRenderer();
 
@@ -177,10 +178,7 @@ public class GameScreen extends AbstractScreen {
     @Override
     public void resize(int width, int height) {
         super.resize(width, height);
-        camera.viewportWidth = width;
-        camera.viewportHeight = height;
-        camera.position.set(width / 2f, height / 2f, 0);
-        box2DCamera.setToOrtho(false, Cfg.toMeters(width), Cfg.toMeters(height));
+        box2DViewport.update((int) Cfg.toMeters(width), (int) Cfg.toMeters(height), true);
     }
 
     private void setupLights() {
@@ -239,38 +237,38 @@ public class GameScreen extends AbstractScreen {
 
         if (Cfg.FREE_CAMERA) {
             temp.set(Gdx.input.getX(), Gdx.input.getY(), 0f);
-            camera.unproject(temp);
+            getCamera().unproject(temp);
 
             robotX = temp.x;
             robotY = temp.y;
         }
 
-        camera.position.x += (robotX - camera.position.x) * CAMERA_SPEED * dt;
-        camera.position.y += (robotY - camera.position.y) * CAMERA_SPEED * dt;
+        getCamera().position.x += (robotX - getCamera().position.x) * CAMERA_SPEED * dt;
+        getCamera().position.y += (robotY - getCamera().position.y) * CAMERA_SPEED * dt;
 
-        camera.position.x = MathUtils.round(camera.position.x);
-        camera.position.y = MathUtils.round(camera.position.y);
+        getCamera().position.x = MathUtils.round(getCamera().position.x);
+        getCamera().position.y = MathUtils.round(getCamera().position.y);
 
-        if (tileMapBounds.width < camera.viewportWidth) {
-            camera.position.x = camera.position.x + camera.viewportWidth * 0.5f;
-        } else if ((camera.position.x - camera.viewportWidth * 0.5f) <= 0) {
-            camera.position.x = camera.viewportWidth * 0.5f;
-        } else if ((camera.position.x + camera.viewportWidth * 0.5f) > tileMapBounds.width) {
-            camera.position.x = tileMapBounds.width - camera.viewportWidth * 0.5f;
+        if (tileMapBounds.width < getCamera().viewportWidth) {
+            getCamera().position.x = getCamera().position.x + getCamera().viewportWidth * 0.5f;
+        } else if ((getCamera().position.x - getCamera().viewportWidth * 0.5f) <= 0) {
+            getCamera().position.x = getCamera().viewportWidth * 0.5f;
+        } else if ((getCamera().position.x + getCamera().viewportWidth * 0.5f) > tileMapBounds.width) {
+            getCamera().position.x = tileMapBounds.width - getCamera().viewportWidth * 0.5f;
         }
 
-        if (tileMapBounds.height < camera.viewportHeight) {
-            camera.position.y = tileMapBounds.height * 0.5f;
-        } else if ((camera.position.y - camera.viewportHeight * 0.5f) <= 0) {
-            camera.position.y = camera.viewportHeight * 0.5f;
-        } else if ((camera.position.y + camera.viewportHeight * 0.5f) >= tileMapBounds.height) {
-            camera.position.y = tileMapBounds.height - camera.viewportHeight * 0.5f;
+        if (tileMapBounds.height < getCamera().viewportHeight) {
+            getCamera().position.y = tileMapBounds.height * 0.5f;
+        } else if ((getCamera().position.y - getCamera().viewportHeight * 0.5f) <= 0) {
+            getCamera().position.y = getCamera().viewportHeight * 0.5f;
+        } else if ((getCamera().position.y + getCamera().viewportHeight * 0.5f) >= tileMapBounds.height) {
+            getCamera().position.y = tileMapBounds.height - getCamera().viewportHeight * 0.5f;
         }
 
-        box2DCamera.position.set(Cfg.toMeters(camera.position.x), Cfg.toMeters(camera.position.y), 0f);
+        getBox2DCamera().position.set(Cfg.toMeters(getCamera().position.x), Cfg.toMeters(getCamera().position.y), 0f);
 
-        camera.update();
-        box2DCamera.update();
+        getCamera().update();
+        getBox2DCamera().update();
     }
 
     @Override
@@ -286,10 +284,10 @@ public class GameScreen extends AbstractScreen {
         tiledMapRenderer.render();
 
         batch.begin();
-        batch.setProjectionMatrix(box2DCamera.combined);
+        batch.setProjectionMatrix(getBox2DCamera().combined);
 
         for (Entity e : entities) {
-            e.draw(batch, box2DCamera);
+            e.draw(batch, getBox2DCamera());
         }
 
         batch.end();
@@ -312,7 +310,7 @@ public class GameScreen extends AbstractScreen {
 
 
         if (Cfg.BOX2D_DEBUG) {
-            box2DDebugRenderer.render(box2dWorld, box2DCamera.combined);
+            box2DDebugRenderer.render(box2dWorld, getBox2DCamera().combined);
         }
 
         if (Cfg.LIGHT_DEBUG) {
@@ -326,4 +324,7 @@ public class GameScreen extends AbstractScreen {
     }
 
 
+    public OrthographicCamera getBox2DCamera() {
+        return (OrthographicCamera) box2DViewport.getCamera();
+    }
 }

@@ -294,7 +294,7 @@ public class Robot extends AbstractRobot {
                 direction = -1;
             }
 
-            if (Gdx.input.isKeyPressed(Input.Keys.RIGHT) && vel.x < MAX_VELOCITY) {
+            if ((Gdx.input.isKeyPressed(Input.Keys.RIGHT)) && vel.x < MAX_VELOCITY) {
                 body.applyLinearImpulse(DEFAULT_SPEED, 0f, pos.x, pos.y, true);
                 playMoveSound();
                 direction = 1;
