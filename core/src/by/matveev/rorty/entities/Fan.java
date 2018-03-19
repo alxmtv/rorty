@@ -6,7 +6,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
 
-public class Fan extends Entity {
+public class Fan extends PhysicsEntity {
 
     private static final float FAN_SPEED = 500;
 

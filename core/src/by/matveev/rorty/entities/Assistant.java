@@ -72,8 +72,7 @@ public class Assistant extends AbstractRobot {
                 break;
         }
 
-        x = body.getPosition().x;
-        y = body.getPosition().y;
+        setPosition(body.getPosition().x, body.getPosition().y);
 
         light.x = Cfg.toPixels(x) - 128 * 0.5f;
         light.y = Cfg.toPixels(y) - 128 * 0.5f;
@@ -107,7 +106,7 @@ public class Assistant extends AbstractRobot {
         final float magnitude = distance * 2f;
 
         final Vector2 newVelocity = temp.sub(body.getPosition()).nor().scl(magnitude);
-        newVelocity.y += (MathUtils.sin(angular += 0.1f) * 0.2f);
+        newVelocity.y += (MathUtils.sin(rotation += 0.1f) * 0.2f);
 
         body.setLinearVelocity(newVelocity);
 
@@ -132,7 +131,7 @@ public class Assistant extends AbstractRobot {
 
     private void updateControlState() {
         final Vector2 vel = body.getLinearVelocity();
-        vel.y += (MathUtils.sin(angular += 0.1f) * 0.02f);
+        vel.y += (MathUtils.sin(rotation += 0.1f) * 0.02f);
         body.setLinearVelocity(vel);
 
         if (!isActive()) return;
@@ -194,7 +193,7 @@ public class Assistant extends AbstractRobot {
         final float magnitude = distance * 2f;
 
         final Vector2 newVelocity = temp.sub(body.getPosition()).nor().scl(magnitude);
-        newVelocity.y += (MathUtils.sin(angular += 0.1f) * 0.2f);
+        newVelocity.y += (MathUtils.sin(rotation += 0.1f) * 0.2f);
 
         body.setLinearVelocity(newVelocity);
     }

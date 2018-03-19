@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.MathUtils;
 import com.badlogic.gdx.physics.box2d.Body;
 
-public class Mark extends Entity {
+public class Mark extends PhysicsEntity {
 
     private static final float DEFAULT_DURATION = 1.5f;
 

@@ -1,6 +1,6 @@
 package by.matveev.rorty;
 
-import by.matveev.rorty.entities.Entity;
+import by.matveev.rorty.entities.PhysicsEntity;
 import com.badlogic.gdx.physics.box2d.Contact;
 import com.badlogic.gdx.physics.box2d.ContactImpulse;
 import com.badlogic.gdx.physics.box2d.ContactListener;
@@ -10,8 +10,8 @@ public class EntityContactResolver implements ContactListener {
 
     @Override
     public void beginContact(Contact contact) {
-        final Entity entityA = entityA(contact);
-        final Entity entityB = entityB(contact);
+        final PhysicsEntity entityA = entityA(contact);
+        final PhysicsEntity entityB = entityB(contact);
 
         if (entityA != null & entityB != null) {
             entityA.onContactStart(entityB);
@@ -22,8 +22,8 @@ public class EntityContactResolver implements ContactListener {
 
     @Override
     public void endContact(Contact contact) {
-        final Entity entityA = entityA(contact);
-        final Entity entityB = entityB(contact);
+        final PhysicsEntity entityA = entityA(contact);
+        final PhysicsEntity entityB = entityB(contact);
 
         if (entityA != null & entityB != null) {
             entityA.onContactEnd(entityB);
@@ -41,14 +41,14 @@ public class EntityContactResolver implements ContactListener {
         // do nothing
     }
 
-    private static Entity entityA(Contact contact) {
+    private static PhysicsEntity entityA(Contact contact) {
         final Object dataA = contact.getFixtureA().getBody().getUserData();
-        return dataA instanceof Entity ? (Entity) dataA : null;
+        return dataA instanceof PhysicsEntity ? (PhysicsEntity) dataA : null;
     }
 
-    private static Entity entityB(Contact contact) {
+    private static PhysicsEntity entityB(Contact contact) {
         final Object dataB = contact.getFixtureB().getBody().getUserData();
-        return dataB instanceof Entity ? (Entity) dataB : null;
+        return dataB instanceof PhysicsEntity ? (PhysicsEntity) dataB : null;
     }
 
 }

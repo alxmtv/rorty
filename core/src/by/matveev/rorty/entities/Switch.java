@@ -18,7 +18,7 @@ import com.badlogic.gdx.utils.Pools;
 import java.util.Collections;
 import java.util.List;
 
-public class Switch extends Entity {
+public class Switch extends PhysicsEntity {
 
     private final Body body;
     private final String target;
@@ -31,7 +31,7 @@ public class Switch extends Entity {
     private boolean enabled;
     private Light light;
     private Text text;
-    private Entity otherEntity;
+    private PhysicsEntity otherEntity;
 
 
     public Switch(Body body, String name, String target, boolean enabled) {
@@ -63,7 +63,7 @@ public class Switch extends Entity {
 
 
     @Override
-    public void onContactStart(Entity otherEntity) {
+    public void onContactStart(PhysicsEntity otherEntity) {
         if (otherEntity instanceof AbstractRobot && ((AbstractRobot) otherEntity).isActive()) {
             this.otherEntity = otherEntity;
             this.contacted = true;
@@ -72,7 +72,7 @@ public class Switch extends Entity {
 
 
     @Override
-    public void onContactEnd(Entity otherEntity) {
+    public void onContactEnd(PhysicsEntity otherEntity) {
         if (this.otherEntity == otherEntity) {
             this.otherEntity = null;
             this.contacted = false;

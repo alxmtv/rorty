@@ -25,7 +25,7 @@ public class Robot extends AbstractRobot {
     private Joint currentJoint;
     private State state = State.CONTROL;
     private Interaction interaction = Interaction.NONE;
-    private Entity interactEntity;
+    private PhysicsEntity interactEntity;
     private boolean isMoveSoundPlaying;
 
     public Robot(World world, float mapX, float mapY) {
@@ -35,14 +35,14 @@ public class Robot extends AbstractRobot {
     }
 
     @Override
-    public void onContactStart(Entity otherEntity) {
+    public void onContactStart(PhysicsEntity otherEntity) {
         if (isFree() && otherEntity instanceof Box) {
             setInteraction(Interaction.BOX, otherEntity);
         }
     }
 
     @Override
-    public void onContactEnd(Entity otherEntity) {
+    public void onContactEnd(PhysicsEntity otherEntity) {
         if (isFree() && otherEntity instanceof Box) {
             if (interaction == Interaction.BOX && state == State.CONTROL) {
                 setInteraction(Interaction.NONE, null);
@@ -52,7 +52,7 @@ public class Robot extends AbstractRobot {
         }
     }
 
-    public void setInteraction(Interaction interaction, Entity interactEntity) {
+    public void setInteraction(Interaction interaction, PhysicsEntity interactEntity) {
         this.interaction = interaction;
         this.interactEntity = interactEntity;
     }
@@ -207,8 +207,7 @@ public class Robot extends AbstractRobot {
             animSet.setAnimation(direction > 0 ? "idle_right" : "idle_left");
         }
 
-        x = body.getPosition().x;
-        y = body.getPosition().y;
+        setPosition(body.getPosition().x, body.getPosition().y);
 
         light.x = Cfg.toPixels(x) - 400 * 0.5f;
         light.y = Cfg.toPixels(y) - 400 * 0.5f;

@@ -8,7 +8,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Vector3;
 import com.badlogic.gdx.physics.box2d.Body;
 
-public class Button extends Entity {
+public class Button extends PhysicsEntity {
 
     private final float offsetX;
     private final float offsetY;

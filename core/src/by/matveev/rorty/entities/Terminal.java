@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
 
-public class Terminal extends Entity {
+public class Terminal extends PhysicsEntity {
 
     private final Body body;
     float time;
@@ -73,13 +73,13 @@ public class Terminal extends Entity {
     }
 
     @Override
-    public void onContactStart(Entity otherEntity) {
+    public void onContactStart(PhysicsEntity otherEntity) {
         if (otherEntity instanceof Robot)
             this.active = true;
     }
 
     @Override
-    public void onContactEnd(Entity otherEntity) {
+    public void onContactEnd(PhysicsEntity otherEntity) {
         if (otherEntity instanceof Robot)
             this.active = false;
     }

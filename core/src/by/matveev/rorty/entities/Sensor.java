@@ -9,12 +9,12 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.physics.box2d.Body;
 import com.badlogic.gdx.utils.Pools;
 
-public class Sensor extends Entity {
+public class Sensor extends PhysicsEntity {
 
     private final Body body;
     private final String name;
     private final String[] targets;
-    private Entity otherEntity;
+    private PhysicsEntity otherEntity;
     private float regionHeight;
 
     public Sensor(Body body, String name, String[] targets) {
@@ -31,7 +31,7 @@ public class Sensor extends Entity {
     }
 
     @Override
-    public void onContactStart(Entity otherEntity) {
+    public void onContactStart(PhysicsEntity otherEntity) {
         if (otherEntity instanceof Robot || otherEntity instanceof Box) {
             this.otherEntity = otherEntity;
 
@@ -47,7 +47,7 @@ public class Sensor extends Entity {
     }
 
     @Override
-    public void onContactEnd(Entity otherEntity) {
+    public void onContactEnd(PhysicsEntity otherEntity) {
         if (this.otherEntity == otherEntity) {
             this.otherEntity = null;
             Assets.playSensorSound();

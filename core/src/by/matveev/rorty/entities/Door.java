@@ -16,7 +16,7 @@ import com.badlogic.gdx.physics.box2d.Body;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Door extends Entity {
+public class Door extends PhysicsEntity {
 
     private final Body body;
     private final String levelId;
@@ -37,14 +37,14 @@ public class Door extends Entity {
     }
 
     @Override
-    public void onContactStart(Entity otherEntity) {
+    public void onContactStart(PhysicsEntity otherEntity) {
         if (otherEntity instanceof Robot && ((Robot) otherEntity).isFree()) {
             this.contacted = true;
         }
     }
 
     @Override
-    public void onContactEnd(Entity otherEntity) {
+    public void onContactEnd(PhysicsEntity otherEntity) {
         if (otherEntity instanceof Robot) {
             this.contacted = false;
         }

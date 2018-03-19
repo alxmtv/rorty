@@ -21,7 +21,7 @@ import java.util.List;
 import static by.matveev.rorty.Cfg.toMeters;
 import static by.matveev.rorty.Cfg.toPixels;
 
-public class VGate extends Entity {
+public class VGate extends PhysicsEntity {
 
     private static final Color GREEN = ColorUtils.colorFrom(0xff81C784);
     private static final Color RED = ColorUtils.colorFrom(0xffF44336);

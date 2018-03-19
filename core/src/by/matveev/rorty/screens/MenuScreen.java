@@ -2,19 +2,11 @@ package by.matveev.rorty.screens;
 
 import by.matveev.rorty.*;
 import by.matveev.rorty.core.Callback;
-import by.matveev.rorty.core.Screens;
 import by.matveev.rorty.entities.Button;
-import by.matveev.rorty.entities.Entity;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.maps.tiled.TiledMap;
-import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
-import com.badlogic.gdx.utils.Array;
-
-import java.util.List;
 
 
 public class MenuScreen extends GameScreen {

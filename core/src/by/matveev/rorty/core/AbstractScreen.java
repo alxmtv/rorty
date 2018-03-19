@@ -68,6 +68,11 @@ public abstract class AbstractScreen implements Screen, Disposable {
         lights.clear();
     }
 
+
+    public void addLights(List<Light> lights) {
+        this.lights.addAll(lights);
+    }
+
     public void addLight(Light light) {
         lights.add(light);
     }

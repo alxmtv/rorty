@@ -14,7 +14,7 @@ import com.badlogic.gdx.physics.box2d.MassData;
 import java.util.Collections;
 import java.util.List;
 
-public class Box extends Entity {
+public class Box extends PhysicsEntity {
 
     private final Body body;
     private final Text text;
@@ -55,19 +55,18 @@ public class Box extends Entity {
         light.x = Cfg.toPixels(body.getPosition().x) - 128 / 2;
         light.y = Cfg.toPixels(body.getPosition().y) - 128 / 2;
 
-        x = body.getPosition().x;
-        y = body.getPosition().y;
+        setPosition(body.getPosition().x, body.getPosition().y);
     }
 
     @Override
-    public void onContactStart(Entity otherEntity) {
+    public void onContactStart(PhysicsEntity otherEntity) {
         if (otherEntity instanceof Robot) {
             text.setVisible(enabled && ((Robot) otherEntity).isActive() && ((Robot) otherEntity).isFree());
         }
     }
 
     @Override
-    public void onContactEnd(Entity otherEntity) {
+    public void onContactEnd(PhysicsEntity otherEntity) {
         if (enabled) {
             text.setVisible(false);
         }

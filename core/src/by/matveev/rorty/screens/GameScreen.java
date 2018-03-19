@@ -5,6 +5,7 @@ import by.matveev.rorty.core.AbstractScreen;
 import by.matveev.rorty.core.Callback;
 import by.matveev.rorty.core.EventQueue;
 import by.matveev.rorty.core.Light;
+import by.matveev.rorty.core.WorldUpdater;
 import by.matveev.rorty.entities.*;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -30,14 +31,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import java.util.List;
 
 public class GameScreen extends AbstractScreen {
-
-    private static final float TIME_STEP = 1f / 60f;
-    private static final int VELOCITY_ITERATIONS = 8;
-    private static final int POSITION_ITERATIONS = 3;
     private static final float CAMERA_SPEED = 3.0f;
 
     private final String levelId;
 
+    private WorldUpdater worldUpdater;
     private World box2dWorld;
     private Box2DDebugRenderer box2DDebugRenderer;
     private Viewport box2DViewport;
@@ -76,6 +74,7 @@ public class GameScreen extends AbstractScreen {
                 return true;
             }
         });
+        worldUpdater = new WorldUpdater(box2dWorld);
 
         box2dWorld.setContactListener(new EntityContactResolver());
 
@@ -117,11 +116,6 @@ public class GameScreen extends AbstractScreen {
                 Assets.setSoundsEnabled(value);
             }
         }).setEnabled(Assets.soundsEnabled));
-    }
-
-    @Override
-    public void hide() {
-        super.hide();
     }
 
     private void setupHints() {
@@ -191,16 +185,11 @@ public class GameScreen extends AbstractScreen {
     }
 
     @Override
-    public void update(float delta) {
-        final float frameTime = Math.min(delta, 0.25f);
-        accumulator += frameTime;
-        while (accumulator >= TIME_STEP) {
-            box2dWorld.step(TIME_STEP, VELOCITY_ITERATIONS, POSITION_ITERATIONS);
-            accumulator -= TIME_STEP;
-        }
+    public void update(float dt) {
+        worldUpdater.update(dt);
 
         for (Entity e : entities) {
-            e.update(delta);
+            e.update(dt);
         }
 
         EventQueue.dispatch(entities);
@@ -209,9 +198,9 @@ public class GameScreen extends AbstractScreen {
             switchRobots();
         }
 
-        updateCamera(delta);
+        updateCamera(dt);
 
-        hints.update(delta);
+        hints.update(dt);
     }
 
     private void switchRobots() {
