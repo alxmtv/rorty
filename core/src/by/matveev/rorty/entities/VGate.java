@@ -56,8 +56,8 @@ public class VGate extends PhysicsEntity {
         this.fullHeight = toMeters(192);
 
 
-        GREEN.a = 0.2f;
-        RED.a = 0.2f;
+        GREEN.a = 0.5f;
+        RED.a = 0.5f;
 
         PolygonShape poly = new PolygonShape();
         poly.setAsBox(partWidth * 0.5f, partHeight * 0.5f, new Vector2(0f, 0f), 90 * MathUtils.degreesToRadians);
@@ -200,18 +200,19 @@ public class VGate extends PhysicsEntity {
 
             // top
             Light light = new Light(Light.Type.SOFT, Color.BLACK);
-            light.x = toPixels(topPart.getPosition().x) - 128 * 0.5f;
-            light.y = toPixels(topPart.getPosition().y) - 128 * 0.5f + 80;
-            light.width = light.height = 128;
+            final int lightSize = 512;
+            light.x = toPixels(topPart.getPosition().x) - lightSize * 0.5f;
+            light.y = toPixels(topPart.getPosition().y) - lightSize * 0.5f + 80;
+            light.width = light.height = lightSize;
 
             lights.add(light);
 
             // bottom
             light = new Light(Light.Type.SOFT, Color.BLACK);
-            light.x = Cfg.toPixels(bottomPart.getPosition().x) - 128 * 0.5f;
+            light.x = Cfg.toPixels(bottomPart.getPosition().x) - lightSize * 0.5f;
             light.y = Cfg.toPixels(bottomPart.getPosition().y
-                    - partHeight - boxHeight * 0.5f) - 16 - 128 * 0.5f ;
-            light.width = light.height = 128;
+                    - partHeight - boxHeight * 0.5f) - 16 - lightSize * 0.5f ;
+            light.width = light.height = lightSize;
 
             lights.add(light);
         }

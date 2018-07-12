@@ -23,8 +23,8 @@ public class Switch extends PhysicsEntity {
     private final Body body;
     private final String target;
 
-    private final Color greenColor = ColorUtils.colorFrom(0x8C81C784); // 25% alpha
-    private final Color redColor = ColorUtils.colorFrom(0xBFF44336); // 75%
+    private final Color greenColor = ColorUtils.colorFrom(0xff81C784);
+    private final Color redColor = ColorUtils.colorFrom(0xffF44336);
 
     private boolean contacted;
     private boolean activated;
@@ -47,13 +47,14 @@ public class Switch extends PhysicsEntity {
         this.text = new Text("Press 'E'");
         this.text.setVisible(true);
 
-        greenColor.a = 0.2f;
-        redColor.a = 0.2f;
+        greenColor.a = 0.5f;
+        redColor.a = 0.5f;
 
         light = new Light(Light.Type.SOFT, enabled ? greenColor : redColor);
-        light.x = Cfg.toPixels(body.getPosition().x) - 256 / 2;
-        light.y = Cfg.toPixels(body.getPosition().y) - 256 / 2;
-        light.width = light.height = 256;
+        final int lightSize = 256;
+        light.x = Cfg.toPixels(body.getPosition().x) - lightSize / 2;
+        light.y = Cfg.toPixels(body.getPosition().y) - lightSize / 2;
+        light.width = light.height = lightSize;
     }
 
     @Override

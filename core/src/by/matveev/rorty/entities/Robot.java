@@ -93,10 +93,12 @@ public class Robot extends AbstractRobot {
 
     @Override
     protected Light createLight() {
-        final Light light = new Light(Light.Type.SOFT, new Color(1f, 1f, 1f, 0.3f));
-        light.x = Cfg.toPixels(x) + 148 / 2;
-        light.y = Cfg.toPixels(y) - 148 / 2;
-        light.width = light.height = 400;
+        final Light light = new Light(Light.Type.SOFT, new Color(1f, 1f, 1f, 0.75f));
+        final int lightSize = 512;
+        light.x = Cfg.toPixels(x) - lightSize / 2;
+        light.y = Cfg.toPixels(y) - lightSize / 2;
+
+        light.width = light.height = lightSize;
         return light;
     }
 
@@ -209,8 +211,9 @@ public class Robot extends AbstractRobot {
 
         setPosition(body.getPosition().x, body.getPosition().y);
 
-        light.x = Cfg.toPixels(x) - 400 * 0.5f;
-        light.y = Cfg.toPixels(y) - 400 * 0.5f;
+        final int lightSize = 512;
+        light.x = Cfg.toPixels(x) - lightSize * 0.5f;
+        light.y = Cfg.toPixels(y) - lightSize * 0.5f;
 
         mark.setPosition(x, y + HEIGHT * 0.5f);
 

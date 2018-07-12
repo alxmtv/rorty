@@ -8,7 +8,7 @@ public final class Cfg {
     public static boolean BOX2D_DEBUG = false;
     public static boolean LIGHT_DEBUG = false;
     public static boolean LIGHT_ENABLED = true;
-    public static boolean CONTRAST_SHADER = true;
+    public static boolean CONTRAST_SHADER = false;
     public static boolean FREE_CAMERA = false;
 
 

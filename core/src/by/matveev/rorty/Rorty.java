@@ -14,7 +14,7 @@ public class Rorty extends BaseGame {
     public void create() {
         Prefs.init();
 
-        Assets.platBackgroundMusic();
+//        Assets.platBackgroundMusic();
 
         Screens.set(new MenuScreen());
 
@@ -29,7 +29,7 @@ public class Rorty extends BaseGame {
         super.render();
 
 
-//         checkDebugTools();
+         checkDebugTools();
     }
 
     private void checkDebugTools() {

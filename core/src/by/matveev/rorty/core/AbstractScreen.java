@@ -30,7 +30,7 @@ public abstract class AbstractScreen implements Screen, Disposable {
     private TextureRegion finalTexture;
     private Color clearColor = Color.BLACK;
     // private Color ambientColor = new Color(0.36f, 0.36f, 0.36f, 1f);
-    private Color ambientColor = new Color(0.4f, 0.4f, 0.4f, 1f);
+    private Color ambientColor = new Color(0.1f, 0.1f, 0.4f, 1f/4f);
 
     public AbstractScreen() {
         batch = new SpriteBatch();
